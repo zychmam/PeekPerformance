@@ -52,6 +52,12 @@ CREATE TABLE IF NOT EXISTS match_details (
     data          TEXT NOT NULL,
     fetched_at    TEXT NOT NULL
 );
+
+CREATE TABLE IF NOT EXISTS match_details_raw (
+    game_id       TEXT PRIMARY KEY,
+    raw_data      TEXT NOT NULL,
+    fetched_at    TEXT NOT NULL
+);
 """
 
 
@@ -239,3 +245,29 @@ class Database:
         data = json.loads(row["data"])
         players = [MatchPlayerStats(**p) for p in data.pop("players", [])]
         return MatchDetail(**data, players=players)
+
+    # ------------------------------------------------------------------
+    # Raw match details (full API response as JSON)
+    # ------------------------------------------------------------------
+
+    def upsert_match_raw(self, game_id: str, raw_data: dict) -> None:
+        with self._connect() as conn:
+            conn.execute(
+                """
+                INSERT INTO match_details_raw (game_id, raw_data, fetched_at)
+                VALUES (?, ?, ?)
+                ON CONFLICT(game_id) DO UPDATE SET
+                    raw_data=excluded.raw_data,
+                    fetched_at=excluded.fetched_at
+                """,
+                (game_id, json.dumps(raw_data), datetime.now(UTC).isoformat()),
+            )
+
+    def get_match_raw(self, game_id: str) -> dict | None:
+        with self._connect() as conn:
+            row = conn.execute(
+                "SELECT raw_data FROM match_details_raw WHERE game_id = ?", (game_id,)
+            ).fetchone()
+        if row is None:
+            return None
+        return json.loads(row["raw_data"])

@@ -180,6 +180,10 @@ class LeetifyClient:
             players=players,
         )
 
+    def get_match_detail_raw(self, game_id: str) -> dict[str, Any]:
+        """Fetch raw match detail dict (all fields) by Leetify game ID."""
+        return self._get(f"/v2/matches/{game_id}")
+
     # ------------------------------------------------------------------
     # Internal helpers
     # ------------------------------------------------------------------
