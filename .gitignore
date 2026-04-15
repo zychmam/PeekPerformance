@@ -10,3 +10,5 @@ build/
 .ruff_cache/
 .streamlit/
 *.env
+*.dem
+tests/resources/
