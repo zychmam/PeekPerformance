@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import io
 import json
 import sqlite3
 from collections.abc import Generator
@@ -10,7 +11,15 @@ from dataclasses import asdict
 from datetime import UTC, datetime
 from pathlib import Path
 
-from src.models.models import MatchDetail, MatchPlayerStats, MatchSummary, PlayerProfile
+import pandas as pd
+
+from src.models.models import (
+    DemoAnalysis,
+    MatchDetail,
+    MatchPlayerStats,
+    MatchSummary,
+    PlayerProfile,
+)
 
 _SCHEMA = """
 CREATE TABLE IF NOT EXISTS players (
@@ -57,6 +66,24 @@ CREATE TABLE IF NOT EXISTS match_details_raw (
     game_id       TEXT PRIMARY KEY,
     raw_data      TEXT NOT NULL,
     fetched_at    TEXT NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS demo_analyses (
+    file_name       TEXT PRIMARY KEY,
+    map_name        TEXT NOT NULL DEFAULT '',
+    header          TEXT NOT NULL DEFAULT '{}',
+    player_info     TEXT NOT NULL DEFAULT '[]',
+    scoreboard      TEXT NOT NULL DEFAULT '[]',
+    kills           TEXT NOT NULL DEFAULT '[]',
+    damage          TEXT NOT NULL DEFAULT '[]',
+    rounds          TEXT NOT NULL DEFAULT '[]',
+    bomb_events     TEXT NOT NULL DEFAULT '[]',
+    grenades        TEXT NOT NULL DEFAULT '[]',
+    player_blinds   TEXT NOT NULL DEFAULT '[]',
+    round_stats     TEXT NOT NULL DEFAULT '[]',
+    chat_messages   TEXT NOT NULL DEFAULT '[]',
+    convars         TEXT NOT NULL DEFAULT '{}',
+    analyzed_at     TEXT NOT NULL
 );
 """
 
@@ -271,3 +298,101 @@ class Database:
         if row is None:
             return None
         return json.loads(row["raw_data"])
+
+    # ------------------------------------------------------------------
+    # Demo analyses
+    # ------------------------------------------------------------------
+
+    @staticmethod
+    def _df_to_json(df: pd.DataFrame) -> str:
+        if df.empty:
+            return "[]"
+        return df.to_json(orient="records")
+
+    @staticmethod
+    def _json_to_df(data: str) -> pd.DataFrame:
+        if not data or data == "[]":
+            return pd.DataFrame()
+        return pd.read_json(io.StringIO(data), orient="records")
+
+    def upsert_demo_analysis(self, analysis: DemoAnalysis) -> None:
+        with self._connect() as conn:
+            conn.execute(
+                """
+                INSERT INTO demo_analyses (
+                    file_name, map_name, header, player_info, scoreboard,
+                    kills, damage, rounds, bomb_events, grenades,
+                    player_blinds, round_stats, chat_messages, convars, analyzed_at
+                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                ON CONFLICT(file_name) DO UPDATE SET
+                    map_name=excluded.map_name,
+                    header=excluded.header,
+                    player_info=excluded.player_info,
+                    scoreboard=excluded.scoreboard,
+                    kills=excluded.kills,
+                    damage=excluded.damage,
+                    rounds=excluded.rounds,
+                    bomb_events=excluded.bomb_events,
+                    grenades=excluded.grenades,
+                    player_blinds=excluded.player_blinds,
+                    round_stats=excluded.round_stats,
+                    chat_messages=excluded.chat_messages,
+                    convars=excluded.convars,
+                    analyzed_at=excluded.analyzed_at
+                """,
+                (
+                    analysis.file_name,
+                    analysis.map_name,
+                    json.dumps(analysis.header),
+                    self._df_to_json(analysis.player_info),
+                    self._df_to_json(analysis.scoreboard),
+                    self._df_to_json(analysis.kills_df),
+                    self._df_to_json(analysis.damage_df),
+                    self._df_to_json(analysis.rounds_df),
+                    self._df_to_json(analysis.bomb_events_df),
+                    self._df_to_json(analysis.grenades_df),
+                    self._df_to_json(analysis.player_blinds_df),
+                    self._df_to_json(analysis.round_stats_df),
+                    self._df_to_json(analysis.chat_messages_df),
+                    json.dumps(analysis.convars),
+                    analysis.analyzed_at,
+                ),
+            )
+
+    def get_demo_analysis(self, file_name: str) -> DemoAnalysis | None:
+        with self._connect() as conn:
+            row = conn.execute(
+                "SELECT * FROM demo_analyses WHERE file_name = ?", (file_name,)
+            ).fetchone()
+        if row is None:
+            return None
+        d = dict(row)
+        return DemoAnalysis(
+            file_name=d["file_name"],
+            map_name=d["map_name"],
+            header=json.loads(d["header"]),
+            player_info=self._json_to_df(d["player_info"]),
+            scoreboard=self._json_to_df(d["scoreboard"]),
+            kills_df=self._json_to_df(d["kills"]),
+            damage_df=self._json_to_df(d["damage"]),
+            rounds_df=self._json_to_df(d["rounds"]),
+            bomb_events_df=self._json_to_df(d["bomb_events"]),
+            grenades_df=self._json_to_df(d["grenades"]),
+            player_blinds_df=self._json_to_df(d["player_blinds"]),
+            round_stats_df=self._json_to_df(d["round_stats"]),
+            chat_messages_df=self._json_to_df(d["chat_messages"]),
+            convars=json.loads(d["convars"]),
+            analyzed_at=d["analyzed_at"],
+        )
+
+    def list_demo_analyses(self) -> list[dict[str, str]]:
+        """Return lightweight list of cached analyses (file_name, map_name, analyzed_at)."""
+        with self._connect() as conn:
+            rows = conn.execute(
+                "SELECT file_name, map_name, analyzed_at FROM demo_analyses ORDER BY analyzed_at DESC"
+            ).fetchall()
+        return [dict(r) for r in rows]
+
+    def delete_demo_analysis(self, file_name: str) -> None:
+        with self._connect() as conn:
+            conn.execute("DELETE FROM demo_analyses WHERE file_name = ?", (file_name,))

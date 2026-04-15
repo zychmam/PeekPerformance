@@ -4,9 +4,10 @@ from __future__ import annotations
 
 from pathlib import Path
 
+import pandas as pd
 import pytest
 
-from src.models.models import MatchDetail, MatchPlayerStats, MatchSummary, PlayerProfile
+from src.models.models import DemoAnalysis, MatchDetail, MatchPlayerStats, MatchSummary, PlayerProfile
 from src.storage.database import Database
 
 
@@ -111,3 +112,60 @@ class TestMatchDetailCRUD:
 
     def test_get_missing_returns_none(self, db: Database) -> None:
         assert db.get_match_detail("missing") is None
+
+
+def _make_demo_analysis() -> DemoAnalysis:
+    return DemoAnalysis(
+        file_name="test.dem",
+        map_name="de_dust2",
+        header={"map_name": "de_dust2"},
+        player_info=pd.DataFrame([{"steamid": "111", "name": "Alice"}]),
+        scoreboard=pd.DataFrame([{"steamid": "111", "kills_total": 20}]),
+        kills_df=pd.DataFrame([{"attacker_steamid": "111", "weapon": "ak47"}]),
+        damage_df=pd.DataFrame(),
+        rounds_df=pd.DataFrame(),
+        bomb_events_df=pd.DataFrame(),
+        grenades_df=pd.DataFrame(),
+        player_blinds_df=pd.DataFrame(),
+        round_stats_df=pd.DataFrame(),
+        chat_messages_df=pd.DataFrame(),
+        convars={"sv_cheats": "0"},
+        analyzed_at="2024-01-01T00:00:00",
+    )
+
+
+class TestDemoAnalysisCRUD:
+    def test_upsert_and_get(self, db: Database) -> None:
+        analysis = _make_demo_analysis()
+        db.upsert_demo_analysis(analysis)
+        got = db.get_demo_analysis("test.dem")
+        assert got is not None
+        assert got.map_name == "de_dust2"
+        assert got.header["map_name"] == "de_dust2"
+        assert len(got.scoreboard) == 1
+        assert not got.kills_df.empty
+        assert got.damage_df.empty
+
+    def test_get_missing_returns_none(self, db: Database) -> None:
+        assert db.get_demo_analysis("missing.dem") is None
+
+    def test_list_demo_analyses(self, db: Database) -> None:
+        db.upsert_demo_analysis(_make_demo_analysis())
+        items = db.list_demo_analyses()
+        assert len(items) == 1
+        assert items[0]["file_name"] == "test.dem"
+        assert items[0]["map_name"] == "de_dust2"
+
+    def test_delete_demo_analysis(self, db: Database) -> None:
+        db.upsert_demo_analysis(_make_demo_analysis())
+        db.delete_demo_analysis("test.dem")
+        assert db.get_demo_analysis("test.dem") is None
+
+    def test_upsert_updates_existing(self, db: Database) -> None:
+        db.upsert_demo_analysis(_make_demo_analysis())
+        updated = _make_demo_analysis()
+        updated.map_name = "de_inferno"
+        db.upsert_demo_analysis(updated)
+        got = db.get_demo_analysis("test.dem")
+        assert got is not None
+        assert got.map_name == "de_inferno"

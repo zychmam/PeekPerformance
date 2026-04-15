@@ -16,6 +16,10 @@ import streamlit as st
 
 from src.api.leetify_client import LeetifyAPIError, LeetifyClient
 from src.config import Config
+from src.demos.demo_analyzer import DemoAnalyzer
+from src.demos.demo_manager import DemoManager
+from src.demos.rating_calculator import compute_rating
+from src.models.models import DemoAnalysis
 from src.storage.database import Database
 
 logger = logging.getLogger(__name__)
@@ -41,6 +45,12 @@ def _get_client() -> LeetifyClient:
     if "client" not in st.session_state:
         st.session_state["client"] = LeetifyClient(_get_config())
     return st.session_state["client"]
+
+
+def _get_demo_manager() -> DemoManager:
+    if "demo_manager" not in st.session_state:
+        st.session_state["demo_manager"] = DemoManager(_get_config().demos_dir)
+    return st.session_state["demo_manager"]
 
 
 # ---------------------------------------------------------------------------
@@ -781,8 +791,590 @@ def _tab_compare_players() -> None:
 
 
 # ---------------------------------------------------------------------------
-# Main
+# Demo Analysis tab
 # ---------------------------------------------------------------------------
+
+
+def _analyze_demo(file_name: str, data: bytes) -> DemoAnalysis:
+    """Save uploaded demo, parse it, cache to DB, return analysis."""
+    dm = _get_demo_manager()
+    db = _get_db()
+
+    path = dm.save_uploaded(file_name, data)
+    analyzer = DemoAnalyzer(path)
+    analysis = analyzer.get_full_analysis()
+    db.upsert_demo_analysis(analysis)
+    return analysis
+
+
+def _load_or_parse_demo(file_name: str) -> DemoAnalysis | None:
+    """Return cached analysis from DB if available."""
+    db = _get_db()
+    return db.get_demo_analysis(file_name)
+
+
+def _demo_sub_overview(analysis: DemoAnalysis) -> None:
+    """Overview sub-tab: header info + scoreboard."""
+    st.subheader(f"Map: {analysis.map_name}")
+    if analysis.header:
+        cols = st.columns(3)
+        cols[0].metric("Map", analysis.header.get("map_name", "—"))
+        cols[1].metric("Server", analysis.header.get("server_name", "—"))
+        cols[2].metric("File", analysis.file_name)
+
+    if not analysis.scoreboard.empty:
+        st.markdown("#### Scoreboard")
+        st.dataframe(analysis.scoreboard, use_container_width=True, hide_index=True)
+    else:
+        st.info("Brak danych scoreboard.")
+
+
+def _demo_sub_rating(analysis: DemoAnalysis) -> None:
+    """Rating sub-tab: approximate Leetify/HLTV rating from demo data."""
+    st.subheader("Rating (approx.)")
+    st.caption(
+        "Przybliżony rating oparty na modelu Leetify (Round Swing) i sub-ratingach HLTV 3.0. "
+        "Wartości mogą różnić się od oficjalnych — model używa uproszczonych tabeli win-probability."
+    )
+
+    dm = _get_demo_manager()
+    demo_path = dm.demos_dir / analysis.file_name
+    if not demo_path.exists():
+        st.warning("Plik demo nie jest dostępny na dysku — wymagany do obliczenia ratingu.")
+        return
+
+    cache_key = f"rating_{analysis.file_name}"
+    if cache_key in st.session_state:
+        cached_summary, _ = st.session_state[cache_key]
+        if "Rating" not in cached_summary.columns:
+            del st.session_state[cache_key]
+    if cache_key not in st.session_state:
+        with st.spinner("Obliczanie ratingu..."):
+            try:
+                summary, per_round = compute_rating(demo_path)
+                st.session_state[cache_key] = (summary, per_round)
+            except Exception as exc:
+                st.error(f"Błąd obliczania ratingu: {exc}")
+                st.exception(exc)
+                return
+
+    summary, per_round = st.session_state[cache_key]
+
+    if summary.empty:
+        st.info("Brak wystarczających danych do obliczenia ratingu.")
+        return
+
+    # Summary table — sub-ratings
+    st.markdown("##### Sub-ratingi (każdy ~1.0 = przeciętny)")
+    sr_cols = ["Gracz", "Strona", "Rating", "Kill", "Dmg", "Surv", "KAST", "Multi", "Swing"]
+    st.dataframe(
+        summary[[c for c in sr_cols if c in summary.columns]],
+        use_container_width=True,
+        hide_index=True,
+        column_config={c: st.column_config.NumberColumn(c, format="%.2f") for c in sr_cols[2:]},
+    )
+
+    # Detail stats
+    with st.expander("Szczegółowe statystyki"):
+        detail_cols = [
+            "Gracz", "K", "A", "D", "K/D", "ADR", "KPR", "DPR",
+            "HS%", "KAST%", "Avg Swing",
+        ]
+        st.dataframe(
+            summary[[c for c in detail_cols if c in summary.columns]],
+            use_container_width=True,
+            hide_index=True,
+        )
+
+    # Bar chart: HLTV Rating per player
+    st.markdown("#### Approx. HLTV Rating 3.0")
+    summary_sorted = summary.sort_values("Rating", ascending=True)
+    fig_bar = px.bar(
+        summary_sorted,
+        x="Rating",
+        y="Gracz",
+        orientation="h",
+        color="Rating",
+        color_continuous_scale=["#ef4444", "#fbbf24", "#22c55e"],
+        text="Rating",
+    )
+    fig_bar.add_vline(x=1.0, line_dash="dash", line_color="gray", annotation_text="avg (1.0)")
+    fig_bar.update_traces(texttemplate="%{text:.2f}", textposition="outside")
+    fig_bar.update_layout(coloraxis_showscale=False, xaxis_title="Rating", yaxis_title="")
+    st.plotly_chart(fig_bar, use_container_width=True)
+
+    # Per-round Swing line chart
+    if not per_round.empty:
+        st.markdown("#### Round Swing per runda (% zmiana win-probability)")
+        fig_line = px.line(
+            per_round.sort_values(["Gracz", "Runda"]),
+            x="Runda",
+            y="Swing",
+            color="Gracz",
+            markers=True,
+        )
+        fig_line.add_hline(y=0, line_dash="dash", line_color="gray")
+        fig_line.update_layout(yaxis_title="Swing (%WP change)", xaxis_title="Runda")
+        st.plotly_chart(fig_line, use_container_width=True)
+
+
+def _demo_sub_kills(analysis: DemoAnalysis) -> None:
+    """Kills sub-tab: kill feed + chart."""
+    df = analysis.kills_df
+    if df.empty:
+        st.info("Brak danych o zabójstwach.")
+        return
+
+    # Filters
+    col1, col2, col3 = st.columns(3)
+    rounds = sorted(df["total_rounds_played"].dropna().unique()) if "total_rounds_played" in df.columns else []
+    selected_rounds = col1.multiselect("Runda", rounds, default=rounds, key="kills_round")
+
+    attacker_col = "attacker_name" if "attacker_name" in df.columns else None
+    if attacker_col:
+        players = sorted(df[attacker_col].dropna().unique())
+        selected_players = col2.multiselect("Attacker", players, default=players, key="kills_player")
+    else:
+        selected_players = None
+
+    weapons = sorted(df["weapon"].dropna().unique()) if "weapon" in df.columns else []
+    selected_weapons = col3.multiselect("Broń", weapons, default=weapons, key="kills_weapon")
+
+    mask = pd.Series(True, index=df.index)
+    if "total_rounds_played" in df.columns and selected_rounds:
+        mask &= df["total_rounds_played"].isin(selected_rounds)
+    if attacker_col and selected_players is not None:
+        mask &= df[attacker_col].isin(selected_players)
+    if "weapon" in df.columns and selected_weapons:
+        mask &= df["weapon"].isin(selected_weapons)
+
+    filtered = df[mask]
+
+    st.markdown(f"#### Kill Feed ({len(filtered)} kills)")
+    st.dataframe(filtered, use_container_width=True, hide_index=True, height=400)
+
+    # Chart: kills per round per attacker
+    if attacker_col and "total_rounds_played" in filtered.columns and not filtered.empty:
+        chart = filtered.groupby(["total_rounds_played", attacker_col]).size().reset_index(name="kills")
+        fig = px.bar(
+            chart,
+            x="total_rounds_played",
+            y="kills",
+            color=attacker_col,
+            barmode="group",
+            labels={"total_rounds_played": "Runda", "kills": "Kills", attacker_col: "Gracz"},
+        )
+        fig.update_layout(height=350)
+        st.plotly_chart(fig, use_container_width=True)
+
+
+def _demo_sub_damage(analysis: DemoAnalysis) -> None:
+    """Damage sub-tab: player_hurt data + aggregations."""
+    df = analysis.damage_df
+    if df.empty:
+        st.info("Brak danych o obrażeniach.")
+        return
+
+    # Filters
+    col1, col2 = st.columns(2)
+    rounds = sorted(df["total_rounds_played"].dropna().unique()) if "total_rounds_played" in df.columns else []
+    selected_rounds = col1.multiselect("Runda", rounds, default=rounds, key="dmg_round")
+
+    attacker_col = "attacker_name" if "attacker_name" in df.columns else None
+    if attacker_col:
+        players = sorted(df[attacker_col].dropna().unique())
+        selected_players = col2.multiselect("Attacker", players, default=players, key="dmg_player")
+    else:
+        selected_players = None
+
+    mask = pd.Series(True, index=df.index)
+    if "total_rounds_played" in df.columns and selected_rounds:
+        mask &= df["total_rounds_played"].isin(selected_rounds)
+    if attacker_col and selected_players is not None:
+        mask &= df[attacker_col].isin(selected_players)
+
+    filtered = df[mask]
+    st.markdown(f"#### Damage Events ({len(filtered)} hits)")
+    st.dataframe(filtered, use_container_width=True, hide_index=True, height=400)
+
+    # Aggregation: total damage dealt per player
+    if attacker_col and "dmg_health" in filtered.columns and not filtered.empty:
+        agg = filtered.groupby(attacker_col)["dmg_health"].sum().reset_index(name="total_dmg")
+        agg = agg.sort_values("total_dmg", ascending=False)
+        st.markdown("#### Total DMG Dealt")
+        st.dataframe(agg, use_container_width=True, hide_index=True)
+
+    # Hitgroup distribution
+    if "hitgroup" in filtered.columns and attacker_col and not filtered.empty:
+        hg = filtered.groupby([attacker_col, "hitgroup"])["dmg_health"].sum().reset_index(name="dmg")
+        fig = px.bar(
+            hg,
+            x=attacker_col,
+            y="dmg",
+            color="hitgroup",
+            labels={attacker_col: "Gracz", "dmg": "DMG", "hitgroup": "Hitgroup"},
+        )
+        fig.update_layout(height=350)
+        st.plotly_chart(fig, use_container_width=True)
+
+
+def _demo_sub_rounds(analysis: DemoAnalysis) -> None:
+    """Rounds sub-tab: round results + bomb events."""
+    df = analysis.rounds_df
+    if df.empty:
+        st.info("Brak danych o rundach.")
+        return
+
+    st.markdown("#### Rundy")
+    st.dataframe(df, use_container_width=True, hide_index=True)
+
+    # Round timeline chart
+    if "winner" in df.columns and "total_rounds_played" in df.columns:
+        fig = px.bar(
+            df,
+            x="total_rounds_played",
+            y=[1] * len(df),
+            color="winner",
+            labels={"total_rounds_played": "Runda", "y": "", "winner": "Zwycięzca"},
+        )
+        fig.update_layout(height=200, showlegend=True, yaxis_visible=False)
+        st.plotly_chart(fig, use_container_width=True)
+
+    # Bomb events
+    bomb = analysis.bomb_events_df
+    if not bomb.empty:
+        st.markdown("#### Bomb Events")
+        st.dataframe(bomb, use_container_width=True, hide_index=True)
+
+
+def _demo_sub_grenades(analysis: DemoAnalysis) -> None:
+    """Grenades sub-tab: trajectories + player blinds."""
+    df = analysis.grenades_df
+    if not df.empty:
+        col1, col2 = st.columns(2)
+        grenade_types = sorted(df["grenade_type"].dropna().unique()) if "grenade_type" in df.columns else []
+        selected_types = col1.multiselect("Typ granatu", grenade_types, default=grenade_types, key="gren_type")
+
+        thrower_col = "thrower_steamid"
+        if thrower_col in df.columns:
+            throwers = sorted(df[thrower_col].dropna().unique())
+            selected_throwers = col2.multiselect("Thrower", throwers, default=throwers, key="gren_thrower")
+        else:
+            selected_throwers = None
+
+        mask = pd.Series(True, index=df.index)
+        if "grenade_type" in df.columns and selected_types:
+            mask &= df["grenade_type"].isin(selected_types)
+        if thrower_col in df.columns and selected_throwers is not None:
+            mask &= df[thrower_col].isin(selected_throwers)
+
+        filtered = df[mask]
+        st.markdown(f"#### Granaty ({len(filtered)} pozycji)")
+        st.dataframe(filtered, use_container_width=True, hide_index=True, height=400)
+    else:
+        st.info("Brak danych o granatach.")
+
+    # Player blinds
+    blinds = analysis.player_blinds_df
+    if not blinds.empty:
+        st.markdown("#### Player Blinds (flashe)")
+        st.dataframe(blinds, use_container_width=True, hide_index=True, height=300)
+
+
+def _demo_sub_economy(analysis: DemoAnalysis) -> None:
+    """Economy sub-tab: uses DemoAnalyzer to fetch economy data from the demo file."""
+    dm = _get_demo_manager()
+    demo_path = dm.demos_dir / analysis.file_name
+
+    if not demo_path.exists():
+        st.warning("Plik demo nie jest już dostępny na dysku. Ekonomia wymaga ponownego wgrania.")
+        return
+
+    with st.spinner("Parsowanie danych ekonomii..."):
+        analyzer = DemoAnalyzer(demo_path)
+        eco_df = analyzer.get_economy()
+
+    if eco_df.empty:
+        st.info("Brak danych ekonomii w tym demo.")
+        return
+
+    st.markdown("#### Ekonomia per runda (freeze time)")
+    st.dataframe(eco_df, use_container_width=True, hide_index=True, height=400)
+
+    # Team economy chart
+    if "team_num" in eco_df.columns and "current_equip_value" in eco_df.columns and "tick" in eco_df.columns:
+        team_eco = eco_df.groupby(["tick", "team_num"])["current_equip_value"].sum().reset_index()
+        team_eco["team_num"] = team_eco["team_num"].astype(str)
+        fig = px.line(
+            team_eco,
+            x="tick",
+            y="current_equip_value",
+            color="team_num",
+            labels={"tick": "Tick (runda)", "current_equip_value": "Equipment Value", "team_num": "Team"},
+        )
+        fig.update_layout(height=350)
+        st.plotly_chart(fig, use_container_width=True)
+
+
+def _demo_sub_player_states(analysis: DemoAnalysis) -> None:
+    """Player States sub-tab: on-demand tick parsing for a selected player/round."""
+    dm = _get_demo_manager()
+    demo_path = dm.demos_dir / analysis.file_name
+
+    if not demo_path.exists():
+        st.warning("Plik demo nie jest już dostępny na dysku.")
+        return
+
+    # Player selection
+    players: list[str] = []
+    if not analysis.player_info.empty and "name" in analysis.player_info.columns:
+        players = analysis.player_info["name"].dropna().tolist()
+    selected_player = st.selectbox("Gracz", players, key="ps_player") if players else None
+
+    # Round selection
+    rounds: list[int] = []
+    if not analysis.rounds_df.empty and "total_rounds_played" in analysis.rounds_df.columns:
+        rounds = sorted(analysis.rounds_df["total_rounds_played"].dropna().unique())
+    selected_round = st.selectbox("Runda", rounds, key="ps_round") if rounds else None
+
+    if st.button("Załaduj dane gracza", key="ps_load"):
+        with st.spinner("Parsowanie tick-by-tick..."):
+            analyzer = DemoAnalyzer(demo_path)
+            states = analyzer.get_player_states()
+
+        if states.empty:
+            st.info("Brak danych.")
+            return
+
+        mask = pd.Series(True, index=states.index)
+        if selected_player and "name" in states.columns:
+            mask &= states["name"] == selected_player
+        if selected_round is not None and "tick" in states.columns and not analysis.rounds_df.empty:
+            # Approximate: filter ticks for the selected round
+            pass  # Full tick data shown, user can scroll
+
+        st.dataframe(states[mask], use_container_width=True, hide_index=True, height=500)
+
+
+def _demo_sub_raw_events(analysis: DemoAnalysis) -> None:
+    """Raw Events sub-tab: parse any event from the demo on demand."""
+    dm = _get_demo_manager()
+    demo_path = dm.demos_dir / analysis.file_name
+
+    if not demo_path.exists():
+        st.warning("Plik demo nie jest już dostępny na dysku.")
+        return
+
+    analyzer = DemoAnalyzer(demo_path)
+    events = analyzer.list_events()
+
+    if not events:
+        st.info("Nie udało się pobrać listy eventów.")
+        return
+
+    selected_event = st.selectbox("Event", sorted(events), key="raw_event")
+    if selected_event and st.button("Parsuj event", key="raw_parse"):
+        with st.spinner(f"Parsowanie: {selected_event}..."):
+            df = analyzer.get_raw_event(selected_event)
+        if df.empty:
+            st.info(f"Event '{selected_event}' nie zawiera danych.")
+        else:
+            st.markdown(f"#### {selected_event} ({len(df)} wierszy)")
+            st.dataframe(df, use_container_width=True, hide_index=True, height=500)
+
+
+def _demo_sub_chat_meta(analysis: DemoAnalysis) -> None:
+    """Chat & Meta sub-tab."""
+    # Chat
+    if not analysis.chat_messages_df.empty:
+        st.markdown("#### Chat Messages")
+        st.dataframe(analysis.chat_messages_df, use_container_width=True, hide_index=True)
+    else:
+        st.info("Brak wiadomości czatu.")
+
+    # Convars
+    if analysis.convars:
+        st.markdown("#### Server Convars")
+        convars_df = pd.DataFrame(
+            list(analysis.convars.items()), columns=["ConVar", "Value"]
+        )
+        st.dataframe(convars_df, use_container_width=True, hide_index=True, height=300)
+
+    # Player info
+    if not analysis.player_info.empty:
+        st.markdown("#### Player Info")
+        st.dataframe(analysis.player_info, use_container_width=True, hide_index=True)
+
+    # Header
+    if analysis.header:
+        st.markdown("#### Header")
+        header_df = pd.DataFrame(
+            list(analysis.header.items()), columns=["Key", "Value"]
+        )
+        st.dataframe(header_df, use_container_width=True, hide_index=True)
+
+
+def _demo_sub_round_stats(analysis: DemoAnalysis) -> None:
+    """Round Stats sub-tab: kills/deaths/damage per round per player."""
+    df = analysis.round_stats_df
+    if df.empty:
+        st.info("Brak danych per-runda.")
+        return
+
+    st.markdown("#### Statystyki per runda per gracz")
+    st.dataframe(df, use_container_width=True, hide_index=True, height=400)
+
+    # Chart: kills per round per player
+    if "kills" in df.columns and "total_rounds_played" in df.columns and "steamid" in df.columns:
+        fig = px.bar(
+            df,
+            x="total_rounds_played",
+            y="kills",
+            color="steamid",
+            barmode="group",
+            labels={"total_rounds_played": "Runda", "kills": "Kills", "steamid": "Gracz"},
+        )
+        fig.update_layout(height=400)
+        st.plotly_chart(fig, use_container_width=True)
+
+    # Chart: damage per round per player
+    if "damage" in df.columns and "total_rounds_played" in df.columns and "steamid" in df.columns:
+        fig2 = px.bar(
+            df,
+            x="total_rounds_played",
+            y="damage",
+            color="steamid",
+            barmode="group",
+            labels={"total_rounds_played": "Runda", "damage": "DMG", "steamid": "Gracz"},
+        )
+        fig2.update_layout(height=400)
+        st.plotly_chart(fig2, use_container_width=True)
+
+
+def _tab_demo_analysis() -> None:
+    """Main Demo Analysis tab with sub-tabs."""
+    st.header("Demo Analysis")
+
+    # File uploader
+    uploaded = st.file_uploader(
+        "Wgraj plik .dem lub .dem.gz",
+        type=["dem", "gz"],
+        key="demo_upload",
+    )
+
+    if uploaded is not None:
+        file_name = uploaded.name
+        if file_name.endswith(".gz"):
+            display_name = file_name.removesuffix(".gz")
+        else:
+            display_name = file_name
+
+        # Check cache first
+        cached = _load_or_parse_demo(display_name)
+        if cached is not None:
+            st.success(f"Załadowano z cache: **{display_name}** (mapa: {cached.map_name})")
+            st.session_state["current_demo_analysis"] = cached
+        else:
+            with st.spinner(f"Parsowanie demo: {file_name}... (może potrwać kilkanaście sekund)"):
+                try:
+                    data = uploaded.getvalue()
+                    analysis = _analyze_demo(file_name, data)
+                    st.success(f"Sparsowano: **{display_name}** (mapa: {analysis.map_name})")
+                    st.session_state["current_demo_analysis"] = analysis
+                except Exception as exc:
+                    st.error(f"Błąd parsowania demo: {exc}")
+                    st.exception(exc)
+                    st.stop()
+
+    # Previously analyzed demos
+    db = _get_db()
+    cached_list = db.list_demo_analyses()
+    if cached_list and uploaded is None:
+        st.markdown("---")
+        st.markdown("#### Wcześniej analizowane dema")
+        col_sel, col_del = st.columns([4, 1])
+        selected_cached = col_sel.selectbox(
+            "Wybierz z cache",
+            [c["file_name"] for c in cached_list],
+            format_func=lambda fn: next(
+                (f"{c['file_name']} | {c['map_name']} | {c['analyzed_at'][:10]}" for c in cached_list if c["file_name"] == fn),
+                fn,
+            ),
+            key="cached_demo",
+        )
+        if col_del.button("🗑️ Usuń", key="delete_cached", use_container_width=True):
+            db.delete_demo_analysis(selected_cached)
+            if st.session_state.get("current_demo_analysis") and \
+                    st.session_state["current_demo_analysis"].file_name == selected_cached:
+                del st.session_state["current_demo_analysis"]
+            st.rerun()
+        if selected_cached:
+            analysis = db.get_demo_analysis(selected_cached)
+            if analysis:
+                st.session_state["current_demo_analysis"] = analysis
+
+    # Display sub-tabs if we have an analysis
+    analysis = st.session_state.get("current_demo_analysis")
+    if analysis is None:
+        st.info("Wgraj plik .dem powyżej lub wybierz wcześniej analizowane demo.")
+        return
+
+    # Export buttons
+    col_e1, col_e2 = st.columns(2)
+    with col_e1:
+        st.download_button(
+            "\U0001f4be Eksport Excel",
+            data=analysis.to_excel(),
+            file_name=f"{analysis.file_name.removesuffix('.dem')}.xlsx",
+            mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+            use_container_width=True,
+        )
+    with col_e2:
+        st.download_button(
+            "\U0001f4be Eksport CSV (zip)",
+            data=analysis.to_csv_zip(),
+            file_name=f"{analysis.file_name.removesuffix('.dem')}_csv.zip",
+            mime="application/zip",
+            use_container_width=True,
+        )
+
+    # Sub-tabs
+    sub_tabs = st.tabs([
+        "Overview",
+        "Rating",
+        "Kills",
+        "Damage",
+        "Rounds",
+        "Round Stats",
+        "Grenades",
+        "Economy",
+        "Player States",
+        "Raw Events",
+        "Chat & Meta",
+    ])
+
+    with sub_tabs[0]:
+        _demo_sub_overview(analysis)
+    with sub_tabs[1]:
+        _demo_sub_rating(analysis)
+    with sub_tabs[2]:
+        _demo_sub_kills(analysis)
+    with sub_tabs[3]:
+        _demo_sub_damage(analysis)
+    with sub_tabs[4]:
+        _demo_sub_rounds(analysis)
+    with sub_tabs[5]:
+        _demo_sub_round_stats(analysis)
+    with sub_tabs[6]:
+        _demo_sub_grenades(analysis)
+    with sub_tabs[7]:
+        _demo_sub_economy(analysis)
+    with sub_tabs[8]:
+        _demo_sub_player_states(analysis)
+    with sub_tabs[9]:
+        _demo_sub_raw_events(analysis)
+    with sub_tabs[10]:
+        _demo_sub_chat_meta(analysis)
 
 
 def main() -> None:
@@ -804,8 +1396,8 @@ def main() -> None:
         )
         return
 
-    tab_overview, tab_matches, tab_charts, tab_detail, tab_export, tab_compare = st.tabs(
-        ["Overview", "Matches", "Charts", "Match Detail", "AI Export", "Compare Players"]
+    tab_overview, tab_matches, tab_charts, tab_detail, tab_export, tab_compare, tab_demo = st.tabs(
+        ["Overview", "Matches", "Charts", "Match Detail", "AI Export", "Compare Players", "Demo Analysis"]
     )
 
     with tab_overview:
@@ -820,6 +1412,8 @@ def main() -> None:
         _tab_ai_export(selected)
     with tab_compare:
         _tab_compare_players()
+    with tab_demo:
+        _tab_demo_analysis()
 
 
 def _page_config() -> None:

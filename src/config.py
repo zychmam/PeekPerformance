@@ -9,6 +9,7 @@ from pathlib import Path
 
 _DEFAULT_CONFIG_PATH = Path.home() / ".leetify_harvester" / "config.json"
 _DEFAULT_DB_PATH = Path.home() / ".leetify_harvester" / "harvester.db"
+_DEFAULT_DEMOS_DIR = Path.home() / ".leetify_harvester" / "demos"
 
 API_BASE_URL = "https://api-public.cs-prod.leetify.com"
 
@@ -22,6 +23,7 @@ class Config:
     api_base_url: str = API_BASE_URL
     request_timeout: int = 30
     tracked_steam_ids: list[str] = field(default_factory=list)
+    demos_dir: str = str(_DEFAULT_DEMOS_DIR)
 
     # -------------------------------------------------------------------
     # Persistence helpers
@@ -49,6 +51,7 @@ class Config:
             api_base_url=data.get("api_base_url", API_BASE_URL),
             request_timeout=int(data.get("request_timeout", 30)),
             tracked_steam_ids=data.get("tracked_steam_ids", []),
+            demos_dir=data.get("demos_dir", str(_DEFAULT_DEMOS_DIR)),
         )
 
     # -------------------------------------------------------------------
@@ -62,4 +65,5 @@ class Config:
             "api_base_url": self.api_base_url,
             "request_timeout": self.request_timeout,
             "tracked_steam_ids": self.tracked_steam_ids,
+            "demos_dir": self.demos_dir,
         }
