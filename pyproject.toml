@@ -3,7 +3,7 @@ requires = ["setuptools>=68.0", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "leetify-harvester"
+name = "peek-performance"
 version = "0.1.0"
 description = "Collect and browse CS2 match data from Leetify"
 readme = "README.md"
@@ -27,7 +27,7 @@ dev = [
 ]
 
 [project.scripts]
-leetify-harvester = "src.gui.app:main"
+peek-performance = "src.gui.app:main"
 
 [tool.ruff]
 target-version = "py310"

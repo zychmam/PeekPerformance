@@ -1,4 +1,4 @@
-"""LeetifyHarvester - Streamlit GUI.
+"""PeekPerformance - Streamlit GUI.
 
 Run with:  streamlit run src/gui/app.py
 """
@@ -71,7 +71,7 @@ def _fmt(value: float | None, decimals: int = 2) -> str:
 
 def _sidebar() -> str | None:
     """Render sidebar and return the currently selected Steam ID (if any)."""
-    st.sidebar.title("\U0001f3af Leetify Harvester")
+    st.sidebar.title("\U0001f3af PeekPerformance")
 
     # --- Settings expander --------------------------------------------------
     with st.sidebar.expander("\u2699\ufe0f Settings"):
@@ -1383,7 +1383,7 @@ def main() -> None:
     selected = _sidebar()
 
     if selected is None:
-        st.title("Welcome to Leetify Harvester")
+        st.title("Welcome to PeekPerformance")
         st.markdown(
             """
             **Get started:**
@@ -1418,7 +1418,7 @@ def main() -> None:
 
 def _page_config() -> None:
     st.set_page_config(
-        page_title="Leetify Harvester",
+        page_title="PeekPerformance",
         page_icon="\U0001f3af",
         layout="wide",
     )

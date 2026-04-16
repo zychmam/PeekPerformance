@@ -1,7 +1,7 @@
-# Model danych: Leetify Match Export
+# Model danych: PeekPerformance – Leetify Match Export
 
 **Źródło:** Leetify Public API (https://leetify.com) — platforma analityczna dla Counter-Strike 2.  
-**Dostępne formaty eksportu:** CSV (flat) i JSON (hierarchiczny, zalecany dla LLM).
+**Dostępne formaty eksportu:** CSV (flat), JSON (hierarchiczny, zalecany dla LLM) i Compact text (lekki format dla AI).
 
 ---
 

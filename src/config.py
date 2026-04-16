@@ -1,4 +1,4 @@
-"""Configuration management for LeetifyHarvester."""
+"""Configuration management for PeekPerformance."""
 
 from __future__ import annotations
 
@@ -7,9 +7,9 @@ import os
 from dataclasses import dataclass, field
 from pathlib import Path
 
-_DEFAULT_CONFIG_PATH = Path.home() / ".leetify_harvester" / "config.json"
-_DEFAULT_DB_PATH = Path.home() / ".leetify_harvester" / "harvester.db"
-_DEFAULT_DEMOS_DIR = Path.home() / ".leetify_harvester" / "demos"
+_DEFAULT_CONFIG_PATH = Path.home() / ".peek_performance" / "config.json"
+_DEFAULT_DB_PATH = Path.home() / ".peek_performance" / "peekperformance.db"
+_DEFAULT_DEMOS_DIR = Path.home() / ".peek_performance" / "demos"
 
 API_BASE_URL = "https://api-public.cs-prod.leetify.com"
 

@@ -1,10 +1,10 @@
-# LeetifyHarvester – Copilot Instructions
+# PeekPerformance – Copilot Instructions
 
 ## Język
 Zawsze odpowiadaj po polsku.
 
 ## Projekt
-LeetifyHarvester to Python scraper / klient API dla platformy Leetify (statystyki CS2).  
+PeekPerformance to Python scraper / klient API dla platformy Leetify (statystyki CS2).  
 Zbiera dane o meczach, graczach i statystykach z API lub stron Leetify.
 
 ## Stack technologiczny
