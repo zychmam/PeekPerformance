@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "peek-performance"
 version = "0.1.0"
-description = "Collect and browse CS2 match data from Leetify"
+description = "Analyze Counter-Strike 2 demo files locally and explore player and match statistics"
 readme = "README.md"
 requires-python = ">=3.10"
 license = {text = "MIT"}

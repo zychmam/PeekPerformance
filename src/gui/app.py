@@ -1383,17 +1383,7 @@ def main() -> None:
     selected = _sidebar()
 
     if selected is None:
-        st.title("Welcome to PeekPerformance")
-        st.markdown(
-            """
-            **Get started:**
-            1. (Optional) Enter your Leetify API key in **Settings** for higher rate limits.
-            2. Add a player by entering their **Steam64 ID** in the sidebar.
-            3. Browse matches, stats, and charts!
-
-            > Data provided by [Leetify](https://leetify.com).
-            """
-        )
+        _tab_demo_analysis()
         return
 
     tab_overview, tab_matches, tab_charts, tab_detail, tab_export, tab_compare, tab_demo = st.tabs(

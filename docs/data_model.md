@@ -1,5 +1,7 @@
 # Model danych: PeekPerformance – Leetify Match Export
 
+> **Starsza funkcja:** ten dokument opisuje eksport meczów pobranych z Leetify. Ta integracja nadal działa, ale jest planowana do usunięcia. Nie jest to model danych analizy plików `.dem` / `.dem.gz`.
+
 **Źródło:** Leetify Public API (https://leetify.com) — platforma analityczna dla Counter-Strike 2.  
 **Dostępne formaty eksportu:** CSV (flat), JSON (hierarchiczny, zalecany dla LLM) i Compact text (lekki format dla AI).
 

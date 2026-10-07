@@ -4,15 +4,18 @@
 Zawsze odpowiadaj po polsku.
 
 ## Projekt
-PeekPerformance to Python scraper / klient API dla platformy Leetify (statystyki CS2).  
-Zbiera dane o meczach, graczach i statystykach z API lub stron Leetify.
+PeekPerformance to lokalna aplikacja do analizy plików demo Counter-Strike 2 (`.dem` i `.dem.gz`).
+Główny przepływ: wgranie demo, analiza statystyk i zdarzeń oraz eksport wyników do Excela lub CSV.
+Istniejąca integracja z Leetify jest starszą funkcją planowaną do usunięcia. Nie rozbudowuj jej bez wyraźnego polecenia.
 
 ## Stack technologiczny
-- **Język**: Python 3.11+
-- **HTTP**: `httpx` (preferowany) lub `requests`
-- **Parsowanie HTML** (jeśli potrzebne): `BeautifulSoup4`
-- **Modele danych**: `dataclasses` lub `pydantic`
-- **Async**: używaj `asyncio` + `async/await` gdy to sensowne
+- **Język**: Python 3.10+
+- **Interfejs**: `Streamlit`
+- **Parsowanie demek**: `demoparser2`
+- **Dane i wykresy**: `pandas`, `Plotly`
+- **Lokalne przechowywanie**: SQLite
+- **Eksport Excel**: `openpyxl`
+- **Modele danych**: `dataclasses`
 - **Typowanie**: zawsze dodawaj type hints
 
 ## Styl kodu
@@ -22,8 +25,8 @@ Zbiera dane o meczach, graczach i statystykach z API lub stron Leetify.
 - Unikaj zbędnych abstrakcji – prostota > nadmierna inżynieria
 
 ## Bezpieczeństwo
-- Dane uwierzytelniające (tokeny, klucze API) czytaj ze zmiennych środowiskowych lub pliku `.env` (python-dotenv)
-- Nigdy nie hardkoduj credentials w kodzie
+- Analiza demek nie wymaga konta ani klucza API.
+- Nie zapisuj danych uwierzytelniających w kodzie.
 
 ## Zachowanie Copilota
 - Implementuj zmiany od razu, nie tylko sugeruj
