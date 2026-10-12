@@ -1,0 +1,2426 @@
+{
+  "provenance": {
+    "kind": "anonymized parser event extract, not independent demo playback",
+    "source_sha256": "c5f3f99d0cfe9eee7f1bf0dbdc2ab8ff2509a4ef01630ac3451bd9ced7dddda0",
+    "map": "de_anubis",
+    "selected_old_round_numbers": [
+      1,
+      2,
+      3,
+      13,
+      14
+    ],
+    "tick_rate_assumption": 64
+  },
+  "rounds": [
+    {
+      "is_warmup_period": false,
+      "reason": "t_killed",
+      "round": 1,
+      "tick": 2661,
+      "total_rounds_played": 1,
+      "winner": "CT",
+      "raw_total_rounds_played": 1,
+      "start_tick": 1
+    },
+    {
+      "is_warmup_period": false,
+      "reason": "t_killed",
+      "round": 2,
+      "tick": 8021,
+      "total_rounds_played": 2,
+      "winner": "CT",
+      "raw_total_rounds_played": 1,
+      "start_tick": 4009
+    },
+    {
+      "is_warmup_period": false,
+      "reason": "t_killed",
+      "round": 3,
+      "tick": 11769,
+      "total_rounds_played": 3,
+      "winner": "CT",
+      "raw_total_rounds_played": 2,
+      "start_tick": 8469
+    },
+    {
+      "is_warmup_period": false,
+      "reason": "t_killed",
+      "round": 4,
+      "tick": 20814,
+      "total_rounds_played": 4,
+      "winner": "CT",
+      "raw_total_rounds_played": 3,
+      "start_tick": 12217
+    },
+    {
+      "is_warmup_period": false,
+      "reason": "ct_killed",
+      "round": 5,
+      "tick": 26182,
+      "total_rounds_played": 5,
+      "winner": "T",
+      "raw_total_rounds_played": 4,
+      "start_tick": 21262
+    },
+    {
+      "is_warmup_period": false,
+      "reason": "ct_killed",
+      "round": 6,
+      "tick": 32862,
+      "total_rounds_played": 6,
+      "winner": "T",
+      "raw_total_rounds_played": 5,
+      "start_tick": 26630
+    },
+    {
+      "is_warmup_period": false,
+      "reason": "t_killed",
+      "round": 7,
+      "tick": 38694,
+      "total_rounds_played": 7,
+      "winner": "CT",
+      "raw_total_rounds_played": 6,
+      "start_tick": 33310
+    },
+    {
+      "is_warmup_period": false,
+      "reason": "bomb_exploded",
+      "round": 8,
+      "tick": 45579,
+      "total_rounds_played": 8,
+      "winner": "T",
+      "raw_total_rounds_played": 7,
+      "start_tick": 39142
+    },
+    {
+      "is_warmup_period": false,
+      "reason": "t_killed",
+      "round": 9,
+      "tick": 50555,
+      "total_rounds_played": 9,
+      "winner": "CT",
+      "raw_total_rounds_played": 8,
+      "start_tick": 46027
+    },
+    {
+      "is_warmup_period": false,
+      "reason": "t_killed",
+      "round": 10,
+      "tick": 54299,
+      "total_rounds_played": 10,
+      "winner": "CT",
+      "raw_total_rounds_played": 9,
+      "start_tick": 51003
+    },
+    {
+      "is_warmup_period": false,
+      "reason": "t_killed",
+      "round": 11,
+      "tick": 57390,
+      "total_rounds_played": 11,
+      "winner": "CT",
+      "raw_total_rounds_played": 10,
+      "start_tick": 54747
+    },
+    {
+      "is_warmup_period": false,
+      "reason": "t_killed",
+      "round": 12,
+      "tick": 61922,
+      "total_rounds_played": 12,
+      "winner": "CT",
+      "raw_total_rounds_played": 11,
+      "start_tick": 57838
+    },
+    {
+      "is_warmup_period": false,
+      "reason": "t_killed",
+      "round": 13,
+      "tick": 67548,
+      "total_rounds_played": 13,
+      "winner": "CT",
+      "raw_total_rounds_played": 12,
+      "start_tick": 62370
+    },
+    {
+      "is_warmup_period": false,
+      "reason": "bomb_defused",
+      "round": 14,
+      "tick": 72202,
+      "total_rounds_played": 14,
+      "winner": "CT",
+      "raw_total_rounds_played": 13,
+      "start_tick": 68092
+    },
+    {
+      "is_warmup_period": false,
+      "reason": "t_killed",
+      "round": 15,
+      "tick": 76249,
+      "total_rounds_played": 15,
+      "winner": "CT",
+      "raw_total_rounds_played": 14,
+      "start_tick": 72650
+    },
+    {
+      "is_warmup_period": false,
+      "reason": "ct_killed",
+      "round": 16,
+      "tick": 80363,
+      "total_rounds_played": 16,
+      "winner": "T",
+      "raw_total_rounds_played": 15,
+      "start_tick": 76697
+    },
+    {
+      "is_warmup_period": false,
+      "reason": "t_killed",
+      "round": 17,
+      "tick": 85950,
+      "total_rounds_played": 17,
+      "winner": "CT",
+      "raw_total_rounds_played": 16,
+      "start_tick": 80811
+    },
+    {
+      "is_warmup_period": false,
+      "reason": "t_killed",
+      "round": 18,
+      "tick": 90091,
+      "total_rounds_played": 18,
+      "winner": "CT",
+      "raw_total_rounds_played": 17,
+      "start_tick": 86398
+    },
+    {
+      "is_warmup_period": false,
+      "reason": "bomb_defused",
+      "round": 19,
+      "tick": 96972,
+      "total_rounds_played": 19,
+      "winner": "CT",
+      "raw_total_rounds_played": 18,
+      "start_tick": 90539
+    },
+    {
+      "is_warmup_period": false,
+      "reason": "t_killed",
+      "round": 20,
+      "tick": 100313,
+      "total_rounds_played": 20,
+      "winner": "CT",
+      "raw_total_rounds_played": 19,
+      "start_tick": 97420
+    },
+    {
+      "is_warmup_period": false,
+      "reason": "ct_killed",
+      "round": 21,
+      "tick": 105918,
+      "total_rounds_played": 21,
+      "winner": "T",
+      "raw_total_rounds_played": 20,
+      "start_tick": 100761
+    },
+    {
+      "is_warmup_period": false,
+      "reason": "ct_killed",
+      "round": 22,
+      "tick": 110912,
+      "total_rounds_played": 22,
+      "winner": "T",
+      "raw_total_rounds_played": 21,
+      "start_tick": 106366
+    },
+    {
+      "is_warmup_period": false,
+      "reason": "t_killed",
+      "round": 23,
+      "tick": 117548,
+      "total_rounds_played": 23,
+      "winner": "CT",
+      "raw_total_rounds_played": 22,
+      "start_tick": 111360
+    },
+    {
+      "is_warmup_period": false,
+      "reason": "t_killed",
+      "round": 24,
+      "tick": 121077,
+      "total_rounds_played": 24,
+      "winner": "CT",
+      "raw_total_rounds_played": 23,
+      "start_tick": 117996
+    },
+    {
+      "is_warmup_period": false,
+      "reason": "ct_killed",
+      "round": 25,
+      "tick": 127093,
+      "total_rounds_played": 25,
+      "winner": "T",
+      "raw_total_rounds_played": 24,
+      "start_tick": 121525
+    }
+  ],
+  "player_info": [
+    {
+      "steamid": "76561198000000001",
+      "name": "B2"
+    },
+    {
+      "steamid": "76561198000000002",
+      "name": "A2"
+    },
+    {
+      "steamid": "76561198000000003",
+      "name": "A1"
+    },
+    {
+      "steamid": "76561198000000004",
+      "name": "B5"
+    },
+    {
+      "steamid": "76561198000000005",
+      "name": "B3"
+    },
+    {
+      "steamid": "76561198000000006",
+      "name": "A4"
+    },
+    {
+      "steamid": "76561198000000007",
+      "name": "B4"
+    },
+    {
+      "steamid": "76561198000000008",
+      "name": "B1"
+    },
+    {
+      "steamid": "76561198000000009",
+      "name": "A5"
+    },
+    {
+      "steamid": "76561198000000010",
+      "name": "A3"
+    }
+  ],
+  "kills": [
+    {
+      "tick": 2267,
+      "total_rounds_played": 1,
+      "attacker_steamid": "76561198000000002",
+      "user_steamid": "76561198000000008",
+      "assister_steamid": "76561198000000006",
+      "attacker_team_num": 3.0,
+      "user_team_num": 2.0,
+      "assistedflash": false,
+      "headshot": false,
+      "weapon": "knife_butterfly"
+    },
+    {
+      "tick": 2313,
+      "total_rounds_played": 1,
+      "attacker_steamid": "76561198000000001",
+      "user_steamid": "76561198000000006",
+      "assister_steamid": "76561198000000008",
+      "attacker_team_num": 2.0,
+      "user_team_num": 3.0,
+      "assistedflash": false,
+      "headshot": false,
+      "weapon": "knife_t"
+    },
+    {
+      "tick": 2437,
+      "total_rounds_played": 1,
+      "attacker_steamid": "76561198000000010",
+      "user_steamid": "76561198000000005",
+      "assister_steamid": "76561198000000009",
+      "attacker_team_num": 3.0,
+      "user_team_num": 2.0,
+      "assistedflash": false,
+      "headshot": false,
+      "weapon": "knife_falchion"
+    },
+    {
+      "tick": 2554,
+      "total_rounds_played": 1,
+      "attacker_steamid": "76561198000000010",
+      "user_steamid": "76561198000000001",
+      "assister_steamid": null,
+      "attacker_team_num": 3.0,
+      "user_team_num": 2.0,
+      "assistedflash": false,
+      "headshot": false,
+      "weapon": "knife_falchion"
+    },
+    {
+      "tick": 2615,
+      "total_rounds_played": 1,
+      "attacker_steamid": "76561198000000009",
+      "user_steamid": "76561198000000007",
+      "assister_steamid": "76561198000000003",
+      "attacker_team_num": 3.0,
+      "user_team_num": 2.0,
+      "assistedflash": false,
+      "headshot": false,
+      "weapon": "knife_survival_bowie"
+    },
+    {
+      "tick": 2661,
+      "total_rounds_played": 1,
+      "attacker_steamid": "76561198000000002",
+      "user_steamid": "76561198000000004",
+      "assister_steamid": "76561198000000010",
+      "attacker_team_num": 3.0,
+      "user_team_num": 2.0,
+      "assistedflash": false,
+      "headshot": false,
+      "weapon": "knife_butterfly"
+    },
+    {
+      "tick": 6922,
+      "total_rounds_played": 2,
+      "attacker_steamid": "76561198000000003",
+      "user_steamid": "76561198000000001",
+      "assister_steamid": null,
+      "attacker_team_num": 3.0,
+      "user_team_num": 2.0,
+      "assistedflash": false,
+      "headshot": true,
+      "weapon": "usp_silencer"
+    },
+    {
+      "tick": 7098,
+      "total_rounds_played": 2,
+      "attacker_steamid": "76561198000000003",
+      "user_steamid": "76561198000000005",
+      "assister_steamid": null,
+      "attacker_team_num": 3.0,
+      "user_team_num": 2.0,
+      "assistedflash": false,
+      "headshot": true,
+      "weapon": "usp_silencer"
+    },
+    {
+      "tick": 7121,
+      "total_rounds_played": 2,
+      "attacker_steamid": "76561198000000002",
+      "user_steamid": "76561198000000007",
+      "assister_steamid": null,
+      "attacker_team_num": 3.0,
+      "user_team_num": 2.0,
+      "assistedflash": false,
+      "headshot": true,
+      "weapon": "usp_silencer"
+    },
+    {
+      "tick": 7337,
+      "total_rounds_played": 2,
+      "attacker_steamid": "76561198000000008",
+      "user_steamid": "76561198000000009",
+      "assister_steamid": null,
+      "attacker_team_num": 2.0,
+      "user_team_num": 3.0,
+      "assistedflash": false,
+      "headshot": true,
+      "weapon": "glock"
+    },
+    {
+      "tick": 7602,
+      "total_rounds_played": 2,
+      "attacker_steamid": "76561198000000002",
+      "user_steamid": "76561198000000008",
+      "assister_steamid": null,
+      "attacker_team_num": 3.0,
+      "user_team_num": 2.0,
+      "assistedflash": false,
+      "headshot": true,
+      "weapon": "usp_silencer"
+    },
+    {
+      "tick": 8021,
+      "total_rounds_played": 2,
+      "attacker_steamid": "76561198000000002",
+      "user_steamid": "76561198000000004",
+      "assister_steamid": "76561198000000003",
+      "attacker_team_num": 3.0,
+      "user_team_num": 2.0,
+      "assistedflash": false,
+      "headshot": true,
+      "weapon": "usp_silencer"
+    },
+    {
+      "tick": 10440,
+      "total_rounds_played": 3,
+      "attacker_steamid": "76561198000000001",
+      "user_steamid": "76561198000000009",
+      "assister_steamid": "76561198000000007",
+      "attacker_team_num": 2.0,
+      "user_team_num": 3.0,
+      "assistedflash": false,
+      "headshot": false,
+      "weapon": "mac10"
+    },
+    {
+      "tick": 10631,
+      "total_rounds_played": 3,
+      "attacker_steamid": "76561198000000002",
+      "user_steamid": "76561198000000007",
+      "assister_steamid": null,
+      "attacker_team_num": 3.0,
+      "user_team_num": 2.0,
+      "assistedflash": false,
+      "headshot": false,
+      "weapon": "m4a1_silencer"
+    },
+    {
+      "tick": 11325,
+      "total_rounds_played": 3,
+      "attacker_steamid": "76561198000000002",
+      "user_steamid": "76561198000000004",
+      "assister_steamid": "76561198000000009",
+      "attacker_team_num": 3.0,
+      "user_team_num": 2.0,
+      "assistedflash": false,
+      "headshot": true,
+      "weapon": "m4a1_silencer"
+    },
+    {
+      "tick": 11336,
+      "total_rounds_played": 3,
+      "attacker_steamid": "76561198000000005",
+      "user_steamid": "76561198000000002",
+      "assister_steamid": "76561198000000001",
+      "attacker_team_num": 2.0,
+      "user_team_num": 3.0,
+      "assistedflash": false,
+      "headshot": true,
+      "weapon": "mp7"
+    },
+    {
+      "tick": 11355,
+      "total_rounds_played": 3,
+      "attacker_steamid": "76561198000000010",
+      "user_steamid": "76561198000000001",
+      "assister_steamid": "76561198000000002",
+      "attacker_team_num": 3.0,
+      "user_team_num": 2.0,
+      "assistedflash": false,
+      "headshot": false,
+      "weapon": "famas"
+    },
+    {
+      "tick": 11569,
+      "total_rounds_played": 3,
+      "attacker_steamid": "76561198000000010",
+      "user_steamid": "76561198000000008",
+      "assister_steamid": null,
+      "attacker_team_num": 3.0,
+      "user_team_num": 2.0,
+      "assistedflash": false,
+      "headshot": true,
+      "weapon": "famas"
+    },
+    {
+      "tick": 11769,
+      "total_rounds_played": 3,
+      "attacker_steamid": "76561198000000006",
+      "user_steamid": "76561198000000005",
+      "assister_steamid": "76561198000000002",
+      "attacker_team_num": 3.0,
+      "user_team_num": 2.0,
+      "assistedflash": false,
+      "headshot": true,
+      "weapon": "famas"
+    },
+    {
+      "tick": 64244,
+      "total_rounds_played": 13,
+      "attacker_steamid": "76561198000000010",
+      "user_steamid": "76561198000000007",
+      "assister_steamid": null,
+      "attacker_team_num": 3.0,
+      "user_team_num": 2.0,
+      "assistedflash": false,
+      "headshot": false,
+      "weapon": "awp"
+    },
+    {
+      "tick": 64533,
+      "total_rounds_played": 13,
+      "attacker_steamid": "76561198000000003",
+      "user_steamid": "76561198000000004",
+      "assister_steamid": null,
+      "attacker_team_num": 3.0,
+      "user_team_num": 2.0,
+      "assistedflash": false,
+      "headshot": false,
+      "weapon": "awp"
+    },
+    {
+      "tick": 65911,
+      "total_rounds_played": 13,
+      "attacker_steamid": "76561198000000010",
+      "user_steamid": "76561198000000005",
+      "assister_steamid": null,
+      "attacker_team_num": 3.0,
+      "user_team_num": 2.0,
+      "assistedflash": false,
+      "headshot": false,
+      "weapon": "awp"
+    },
+    {
+      "tick": 66577,
+      "total_rounds_played": 13,
+      "attacker_steamid": "76561198000000008",
+      "user_steamid": "76561198000000009",
+      "assister_steamid": "76561198000000001",
+      "attacker_team_num": 2.0,
+      "user_team_num": 3.0,
+      "assistedflash": false,
+      "headshot": true,
+      "weapon": "galilar"
+    },
+    {
+      "tick": 67015,
+      "total_rounds_played": 13,
+      "attacker_steamid": "76561198000000006",
+      "user_steamid": "76561198000000008",
+      "assister_steamid": null,
+      "attacker_team_num": 3.0,
+      "user_team_num": 2.0,
+      "assistedflash": false,
+      "headshot": true,
+      "weapon": "m4a1_silencer"
+    },
+    {
+      "tick": 67548,
+      "total_rounds_played": 13,
+      "attacker_steamid": "76561198000000006",
+      "user_steamid": "76561198000000001",
+      "assister_steamid": "76561198000000009",
+      "attacker_team_num": 3.0,
+      "user_team_num": 2.0,
+      "assistedflash": false,
+      "headshot": false,
+      "weapon": "m4a1_silencer"
+    },
+    {
+      "tick": 70477,
+      "total_rounds_played": 14,
+      "attacker_steamid": "76561198000000008",
+      "user_steamid": "76561198000000009",
+      "assister_steamid": null,
+      "attacker_team_num": 3.0,
+      "user_team_num": 2.0,
+      "assistedflash": false,
+      "headshot": true,
+      "weapon": "usp_silencer"
+    },
+    {
+      "tick": 70540,
+      "total_rounds_played": 14,
+      "attacker_steamid": "76561198000000002",
+      "user_steamid": "76561198000000008",
+      "assister_steamid": "76561198000000010",
+      "attacker_team_num": 2.0,
+      "user_team_num": 3.0,
+      "assistedflash": true,
+      "headshot": true,
+      "weapon": "glock"
+    },
+    {
+      "tick": 70590,
+      "total_rounds_played": 14,
+      "attacker_steamid": "76561198000000001",
+      "user_steamid": "76561198000000003",
+      "assister_steamid": null,
+      "attacker_team_num": 3.0,
+      "user_team_num": 2.0,
+      "assistedflash": false,
+      "headshot": true,
+      "weapon": "usp_silencer"
+    },
+    {
+      "tick": 71042,
+      "total_rounds_played": 14,
+      "attacker_steamid": "76561198000000005",
+      "user_steamid": "76561198000000010",
+      "assister_steamid": "76561198000000001",
+      "attacker_team_num": 3.0,
+      "user_team_num": 2.0,
+      "assistedflash": false,
+      "headshot": true,
+      "weapon": "elite"
+    },
+    {
+      "tick": 71099,
+      "total_rounds_played": 14,
+      "attacker_steamid": "76561198000000006",
+      "user_steamid": "76561198000000007",
+      "assister_steamid": null,
+      "attacker_team_num": 2.0,
+      "user_team_num": 3.0,
+      "assistedflash": false,
+      "headshot": true,
+      "weapon": "glock"
+    },
+    {
+      "tick": 71214,
+      "total_rounds_played": 14,
+      "attacker_steamid": "76561198000000001",
+      "user_steamid": "76561198000000006",
+      "assister_steamid": null,
+      "attacker_team_num": 3.0,
+      "user_team_num": 2.0,
+      "assistedflash": false,
+      "headshot": true,
+      "weapon": "usp_silencer"
+    },
+    {
+      "tick": 71235,
+      "total_rounds_played": 14,
+      "attacker_steamid": "76561198000000005",
+      "user_steamid": "76561198000000002",
+      "assister_steamid": "76561198000000001",
+      "attacker_team_num": 3.0,
+      "user_team_num": 2.0,
+      "assistedflash": false,
+      "headshot": false,
+      "weapon": "elite"
+    }
+  ],
+  "damage": [
+    {
+      "tick": 2243,
+      "total_rounds_played": 1,
+      "attacker_steamid": "76561198000000006",
+      "user_steamid": "76561198000000008",
+      "attacker_team_num": 3.0,
+      "user_team_num": 2,
+      "dmg_health": 55,
+      "health": 45,
+      "weapon": "knife"
+    },
+    {
+      "tick": 2257,
+      "total_rounds_played": 1,
+      "attacker_steamid": "76561198000000008",
+      "user_steamid": "76561198000000006",
+      "attacker_team_num": 2.0,
+      "user_team_num": 3,
+      "dmg_health": 55,
+      "health": 45,
+      "weapon": "knife"
+    },
+    {
+      "tick": 2267,
+      "total_rounds_played": 1,
+      "attacker_steamid": "76561198000000002",
+      "user_steamid": "76561198000000008",
+      "attacker_team_num": 3.0,
+      "user_team_num": 2,
+      "dmg_health": 55,
+      "health": 0,
+      "weapon": "knife"
+    },
+    {
+      "tick": 2313,
+      "total_rounds_played": 1,
+      "attacker_steamid": "76561198000000001",
+      "user_steamid": "76561198000000006",
+      "attacker_team_num": 2.0,
+      "user_team_num": 3,
+      "dmg_health": 55,
+      "health": 0,
+      "weapon": "knife"
+    },
+    {
+      "tick": 2338,
+      "total_rounds_played": 1,
+      "attacker_steamid": "76561198000000010",
+      "user_steamid": "76561198000000001",
+      "attacker_team_num": 3.0,
+      "user_team_num": 2,
+      "dmg_health": 55,
+      "health": 45,
+      "weapon": "knife"
+    },
+    {
+      "tick": 2364,
+      "total_rounds_played": 1,
+      "attacker_steamid": "76561198000000009",
+      "user_steamid": "76561198000000005",
+      "attacker_team_num": 3.0,
+      "user_team_num": 2,
+      "dmg_health": 55,
+      "health": 45,
+      "weapon": "knife"
+    },
+    {
+      "tick": 2366,
+      "total_rounds_played": 1,
+      "attacker_steamid": "76561198000000004",
+      "user_steamid": "76561198000000002",
+      "attacker_team_num": 2.0,
+      "user_team_num": 3,
+      "dmg_health": 55,
+      "health": 45,
+      "weapon": "knife"
+    },
+    {
+      "tick": 2379,
+      "total_rounds_played": 1,
+      "attacker_steamid": "76561198000000003",
+      "user_steamid": "76561198000000007",
+      "attacker_team_num": 3.0,
+      "user_team_num": 2,
+      "dmg_health": 55,
+      "health": 45,
+      "weapon": "knife"
+    },
+    {
+      "tick": 2379,
+      "total_rounds_played": 1,
+      "attacker_steamid": "76561198000000007",
+      "user_steamid": "76561198000000003",
+      "attacker_team_num": 2.0,
+      "user_team_num": 3,
+      "dmg_health": 55,
+      "health": 45,
+      "weapon": "knife"
+    },
+    {
+      "tick": 2437,
+      "total_rounds_played": 1,
+      "attacker_steamid": "76561198000000010",
+      "user_steamid": "76561198000000005",
+      "attacker_team_num": 3.0,
+      "user_team_num": 2,
+      "dmg_health": 55,
+      "health": 0,
+      "weapon": "knife"
+    },
+    {
+      "tick": 2554,
+      "total_rounds_played": 1,
+      "attacker_steamid": "76561198000000010",
+      "user_steamid": "76561198000000001",
+      "attacker_team_num": 3.0,
+      "user_team_num": 2,
+      "dmg_health": 55,
+      "health": 0,
+      "weapon": "knife"
+    },
+    {
+      "tick": 2615,
+      "total_rounds_played": 1,
+      "attacker_steamid": "76561198000000009",
+      "user_steamid": "76561198000000007",
+      "attacker_team_num": 3.0,
+      "user_team_num": 2,
+      "dmg_health": 55,
+      "health": 0,
+      "weapon": "knife"
+    },
+    {
+      "tick": 2621,
+      "total_rounds_played": 1,
+      "attacker_steamid": "76561198000000004",
+      "user_steamid": "76561198000000010",
+      "attacker_team_num": 2.0,
+      "user_team_num": 3,
+      "dmg_health": 55,
+      "health": 45,
+      "weapon": "knife"
+    },
+    {
+      "tick": 2624,
+      "total_rounds_played": 1,
+      "attacker_steamid": "76561198000000010",
+      "user_steamid": "76561198000000004",
+      "attacker_team_num": 3.0,
+      "user_team_num": 2,
+      "dmg_health": 55,
+      "health": 45,
+      "weapon": "knife"
+    },
+    {
+      "tick": 2661,
+      "total_rounds_played": 1,
+      "attacker_steamid": "76561198000000002",
+      "user_steamid": "76561198000000004",
+      "attacker_team_num": 3.0,
+      "user_team_num": 2,
+      "dmg_health": 55,
+      "health": 0,
+      "weapon": "knife"
+    },
+    {
+      "tick": 6922,
+      "total_rounds_played": 2,
+      "attacker_steamid": "76561198000000003",
+      "user_steamid": "76561198000000001",
+      "attacker_team_num": 3.0,
+      "user_team_num": 2,
+      "dmg_health": 114,
+      "health": 0,
+      "weapon": "hkp2000"
+    },
+    {
+      "tick": 6922,
+      "total_rounds_played": 2,
+      "attacker_steamid": "76561198000000003",
+      "user_steamid": "76561198000000007",
+      "attacker_team_num": 3.0,
+      "user_team_num": 2,
+      "dmg_health": 5,
+      "health": 95,
+      "weapon": "hkp2000"
+    },
+    {
+      "tick": 7092,
+      "total_rounds_played": 2,
+      "attacker_steamid": "76561198000000005",
+      "user_steamid": "76561198000000003",
+      "attacker_team_num": 2.0,
+      "user_team_num": 3,
+      "dmg_health": 17,
+      "health": 83,
+      "weapon": "glock"
+    },
+    {
+      "tick": 7098,
+      "total_rounds_played": 2,
+      "attacker_steamid": "76561198000000003",
+      "user_steamid": "76561198000000005",
+      "attacker_team_num": 3.0,
+      "user_team_num": 2,
+      "dmg_health": 119,
+      "health": 0,
+      "weapon": "hkp2000"
+    },
+    {
+      "tick": 7121,
+      "total_rounds_played": 2,
+      "attacker_steamid": "76561198000000002",
+      "user_steamid": "76561198000000007",
+      "attacker_team_num": 3.0,
+      "user_team_num": 2,
+      "dmg_health": 110,
+      "health": 0,
+      "weapon": "hkp2000"
+    },
+    {
+      "tick": 7216,
+      "total_rounds_played": 2,
+      "attacker_steamid": "76561198000000004",
+      "user_steamid": "76561198000000003",
+      "attacker_team_num": 2.0,
+      "user_team_num": 3,
+      "dmg_health": 11,
+      "health": 72,
+      "weapon": "glock"
+    },
+    {
+      "tick": 7337,
+      "total_rounds_played": 2,
+      "attacker_steamid": "76561198000000008",
+      "user_steamid": "76561198000000009",
+      "attacker_team_num": 2.0,
+      "user_team_num": 3,
+      "dmg_health": 100,
+      "health": 0,
+      "weapon": "glock"
+    },
+    {
+      "tick": 7602,
+      "total_rounds_played": 2,
+      "attacker_steamid": "76561198000000002",
+      "user_steamid": "76561198000000008",
+      "attacker_team_num": 3.0,
+      "user_team_num": 2,
+      "dmg_health": 123,
+      "health": 0,
+      "weapon": "hkp2000"
+    },
+    {
+      "tick": 7971,
+      "total_rounds_played": 2,
+      "attacker_steamid": "76561198000000003",
+      "user_steamid": "76561198000000004",
+      "attacker_team_num": 3.0,
+      "user_team_num": 2,
+      "dmg_health": 16,
+      "health": 84,
+      "weapon": "hkp2000"
+    },
+    {
+      "tick": 7978,
+      "total_rounds_played": 2,
+      "attacker_steamid": "76561198000000006",
+      "user_steamid": "76561198000000004",
+      "attacker_team_num": 3.0,
+      "user_team_num": 2,
+      "dmg_health": 15,
+      "health": 68,
+      "weapon": "hkp2000"
+    },
+    {
+      "tick": 7987,
+      "total_rounds_played": 2,
+      "attacker_steamid": "76561198000000004",
+      "user_steamid": "76561198000000006",
+      "attacker_team_num": 2.0,
+      "user_team_num": 3,
+      "dmg_health": 11,
+      "health": 89,
+      "weapon": "glock"
+    },
+    {
+      "tick": 7993,
+      "total_rounds_played": 2,
+      "attacker_steamid": "76561198000000003",
+      "user_steamid": "76561198000000004",
+      "attacker_team_num": 3.0,
+      "user_team_num": 2,
+      "dmg_health": 16,
+      "health": 51,
+      "weapon": "hkp2000"
+    },
+    {
+      "tick": 7995,
+      "total_rounds_played": 2,
+      "attacker_steamid": "76561198000000002",
+      "user_steamid": "76561198000000004",
+      "attacker_team_num": 3.0,
+      "user_team_num": 2,
+      "dmg_health": 15,
+      "health": 36,
+      "weapon": "hkp2000"
+    },
+    {
+      "tick": 7997,
+      "total_rounds_played": 2,
+      "attacker_steamid": "76561198000000004",
+      "user_steamid": "76561198000000006",
+      "attacker_team_num": 2.0,
+      "user_team_num": 3,
+      "dmg_health": 11,
+      "health": 77,
+      "weapon": "glock"
+    },
+    {
+      "tick": 8006,
+      "total_rounds_played": 2,
+      "attacker_steamid": "76561198000000004",
+      "user_steamid": "76561198000000006",
+      "attacker_team_num": 2.0,
+      "user_team_num": 3,
+      "dmg_health": 11,
+      "health": 65,
+      "weapon": "glock"
+    },
+    {
+      "tick": 8021,
+      "total_rounds_played": 2,
+      "attacker_steamid": "76561198000000002",
+      "user_steamid": "76561198000000004",
+      "attacker_team_num": 3.0,
+      "user_team_num": 2,
+      "dmg_health": 125,
+      "health": 0,
+      "weapon": "hkp2000"
+    },
+    {
+      "tick": 10422,
+      "total_rounds_played": 3,
+      "attacker_steamid": "76561198000000008",
+      "user_steamid": "76561198000000009",
+      "attacker_team_num": 2.0,
+      "user_team_num": 3,
+      "dmg_health": 12,
+      "health": 88,
+      "weapon": "glock"
+    },
+    {
+      "tick": 10423,
+      "total_rounds_played": 3,
+      "attacker_steamid": "76561198000000007",
+      "user_steamid": "76561198000000009",
+      "attacker_team_num": 2.0,
+      "user_team_num": 3,
+      "dmg_health": 12,
+      "health": 75,
+      "weapon": "mac10"
+    },
+    {
+      "tick": 10424,
+      "total_rounds_played": 3,
+      "attacker_steamid": "76561198000000009",
+      "user_steamid": "76561198000000004",
+      "attacker_team_num": 3.0,
+      "user_team_num": 2,
+      "dmg_health": 19,
+      "health": 81,
+      "weapon": "mp7"
+    },
+    {
+      "tick": 10428,
+      "total_rounds_played": 3,
+      "attacker_steamid": "76561198000000007",
+      "user_steamid": "76561198000000009",
+      "attacker_team_num": 2.0,
+      "user_team_num": 3,
+      "dmg_health": 51,
+      "health": 24,
+      "weapon": "mac10"
+    },
+    {
+      "tick": 10429,
+      "total_rounds_played": 3,
+      "attacker_steamid": "76561198000000009",
+      "user_steamid": "76561198000000004",
+      "attacker_team_num": 3.0,
+      "user_team_num": 2,
+      "dmg_health": 19,
+      "health": 62,
+      "weapon": "mp7"
+    },
+    {
+      "tick": 10433,
+      "total_rounds_played": 3,
+      "attacker_steamid": "76561198000000008",
+      "user_steamid": "76561198000000009",
+      "attacker_team_num": 2.0,
+      "user_team_num": 3,
+      "dmg_health": 1,
+      "health": 22,
+      "weapon": "glock"
+    },
+    {
+      "tick": 10434,
+      "total_rounds_played": 3,
+      "attacker_steamid": "76561198000000009",
+      "user_steamid": "76561198000000007",
+      "attacker_team_num": 3.0,
+      "user_team_num": 2,
+      "dmg_health": 16,
+      "health": 84,
+      "weapon": "mp7"
+    },
+    {
+      "tick": 10437,
+      "total_rounds_played": 3,
+      "attacker_steamid": "76561198000000007",
+      "user_steamid": "76561198000000009",
+      "attacker_team_num": 2.0,
+      "user_team_num": 3,
+      "dmg_health": 12,
+      "health": 9,
+      "weapon": "mac10"
+    },
+    {
+      "tick": 10440,
+      "total_rounds_played": 3,
+      "attacker_steamid": "76561198000000001",
+      "user_steamid": "76561198000000009",
+      "attacker_team_num": 2.0,
+      "user_team_num": 3,
+      "dmg_health": 11,
+      "health": 0,
+      "weapon": "mac10"
+    },
+    {
+      "tick": 10604,
+      "total_rounds_played": 3,
+      "attacker_steamid": "76561198000000002",
+      "user_steamid": "76561198000000001",
+      "attacker_team_num": 3.0,
+      "user_team_num": 2,
+      "dmg_health": 52,
+      "health": 48,
+      "weapon": "hegrenade"
+    },
+    {
+      "tick": 10604,
+      "total_rounds_played": 3,
+      "attacker_steamid": "76561198000000002",
+      "user_steamid": "76561198000000007",
+      "attacker_team_num": 3.0,
+      "user_team_num": 2,
+      "dmg_health": 37,
+      "health": 47,
+      "weapon": "hegrenade"
+    },
+    {
+      "tick": 10604,
+      "total_rounds_played": 3,
+      "attacker_steamid": "76561198000000002",
+      "user_steamid": "76561198000000004",
+      "attacker_team_num": 3.0,
+      "user_team_num": 2,
+      "dmg_health": 14,
+      "health": 48,
+      "weapon": "hegrenade"
+    },
+    {
+      "tick": 10604,
+      "total_rounds_played": 3,
+      "attacker_steamid": "76561198000000002",
+      "user_steamid": "76561198000000008",
+      "attacker_team_num": 3.0,
+      "user_team_num": 2,
+      "dmg_health": 10,
+      "health": 90,
+      "weapon": "hegrenade"
+    },
+    {
+      "tick": 10604,
+      "total_rounds_played": 3,
+      "attacker_steamid": "76561198000000002",
+      "user_steamid": "76561198000000005",
+      "attacker_team_num": 3.0,
+      "user_team_num": 2,
+      "dmg_health": 4,
+      "health": 96,
+      "weapon": "hegrenade"
+    },
+    {
+      "tick": 10625,
+      "total_rounds_played": 3,
+      "attacker_steamid": "76561198000000002",
+      "user_steamid": "76561198000000007",
+      "attacker_team_num": 3.0,
+      "user_team_num": 2,
+      "dmg_health": 23,
+      "health": 23,
+      "weapon": "m4a1"
+    },
+    {
+      "tick": 10631,
+      "total_rounds_played": 3,
+      "attacker_steamid": "76561198000000002",
+      "user_steamid": "76561198000000007",
+      "attacker_team_num": 3.0,
+      "user_team_num": 2,
+      "dmg_health": 23,
+      "health": 0,
+      "weapon": "m4a1"
+    },
+    {
+      "tick": 11306,
+      "total_rounds_played": 3,
+      "attacker_steamid": "76561198000000002",
+      "user_steamid": "76561198000000001",
+      "attacker_team_num": 3.0,
+      "user_team_num": 2,
+      "dmg_health": 26,
+      "health": 21,
+      "weapon": "m4a1"
+    },
+    {
+      "tick": 11321,
+      "total_rounds_played": 3,
+      "attacker_steamid": "76561198000000001",
+      "user_steamid": "76561198000000002",
+      "attacker_team_num": 2.0,
+      "user_team_num": 3,
+      "dmg_health": 17,
+      "health": 83,
+      "weapon": "mac10"
+    },
+    {
+      "tick": 11325,
+      "total_rounds_played": 3,
+      "attacker_steamid": "76561198000000002",
+      "user_steamid": "76561198000000005",
+      "attacker_team_num": 3.0,
+      "user_team_num": 2,
+      "dmg_health": 24,
+      "health": 71,
+      "weapon": "m4a1"
+    },
+    {
+      "tick": 11325,
+      "total_rounds_played": 3,
+      "attacker_steamid": "76561198000000002",
+      "user_steamid": "76561198000000004",
+      "attacker_team_num": 3.0,
+      "user_team_num": 2,
+      "dmg_health": 81,
+      "health": 0,
+      "weapon": "m4a1"
+    },
+    {
+      "tick": 11331,
+      "total_rounds_played": 3,
+      "attacker_steamid": "76561198000000001",
+      "user_steamid": "76561198000000002",
+      "attacker_team_num": 2.0,
+      "user_team_num": 3,
+      "dmg_health": 14,
+      "health": 69,
+      "weapon": "mac10"
+    },
+    {
+      "tick": 11331,
+      "total_rounds_played": 3,
+      "attacker_steamid": "76561198000000002",
+      "user_steamid": "76561198000000005",
+      "attacker_team_num": 3.0,
+      "user_team_num": 2,
+      "dmg_health": 24,
+      "health": 46,
+      "weapon": "m4a1"
+    },
+    {
+      "tick": 11331,
+      "total_rounds_played": 3,
+      "attacker_steamid": "76561198000000005",
+      "user_steamid": "76561198000000002",
+      "attacker_team_num": 2.0,
+      "user_team_num": 3,
+      "dmg_health": 65,
+      "health": 4,
+      "weapon": "mp7"
+    },
+    {
+      "tick": 11336,
+      "total_rounds_played": 3,
+      "attacker_steamid": "76561198000000005",
+      "user_steamid": "76561198000000002",
+      "attacker_team_num": 2.0,
+      "user_team_num": 3,
+      "dmg_health": 65,
+      "health": 0,
+      "weapon": "mp7"
+    },
+    {
+      "tick": 11343,
+      "total_rounds_played": 3,
+      "attacker_steamid": "76561198000000010",
+      "user_steamid": "76561198000000008",
+      "attacker_team_num": 3.0,
+      "user_team_num": 2,
+      "dmg_health": 16,
+      "health": 73,
+      "weapon": "hegrenade"
+    },
+    {
+      "tick": 11343,
+      "total_rounds_played": 3,
+      "attacker_steamid": "76561198000000010",
+      "user_steamid": "76561198000000005",
+      "attacker_team_num": 3.0,
+      "user_team_num": 2,
+      "dmg_health": 8,
+      "health": 38,
+      "weapon": "hegrenade"
+    },
+    {
+      "tick": 11355,
+      "total_rounds_played": 3,
+      "attacker_steamid": "76561198000000010",
+      "user_steamid": "76561198000000001",
+      "attacker_team_num": 3.0,
+      "user_team_num": 2,
+      "dmg_health": 24,
+      "health": 0,
+      "weapon": "famas"
+    },
+    {
+      "tick": 11522,
+      "total_rounds_played": 3,
+      "attacker_steamid": "76561198000000010",
+      "user_steamid": "76561198000000008",
+      "attacker_team_num": 3.0,
+      "user_team_num": 2,
+      "dmg_health": 27,
+      "health": 46,
+      "weapon": "famas"
+    },
+    {
+      "tick": 11525,
+      "total_rounds_played": 3,
+      "attacker_steamid": "76561198000000008",
+      "user_steamid": "76561198000000010",
+      "attacker_team_num": 2.0,
+      "user_team_num": 3,
+      "dmg_health": 42,
+      "health": 58,
+      "weapon": "mac10"
+    },
+    {
+      "tick": 11530,
+      "total_rounds_played": 3,
+      "attacker_steamid": "76561198000000008",
+      "user_steamid": "76561198000000010",
+      "attacker_team_num": 2.0,
+      "user_team_num": 3,
+      "dmg_health": 13,
+      "health": 44,
+      "weapon": "mac10"
+    },
+    {
+      "tick": 11535,
+      "total_rounds_played": 3,
+      "attacker_steamid": "76561198000000008",
+      "user_steamid": "76561198000000010",
+      "attacker_team_num": 2.0,
+      "user_team_num": 3,
+      "dmg_health": 13,
+      "health": 31,
+      "weapon": "mac10"
+    },
+    {
+      "tick": 11540,
+      "total_rounds_played": 3,
+      "attacker_steamid": "76561198000000008",
+      "user_steamid": "76561198000000010",
+      "attacker_team_num": 2.0,
+      "user_team_num": 3,
+      "dmg_health": 13,
+      "health": 17,
+      "weapon": "mac10"
+    },
+    {
+      "tick": 11569,
+      "total_rounds_played": 3,
+      "attacker_steamid": "76561198000000010",
+      "user_steamid": "76561198000000008",
+      "attacker_team_num": 3.0,
+      "user_team_num": 2,
+      "dmg_health": 110,
+      "health": 0,
+      "weapon": "famas"
+    },
+    {
+      "tick": 11769,
+      "total_rounds_played": 3,
+      "attacker_steamid": "76561198000000006",
+      "user_steamid": "76561198000000005",
+      "attacker_team_num": 3.0,
+      "user_team_num": 2,
+      "dmg_health": 81,
+      "health": 0,
+      "weapon": "famas"
+    },
+    {
+      "tick": 64244,
+      "total_rounds_played": 13,
+      "attacker_steamid": "76561198000000010",
+      "user_steamid": "76561198000000007",
+      "attacker_team_num": 3.0,
+      "user_team_num": 2,
+      "dmg_health": 111,
+      "health": 0,
+      "weapon": "awp"
+    },
+    {
+      "tick": 64526,
+      "total_rounds_played": 13,
+      "attacker_steamid": "76561198000000004",
+      "user_steamid": "76561198000000003",
+      "attacker_team_num": 2.0,
+      "user_team_num": 3,
+      "dmg_health": 16,
+      "health": 84,
+      "weapon": "mp7"
+    },
+    {
+      "tick": 64533,
+      "total_rounds_played": 13,
+      "attacker_steamid": "76561198000000003",
+      "user_steamid": "76561198000000004",
+      "attacker_team_num": 3.0,
+      "user_team_num": 2,
+      "dmg_health": 111,
+      "health": 0,
+      "weapon": "awp"
+    },
+    {
+      "tick": 65911,
+      "total_rounds_played": 13,
+      "attacker_steamid": "76561198000000010",
+      "user_steamid": "76561198000000005",
+      "attacker_team_num": 3.0,
+      "user_team_num": 2,
+      "dmg_health": 110,
+      "health": 0,
+      "weapon": "awp"
+    },
+    {
+      "tick": 66016,
+      "total_rounds_played": 13,
+      "attacker_steamid": "76561198000000001",
+      "user_steamid": "76561198000000009",
+      "attacker_team_num": 2.0,
+      "user_team_num": 3,
+      "dmg_health": 72,
+      "health": 28,
+      "weapon": "ssg08"
+    },
+    {
+      "tick": 66023,
+      "total_rounds_played": 13,
+      "attacker_steamid": "76561198000000009",
+      "user_steamid": "76561198000000001",
+      "attacker_team_num": 3.0,
+      "user_team_num": 2,
+      "dmg_health": 23,
+      "health": 77,
+      "weapon": "m4a1"
+    },
+    {
+      "tick": 66029,
+      "total_rounds_played": 13,
+      "attacker_steamid": "76561198000000009",
+      "user_steamid": "76561198000000001",
+      "attacker_team_num": 3.0,
+      "user_team_num": 2,
+      "dmg_health": 23,
+      "health": 53,
+      "weapon": "m4a1"
+    },
+    {
+      "tick": 66036,
+      "total_rounds_played": 13,
+      "attacker_steamid": "76561198000000009",
+      "user_steamid": "76561198000000001",
+      "attacker_team_num": 3.0,
+      "user_team_num": 2,
+      "dmg_health": 15,
+      "health": 37,
+      "weapon": "m4a1"
+    },
+    {
+      "tick": 66577,
+      "total_rounds_played": 13,
+      "attacker_steamid": "76561198000000008",
+      "user_steamid": "76561198000000009",
+      "attacker_team_num": 2.0,
+      "user_team_num": 3,
+      "dmg_health": 92,
+      "health": 0,
+      "weapon": "galilar"
+    },
+    {
+      "tick": 66989,
+      "total_rounds_played": 13,
+      "attacker_steamid": "76561198000000006",
+      "user_steamid": "76561198000000008",
+      "attacker_team_num": 3.0,
+      "user_team_num": 2,
+      "dmg_health": 32,
+      "health": 68,
+      "weapon": "m4a1"
+    },
+    {
+      "tick": 67015,
+      "total_rounds_played": 13,
+      "attacker_steamid": "76561198000000006",
+      "user_steamid": "76561198000000008",
+      "attacker_team_num": 3.0,
+      "user_team_num": 2,
+      "dmg_health": 89,
+      "health": 0,
+      "weapon": "m4a1"
+    },
+    {
+      "tick": 67528,
+      "total_rounds_played": 13,
+      "attacker_steamid": "76561198000000001",
+      "user_steamid": "76561198000000006",
+      "attacker_team_num": 2.0,
+      "user_team_num": 3,
+      "dmg_health": 51,
+      "health": 49,
+      "weapon": "glock"
+    },
+    {
+      "tick": 67538,
+      "total_rounds_played": 13,
+      "attacker_steamid": "76561198000000001",
+      "user_steamid": "76561198000000006",
+      "attacker_team_num": 2.0,
+      "user_team_num": 3,
+      "dmg_health": 12,
+      "health": 37,
+      "weapon": "glock"
+    },
+    {
+      "tick": 67542,
+      "total_rounds_played": 13,
+      "attacker_steamid": "76561198000000006",
+      "user_steamid": "76561198000000001",
+      "attacker_team_num": 3.0,
+      "user_team_num": 2,
+      "dmg_health": 25,
+      "health": 12,
+      "weapon": "m4a1"
+    },
+    {
+      "tick": 67548,
+      "total_rounds_played": 13,
+      "attacker_steamid": "76561198000000006",
+      "user_steamid": "76561198000000001",
+      "attacker_team_num": 3.0,
+      "user_team_num": 2,
+      "dmg_health": 25,
+      "health": 0,
+      "weapon": "m4a1"
+    },
+    {
+      "tick": 70477,
+      "total_rounds_played": 14,
+      "attacker_steamid": "76561198000000008",
+      "user_steamid": "76561198000000009",
+      "attacker_team_num": 3.0,
+      "user_team_num": 2,
+      "dmg_health": 133,
+      "health": 0,
+      "weapon": "hkp2000"
+    },
+    {
+      "tick": 70488,
+      "total_rounds_played": 14,
+      "attacker_steamid": "76561198000000001",
+      "user_steamid": "76561198000000002",
+      "attacker_team_num": 3.0,
+      "user_team_num": 2,
+      "dmg_health": 14,
+      "health": 86,
+      "weapon": "hkp2000"
+    },
+    {
+      "tick": 70488,
+      "total_rounds_played": 14,
+      "attacker_steamid": "76561198000000001",
+      "user_steamid": "76561198000000003",
+      "attacker_team_num": 3.0,
+      "user_team_num": 2,
+      "dmg_health": 2,
+      "health": 98,
+      "weapon": "hkp2000"
+    },
+    {
+      "tick": 70501,
+      "total_rounds_played": 14,
+      "attacker_steamid": "76561198000000001",
+      "user_steamid": "76561198000000002",
+      "attacker_team_num": 3.0,
+      "user_team_num": 2,
+      "dmg_health": 14,
+      "health": 71,
+      "weapon": "hkp2000"
+    },
+    {
+      "tick": 70536,
+      "total_rounds_played": 14,
+      "attacker_steamid": "76561198000000006",
+      "user_steamid": "76561198000000008",
+      "attacker_team_num": 2.0,
+      "user_team_num": 3,
+      "dmg_health": 4,
+      "health": 96,
+      "weapon": "glock"
+    },
+    {
+      "tick": 70540,
+      "total_rounds_played": 14,
+      "attacker_steamid": "76561198000000002",
+      "user_steamid": "76561198000000008",
+      "attacker_team_num": 2.0,
+      "user_team_num": 3,
+      "dmg_health": 112,
+      "health": 0,
+      "weapon": "glock"
+    },
+    {
+      "tick": 70577,
+      "total_rounds_played": 14,
+      "attacker_steamid": "76561198000000001",
+      "user_steamid": "76561198000000003",
+      "attacker_team_num": 3.0,
+      "user_team_num": 2,
+      "dmg_health": 17,
+      "health": 81,
+      "weapon": "hkp2000"
+    },
+    {
+      "tick": 70590,
+      "total_rounds_played": 14,
+      "attacker_steamid": "76561198000000001",
+      "user_steamid": "76561198000000003",
+      "attacker_team_num": 3.0,
+      "user_team_num": 2,
+      "dmg_health": 111,
+      "health": 0,
+      "weapon": "hkp2000"
+    },
+    {
+      "tick": 70799,
+      "total_rounds_played": 14,
+      "attacker_steamid": "76561198000000001",
+      "user_steamid": "76561198000000010",
+      "attacker_team_num": 3.0,
+      "user_team_num": 2,
+      "dmg_health": 38,
+      "health": 62,
+      "weapon": "hkp2000"
+    },
+    {
+      "tick": 70810,
+      "total_rounds_played": 14,
+      "attacker_steamid": "76561198000000001",
+      "user_steamid": "76561198000000010",
+      "attacker_team_num": 3.0,
+      "user_team_num": 2,
+      "dmg_health": 30,
+      "health": 32,
+      "weapon": "hkp2000"
+    },
+    {
+      "tick": 70975,
+      "total_rounds_played": 14,
+      "attacker_steamid": "76561198000000010",
+      "user_steamid": "76561198000000001",
+      "attacker_team_num": 2.0,
+      "user_team_num": 3,
+      "dmg_health": 11,
+      "health": 89,
+      "weapon": "glock"
+    },
+    {
+      "tick": 70982,
+      "total_rounds_played": 14,
+      "attacker_steamid": "76561198000000001",
+      "user_steamid": "76561198000000010",
+      "attacker_team_num": 3.0,
+      "user_team_num": 2,
+      "dmg_health": 30,
+      "health": 1,
+      "weapon": "hkp2000"
+    },
+    {
+      "tick": 70998,
+      "total_rounds_played": 14,
+      "attacker_steamid": "76561198000000010",
+      "user_steamid": "76561198000000001",
+      "attacker_team_num": 2.0,
+      "user_team_num": 3,
+      "dmg_health": 11,
+      "health": 78,
+      "weapon": "glock"
+    },
+    {
+      "tick": 71042,
+      "total_rounds_played": 14,
+      "attacker_steamid": "76561198000000005",
+      "user_steamid": "76561198000000010",
+      "attacker_team_num": 3.0,
+      "user_team_num": 2,
+      "dmg_health": 106,
+      "health": 0,
+      "weapon": "elite"
+    },
+    {
+      "tick": 71097,
+      "total_rounds_played": 14,
+      "attacker_steamid": "76561198000000005",
+      "user_steamid": "76561198000000002",
+      "attacker_team_num": 3.0,
+      "user_team_num": 2,
+      "dmg_health": 20,
+      "health": 50,
+      "weapon": "elite"
+    },
+    {
+      "tick": 71099,
+      "total_rounds_played": 14,
+      "attacker_steamid": "76561198000000006",
+      "user_steamid": "76561198000000007",
+      "attacker_team_num": 2.0,
+      "user_team_num": 3,
+      "dmg_health": 104,
+      "health": 0,
+      "weapon": "glock"
+    },
+    {
+      "tick": 71161,
+      "total_rounds_played": 14,
+      "attacker_steamid": "76561198000000006",
+      "user_steamid": "76561198000000001",
+      "attacker_team_num": 2.0,
+      "user_team_num": 3,
+      "dmg_health": 11,
+      "health": 66,
+      "weapon": "glock"
+    },
+    {
+      "tick": 71165,
+      "total_rounds_played": 14,
+      "attacker_steamid": "76561198000000001",
+      "user_steamid": "76561198000000006",
+      "attacker_team_num": 3.0,
+      "user_team_num": 2,
+      "dmg_health": 15,
+      "health": 85,
+      "weapon": "hkp2000"
+    },
+    {
+      "tick": 71177,
+      "total_rounds_played": 14,
+      "attacker_steamid": "76561198000000001",
+      "user_steamid": "76561198000000006",
+      "attacker_team_num": 3.0,
+      "user_team_num": 2,
+      "dmg_health": 19,
+      "health": 65,
+      "weapon": "hkp2000"
+    },
+    {
+      "tick": 71182,
+      "total_rounds_played": 14,
+      "attacker_steamid": "76561198000000006",
+      "user_steamid": "76561198000000001",
+      "attacker_team_num": 2.0,
+      "user_team_num": 3,
+      "dmg_health": 11,
+      "health": 55,
+      "weapon": "glock"
+    },
+    {
+      "tick": 71205,
+      "total_rounds_played": 14,
+      "attacker_steamid": "76561198000000006",
+      "user_steamid": "76561198000000001",
+      "attacker_team_num": 2.0,
+      "user_team_num": 3,
+      "dmg_health": 11,
+      "health": 43,
+      "weapon": "glock"
+    },
+    {
+      "tick": 71214,
+      "total_rounds_played": 14,
+      "attacker_steamid": "76561198000000001",
+      "user_steamid": "76561198000000006",
+      "attacker_team_num": 3.0,
+      "user_team_num": 2,
+      "dmg_health": 125,
+      "health": 0,
+      "weapon": "hkp2000"
+    },
+    {
+      "tick": 71215,
+      "total_rounds_played": 14,
+      "attacker_steamid": "76561198000000005",
+      "user_steamid": "76561198000000002",
+      "attacker_team_num": 3.0,
+      "user_team_num": 2,
+      "dmg_health": 19,
+      "health": 31,
+      "weapon": "elite"
+    },
+    {
+      "tick": 71226,
+      "total_rounds_played": 14,
+      "attacker_steamid": "76561198000000005",
+      "user_steamid": "76561198000000002",
+      "attacker_team_num": 3.0,
+      "user_team_num": 2,
+      "dmg_health": 19,
+      "health": 11,
+      "weapon": "elite"
+    },
+    {
+      "tick": 71235,
+      "total_rounds_played": 14,
+      "attacker_steamid": "76561198000000005",
+      "user_steamid": "76561198000000002",
+      "attacker_team_num": 3.0,
+      "user_team_num": 2,
+      "dmg_health": 19,
+      "health": 0,
+      "weapon": "elite"
+    }
+  ],
+  "player_blinds": [
+    {
+      "tick": 10394,
+      "total_rounds_played": 3,
+      "attacker_steamid": "76561198000000002",
+      "user_steamid": "76561198000000009",
+      "attacker_team_num": 3,
+      "user_team_num": 3,
+      "blind_duration": 4.2484912872,
+      "entityid": 434
+    },
+    {
+      "tick": 10394,
+      "total_rounds_played": 3,
+      "attacker_steamid": "76561198000000002",
+      "user_steamid": "76561198000000007",
+      "attacker_team_num": 3,
+      "user_team_num": 2,
+      "blind_duration": 2.0474734306,
+      "entityid": 434
+    },
+    {
+      "tick": 10394,
+      "total_rounds_played": 3,
+      "attacker_steamid": "76561198000000002",
+      "user_steamid": "76561198000000008",
+      "attacker_team_num": 3,
+      "user_team_num": 2,
+      "blind_duration": 0.7131751776,
+      "entityid": 434
+    },
+    {
+      "tick": 10394,
+      "total_rounds_played": 3,
+      "attacker_steamid": "76561198000000002",
+      "user_steamid": "76561198000000004",
+      "attacker_team_num": 3,
+      "user_team_num": 2,
+      "blind_duration": 4.923368454,
+      "entityid": 434
+    },
+    {
+      "tick": 10394,
+      "total_rounds_played": 3,
+      "attacker_steamid": "76561198000000002",
+      "user_steamid": "76561198000000005",
+      "attacker_team_num": 3,
+      "user_team_num": 2,
+      "blind_duration": 4.7685141563,
+      "entityid": 434
+    },
+    {
+      "tick": 10394,
+      "total_rounds_played": 3,
+      "attacker_steamid": "76561198000000002",
+      "user_steamid": "76561198000000001",
+      "attacker_team_num": 3,
+      "user_team_num": 2,
+      "blind_duration": 4.6451473236,
+      "entityid": 434
+    },
+    {
+      "tick": 10456,
+      "total_rounds_played": 3,
+      "attacker_steamid": "76561198000000005",
+      "user_steamid": "76561198000000009",
+      "attacker_team_num": 2,
+      "user_team_num": 3,
+      "blind_duration": 5.1988406181,
+      "entityid": 177
+    },
+    {
+      "tick": 10456,
+      "total_rounds_played": 3,
+      "attacker_steamid": "76561198000000005",
+      "user_steamid": "76561198000000007",
+      "attacker_team_num": 2,
+      "user_team_num": 2,
+      "blind_duration": 1.4862554073,
+      "entityid": 177
+    },
+    {
+      "tick": 10456,
+      "total_rounds_played": 3,
+      "attacker_steamid": "76561198000000005",
+      "user_steamid": "76561198000000008",
+      "attacker_team_num": 2,
+      "user_team_num": 2,
+      "blind_duration": 1.1736215353,
+      "entityid": 177
+    },
+    {
+      "tick": 10456,
+      "total_rounds_played": 3,
+      "attacker_steamid": "76561198000000005",
+      "user_steamid": "76561198000000004",
+      "attacker_team_num": 2,
+      "user_team_num": 2,
+      "blind_duration": 3.9546203613,
+      "entityid": 177
+    },
+    {
+      "tick": 10456,
+      "total_rounds_played": 3,
+      "attacker_steamid": "76561198000000005",
+      "user_steamid": "76561198000000005",
+      "attacker_team_num": 2,
+      "user_team_num": 2,
+      "blind_duration": 3.7997589111,
+      "entityid": 177
+    },
+    {
+      "tick": 10456,
+      "total_rounds_played": 3,
+      "attacker_steamid": "76561198000000005",
+      "user_steamid": "76561198000000001",
+      "attacker_team_num": 2,
+      "user_team_num": 2,
+      "blind_duration": 3.6763916016,
+      "entityid": 177
+    },
+    {
+      "tick": 10991,
+      "total_rounds_played": 3,
+      "attacker_steamid": "76561198000000002",
+      "user_steamid": "76561198000000008",
+      "attacker_team_num": 3,
+      "user_team_num": 2,
+      "blind_duration": 4.5360622406,
+      "entityid": 151
+    },
+    {
+      "tick": 10991,
+      "total_rounds_played": 3,
+      "attacker_steamid": "76561198000000002",
+      "user_steamid": "76561198000000004",
+      "attacker_team_num": 3,
+      "user_team_num": 2,
+      "blind_duration": 4.5972676277,
+      "entityid": 151
+    },
+    {
+      "tick": 10991,
+      "total_rounds_played": 3,
+      "attacker_steamid": "76561198000000002",
+      "user_steamid": "76561198000000005",
+      "attacker_team_num": 3,
+      "user_team_num": 2,
+      "blind_duration": 0.7660604715,
+      "entityid": 151
+    },
+    {
+      "tick": 66950,
+      "total_rounds_played": 13,
+      "attacker_steamid": "76561198000000008",
+      "user_steamid": "76561198000000008",
+      "attacker_team_num": 2,
+      "user_team_num": 2,
+      "blind_duration": 0.7574788332,
+      "entityid": 479
+    },
+    {
+      "tick": 66950,
+      "total_rounds_played": 13,
+      "attacker_steamid": "76561198000000008",
+      "user_steamid": "76561198000000006",
+      "attacker_team_num": 2,
+      "user_team_num": 3,
+      "blind_duration": 1.0331710577,
+      "entityid": 479
+    },
+    {
+      "tick": 70336,
+      "total_rounds_played": 14,
+      "attacker_steamid": "76561198000000010",
+      "user_steamid": "76561198000000008",
+      "attacker_team_num": 2,
+      "user_team_num": 3,
+      "blind_duration": 1.7089704275,
+      "entityid": 327
+    },
+    {
+      "tick": 70336,
+      "total_rounds_played": 14,
+      "attacker_steamid": "76561198000000010",
+      "user_steamid": "76561198000000001",
+      "attacker_team_num": 2,
+      "user_team_num": 3,
+      "blind_duration": 4.2212128639,
+      "entityid": 327
+    },
+    {
+      "tick": 70498,
+      "total_rounds_played": 14,
+      "attacker_steamid": "76561198000000010",
+      "user_steamid": "76561198000000009",
+      "attacker_team_num": 2,
+      "user_team_num": 2,
+      "blind_duration": 1.7865169048,
+      "entityid": 435
+    },
+    {
+      "tick": 70498,
+      "total_rounds_played": 14,
+      "attacker_steamid": "76561198000000010",
+      "user_steamid": "76561198000000008",
+      "attacker_team_num": 2,
+      "user_team_num": 3,
+      "blind_duration": 3.0594117641,
+      "entityid": 435
+    },
+    {
+      "tick": 70498,
+      "total_rounds_played": 14,
+      "attacker_steamid": "76561198000000010",
+      "user_steamid": "76561198000000001",
+      "attacker_team_num": 2,
+      "user_team_num": 3,
+      "blind_duration": 1.6899414062,
+      "entityid": 435
+    }
+  ],
+  "round_roster": [
+    {
+      "tick": 1,
+      "steamid": "76561198000000003",
+      "name": "A1",
+      "team_num": 3,
+      "total_rounds_played": 1
+    },
+    {
+      "tick": 1,
+      "steamid": "76561198000000008",
+      "name": "B1",
+      "team_num": 2,
+      "total_rounds_played": 1
+    },
+    {
+      "tick": 1,
+      "steamid": "76561198000000002",
+      "name": "A2",
+      "team_num": 3,
+      "total_rounds_played": 1
+    },
+    {
+      "tick": 1,
+      "steamid": "76561198000000006",
+      "name": "A4",
+      "team_num": 3,
+      "total_rounds_played": 1
+    },
+    {
+      "tick": 1,
+      "steamid": "76561198000000009",
+      "name": "A5",
+      "team_num": 3,
+      "total_rounds_played": 1
+    },
+    {
+      "tick": 1,
+      "steamid": "76561198000000010",
+      "name": "A3",
+      "team_num": 3,
+      "total_rounds_played": 1
+    },
+    {
+      "tick": 1,
+      "steamid": "76561198000000004",
+      "name": "B5",
+      "team_num": 2,
+      "total_rounds_played": 1
+    },
+    {
+      "tick": 1,
+      "steamid": "76561198000000005",
+      "name": "B3",
+      "team_num": 2,
+      "total_rounds_played": 1
+    },
+    {
+      "tick": 1,
+      "steamid": "76561198000000007",
+      "name": "B4",
+      "team_num": 2,
+      "total_rounds_played": 1
+    },
+    {
+      "tick": 1,
+      "steamid": "76561198000000001",
+      "name": "B2",
+      "team_num": 2,
+      "total_rounds_played": 1
+    },
+    {
+      "tick": 4009,
+      "steamid": "76561198000000003",
+      "name": "A1",
+      "team_num": 3,
+      "total_rounds_played": 2
+    },
+    {
+      "tick": 4009,
+      "steamid": "76561198000000008",
+      "name": "B1",
+      "team_num": 2,
+      "total_rounds_played": 2
+    },
+    {
+      "tick": 4009,
+      "steamid": "76561198000000002",
+      "name": "A2",
+      "team_num": 3,
+      "total_rounds_played": 2
+    },
+    {
+      "tick": 4009,
+      "steamid": "76561198000000006",
+      "name": "A4",
+      "team_num": 3,
+      "total_rounds_played": 2
+    },
+    {
+      "tick": 4009,
+      "steamid": "76561198000000009",
+      "name": "A5",
+      "team_num": 3,
+      "total_rounds_played": 2
+    },
+    {
+      "tick": 4009,
+      "steamid": "76561198000000010",
+      "name": "A3",
+      "team_num": 3,
+      "total_rounds_played": 2
+    },
+    {
+      "tick": 4009,
+      "steamid": "76561198000000004",
+      "name": "B5",
+      "team_num": 2,
+      "total_rounds_played": 2
+    },
+    {
+      "tick": 4009,
+      "steamid": "76561198000000005",
+      "name": "B3",
+      "team_num": 2,
+      "total_rounds_played": 2
+    },
+    {
+      "tick": 4009,
+      "steamid": "76561198000000007",
+      "name": "B4",
+      "team_num": 2,
+      "total_rounds_played": 2
+    },
+    {
+      "tick": 4009,
+      "steamid": "76561198000000001",
+      "name": "B2",
+      "team_num": 2,
+      "total_rounds_played": 2
+    },
+    {
+      "tick": 8469,
+      "steamid": "76561198000000003",
+      "name": "A1",
+      "team_num": 3,
+      "total_rounds_played": 3
+    },
+    {
+      "tick": 8469,
+      "steamid": "76561198000000008",
+      "name": "B1",
+      "team_num": 2,
+      "total_rounds_played": 3
+    },
+    {
+      "tick": 8469,
+      "steamid": "76561198000000002",
+      "name": "A2",
+      "team_num": 3,
+      "total_rounds_played": 3
+    },
+    {
+      "tick": 8469,
+      "steamid": "76561198000000006",
+      "name": "A4",
+      "team_num": 3,
+      "total_rounds_played": 3
+    },
+    {
+      "tick": 8469,
+      "steamid": "76561198000000009",
+      "name": "A5",
+      "team_num": 3,
+      "total_rounds_played": 3
+    },
+    {
+      "tick": 8469,
+      "steamid": "76561198000000010",
+      "name": "A3",
+      "team_num": 3,
+      "total_rounds_played": 3
+    },
+    {
+      "tick": 8469,
+      "steamid": "76561198000000004",
+      "name": "B5",
+      "team_num": 2,
+      "total_rounds_played": 3
+    },
+    {
+      "tick": 8469,
+      "steamid": "76561198000000005",
+      "name": "B3",
+      "team_num": 2,
+      "total_rounds_played": 3
+    },
+    {
+      "tick": 8469,
+      "steamid": "76561198000000007",
+      "name": "B4",
+      "team_num": 2,
+      "total_rounds_played": 3
+    },
+    {
+      "tick": 8469,
+      "steamid": "76561198000000001",
+      "name": "B2",
+      "team_num": 2,
+      "total_rounds_played": 3
+    },
+    {
+      "tick": 62370,
+      "steamid": "76561198000000003",
+      "name": "A1",
+      "team_num": 3,
+      "total_rounds_played": 13
+    },
+    {
+      "tick": 62370,
+      "steamid": "76561198000000008",
+      "name": "B1",
+      "team_num": 2,
+      "total_rounds_played": 13
+    },
+    {
+      "tick": 62370,
+      "steamid": "76561198000000002",
+      "name": "A2",
+      "team_num": 3,
+      "total_rounds_played": 13
+    },
+    {
+      "tick": 62370,
+      "steamid": "76561198000000006",
+      "name": "A4",
+      "team_num": 3,
+      "total_rounds_played": 13
+    },
+    {
+      "tick": 62370,
+      "steamid": "76561198000000009",
+      "name": "A5",
+      "team_num": 3,
+      "total_rounds_played": 13
+    },
+    {
+      "tick": 62370,
+      "steamid": "76561198000000010",
+      "name": "A3",
+      "team_num": 3,
+      "total_rounds_played": 13
+    },
+    {
+      "tick": 62370,
+      "steamid": "76561198000000004",
+      "name": "B5",
+      "team_num": 2,
+      "total_rounds_played": 13
+    },
+    {
+      "tick": 62370,
+      "steamid": "76561198000000005",
+      "name": "B3",
+      "team_num": 2,
+      "total_rounds_played": 13
+    },
+    {
+      "tick": 62370,
+      "steamid": "76561198000000007",
+      "name": "B4",
+      "team_num": 2,
+      "total_rounds_played": 13
+    },
+    {
+      "tick": 62370,
+      "steamid": "76561198000000001",
+      "name": "B2",
+      "team_num": 2,
+      "total_rounds_played": 13
+    },
+    {
+      "tick": 68092,
+      "steamid": "76561198000000003",
+      "name": "A1",
+      "team_num": 2,
+      "total_rounds_played": 14
+    },
+    {
+      "tick": 68092,
+      "steamid": "76561198000000008",
+      "name": "B1",
+      "team_num": 3,
+      "total_rounds_played": 14
+    },
+    {
+      "tick": 68092,
+      "steamid": "76561198000000002",
+      "name": "A2",
+      "team_num": 2,
+      "total_rounds_played": 14
+    },
+    {
+      "tick": 68092,
+      "steamid": "76561198000000006",
+      "name": "A4",
+      "team_num": 2,
+      "total_rounds_played": 14
+    },
+    {
+      "tick": 68092,
+      "steamid": "76561198000000009",
+      "name": "A5",
+      "team_num": 2,
+      "total_rounds_played": 14
+    },
+    {
+      "tick": 68092,
+      "steamid": "76561198000000010",
+      "name": "A3",
+      "team_num": 2,
+      "total_rounds_played": 14
+    },
+    {
+      "tick": 68092,
+      "steamid": "76561198000000004",
+      "name": "B5",
+      "team_num": 3,
+      "total_rounds_played": 14
+    },
+    {
+      "tick": 68092,
+      "steamid": "76561198000000005",
+      "name": "B3",
+      "team_num": 3,
+      "total_rounds_played": 14
+    },
+    {
+      "tick": 68092,
+      "steamid": "76561198000000007",
+      "name": "B4",
+      "team_num": 3,
+      "total_rounds_played": 14
+    },
+    {
+      "tick": 68092,
+      "steamid": "76561198000000001",
+      "name": "B2",
+      "team_num": 3,
+      "total_rounds_played": 14
+    }
+  ]
+}

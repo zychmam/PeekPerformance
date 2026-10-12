@@ -6,9 +6,13 @@ build/
 .eggs/
 *.db
 .pytest_cache/
+.pytest-*/
 .mypy_cache/
 .ruff_cache/
 .streamlit/
 *.env
 *.dem
+*.dem.zst
+*.dem.gz
 tests/resources/
+streamlit-*.log

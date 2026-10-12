@@ -31,7 +31,10 @@ def mock_parser() -> MagicMock:
     )
     parser.parse_convars.return_value = {"sv_cheats": "0"}
     parser.list_game_events.return_value = ["player_death", "player_hurt", "round_end"]
-    parser.parse_event.return_value = pd.DataFrame()
+    parser.parse_event.side_effect = lambda name, **kwargs: (
+        pd.DataFrame([{"param1": "Alice", "param2": "gg"}])
+        if name == "chat_message" else pd.DataFrame()
+    )
     parser.parse_ticks.return_value = pd.DataFrame()
     parser.parse_grenades.return_value = pd.DataFrame()
     return parser
@@ -49,7 +52,9 @@ class TestDemoAnalyzerHeader:
 
 class TestDemoAnalyzerPlayerInfo:
     @patch("src.demos.demo_analyzer.DemoParser")
-    def test_get_player_info(self, mock_cls: MagicMock, demo_path: Path, mock_parser: MagicMock) -> None:
+    def test_get_player_info(
+        self, mock_cls: MagicMock, demo_path: Path, mock_parser: MagicMock
+    ) -> None:
         mock_cls.return_value = mock_parser
         analyzer = DemoAnalyzer(demo_path)
         info = analyzer.get_player_info()
@@ -59,7 +64,9 @@ class TestDemoAnalyzerPlayerInfo:
 
 class TestDemoAnalyzerChatMessages:
     @patch("src.demos.demo_analyzer.DemoParser")
-    def test_get_chat_messages(self, mock_cls: MagicMock, demo_path: Path, mock_parser: MagicMock) -> None:
+    def test_get_chat_messages(
+        self, mock_cls: MagicMock, demo_path: Path, mock_parser: MagicMock
+    ) -> None:
         mock_cls.return_value = mock_parser
         analyzer = DemoAnalyzer(demo_path)
         chat = analyzer.get_chat_messages()
@@ -98,14 +105,18 @@ class TestDemoAnalyzerFullAnalysis:
 
 class TestDemoAnalyzerListEvents:
     @patch("src.demos.demo_analyzer.DemoParser")
-    def test_list_events(self, mock_cls: MagicMock, demo_path: Path, mock_parser: MagicMock) -> None:
+    def test_list_events(
+        self, mock_cls: MagicMock, demo_path: Path, mock_parser: MagicMock
+    ) -> None:
         mock_cls.return_value = mock_parser
         analyzer = DemoAnalyzer(demo_path)
         events = analyzer.list_events()
         assert "player_death" in events
 
     @patch("src.demos.demo_analyzer.DemoParser")
-    def test_list_events_graceful_on_error(self, mock_cls: MagicMock, demo_path: Path, mock_parser: MagicMock) -> None:
+    def test_list_events_graceful_on_error(
+        self, mock_cls: MagicMock, demo_path: Path, mock_parser: MagicMock
+    ) -> None:
         mock_parser.list_game_events.side_effect = Exception("fail")
         mock_cls.return_value = mock_parser
         analyzer = DemoAnalyzer(demo_path)

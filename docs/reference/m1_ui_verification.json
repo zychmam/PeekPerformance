@@ -1,0 +1,13 @@
+{
+  "health": "ok",
+  "rounds_checked": [
+    1,
+    2
+  ],
+  "iframe_per_round": 1,
+  "player_change_reused_cache": true,
+  "parser_calls": 0,
+  "steamid_columns_visible": false,
+  "app_exceptions": 0,
+  "visual_browser_review": "unavailable: no enabled browser"
+}

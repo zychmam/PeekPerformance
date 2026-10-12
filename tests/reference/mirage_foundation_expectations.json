@@ -1,0 +1,26 @@
+{
+  "demo_hash": "bd296c05d542b9ee5b5fc261394f25190791469f022323152ba8bc8988e70ed0",
+  "review_method": "Inspected direct demoparser2 0.42.0 player_hurt, weapon_fire, smoke and parse_ticks outputs, independently of the new foundation builder. Independent in-game replay review remains pending.",
+  "rounds": 21,
+  "equipment_start_total": 210,
+  "round_1": {
+    "freeze_tick": 6828,
+    "first_enemy_damage_tick": 7556,
+    "first_firearm_damage_tick": 7556,
+    "first_enemy_kill_tick": 7802,
+    "setup_before_contact_tick": 7555,
+    "plant_tick": 8436,
+    "defuse_tick": 9671,
+    "defuse_kits": 0,
+    "helmets": 0,
+    "equipment_values": [300, 850, 850, 850, 850, 850, 850, 850, 900, 1350],
+    "utility_throw_ticks": [7423, 7821, 8214],
+    "smoke": {
+      "entityid": 744,
+      "throw_tick": 8214,
+      "effect_tick": 8320,
+      "observed_end_tick": 9732,
+      "display_end_tick": 9671
+    }
+  }
+}

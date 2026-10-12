@@ -1,0 +1,126 @@
+{
+  "review_method": "Hand review of exported parser events and spatial snapshots; no independent in-game replay.",
+  "cases": [
+    {
+      "id": "a_plant_defuse",
+      "round": 1,
+      "freeze_tick": 6828,
+      "end_tick": 9671,
+      "winner": "CT",
+      "reason": "bomb_defused",
+      "plant_tick": 8436,
+      "defuse_tick": 9671,
+      "opening": {
+        "tick": 7802,
+        "attacker": "P04",
+        "victim": "P03"
+      },
+      "refrag": {
+        "tick": 7874,
+        "attacker": "P01",
+        "victim": "P04",
+        "delay_ticks": 72
+      },
+      "scope": "A entry was reviewed separately; plant/defuse verified. Retake start is not labeled.",
+      "early_observations": {
+        "ct_counts_at_10_seconds": {
+          "A": 2,
+          "B": 2,
+          "mid": 1
+        },
+        "utility_effects_0_to_15_seconds_both_sides": 1,
+        "review_scope": "Reviewed stored navigation labels and utility event times; no independent video replay or causal tactical labels."
+      }
+    },
+    {
+      "id": "bomb_explodes",
+      "round": 6,
+      "freeze_tick": 32123,
+      "end_tick": 37686,
+      "winner": "T",
+      "reason": "bomb_exploded",
+      "plant_tick": 35062,
+      "scope": "Bomb explosion verified. Whether CT attempted a retake remains unlabeled.",
+      "early_observations": {
+        "ct_counts_at_10_seconds": {
+          "A": 2,
+          "connector / Connector": 1,
+          "mid": 2
+        },
+        "utility_effects_0_to_15_seconds_both_sides": 6,
+        "review_scope": "Reviewed stored navigation labels and utility event times; no independent video replay or causal tactical labels."
+      }
+    },
+    {
+      "id": "side_switch",
+      "round": 13,
+      "freeze_tick": 70601,
+      "end_tick": 74124,
+      "winner": "CT",
+      "reason": "t_killed",
+      "opening": {
+        "tick": 71380,
+        "attacker": "P01",
+        "victim": "P05"
+      },
+      "refrag": {
+        "tick": 71436,
+        "attacker": "P06",
+        "victim": "P01",
+        "delay_ticks": 56
+      },
+      "scope": "Exact roster swaps sides. Empty plant stream is not assumed complete.",
+      "early_observations": {
+        "ct_counts_at_10_seconds": {
+          "B": 2,
+          "mid": 1,
+          "connector / Stairs": 1,
+          "spawn / CTSpawn": 1
+        },
+        "utility_effects_0_to_15_seconds_both_sides": 0,
+        "review_scope": "Reviewed stored navigation labels and utility event times; no independent video replay or causal tactical labels."
+      }
+    },
+    {
+      "id": "b_plant_defuse",
+      "round": 20,
+      "freeze_tick": 104598,
+      "end_tick": 108640,
+      "winner": "CT",
+      "reason": "bomb_defused",
+      "plant_tick": 106815,
+      "defuse_tick": 108640,
+      "opening": {
+        "tick": 105780,
+        "attacker": "P02",
+        "victim": "P08"
+      },
+      "refrag": {
+        "tick": 105796,
+        "attacker": "P07",
+        "victim": "P02",
+        "delay_ticks": 16
+      },
+      "scope": "B plant and defuse verified; no automatic strategy or rotation label.",
+      "early_observations": {
+        "ct_counts_at_10_seconds": {
+          "A": 2,
+          "B": 1,
+          "connector / Connector": 1,
+          "spawn / CTSpawn": 1
+        },
+        "utility_effects_0_to_15_seconds_both_sides": 7,
+        "review_scope": "Reviewed stored navigation labels and utility event times; no independent video replay or causal tactical labels."
+      }
+    }
+  ],
+  "coverage_gaps": [
+    "Independent replay verification of parser positions and events",
+    "Stopped attack with nobody crossing into site: manual tactical label",
+    "Rotation trigger and start/arrival times",
+    "Successful and failed retake attempts with labeled beginning",
+    "Split, lurker involvement, switch and fake intent",
+    "Simultaneous independent fights on both sites",
+    "Missing event diagnostics for zero kills or no plant"
+  ]
+}

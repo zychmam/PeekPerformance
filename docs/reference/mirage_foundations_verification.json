@@ -1,0 +1,59 @@
+{
+  "demo": "1-2826a5a8-a40f-4b7f-8654-daf5abb2289b-1-1.dem",
+  "demo_hash": "bd296c05d542b9ee5b5fc261394f25190791469f022323152ba8bc8988e70ed0",
+  "rounds": 21,
+  "position_samples": 127630,
+  "equipment_observations": 2653,
+  "economy_snapshots": 210,
+  "bomb_events": {
+    "bomb_pickup": 49,
+    "bomb_dropped": 36,
+    "bomb_beginplant": 11,
+    "bomb_planted": 10,
+    "bomb_defused": 2,
+    "bomb_begindefuse": 2,
+    "bomb_exploded": 1
+  },
+  "shots": 2236,
+  "throws": 275,
+  "utility_effects": 267,
+  "utility_throw_matches": {
+    "unique_temporal_limited": 216,
+    "unknown": 51
+  },
+  "smoke_ends": {
+    "event": 63,
+    "estimated_22s": 11
+  },
+  "baseline_spatial_extraction_seconds": 6.719,
+  "cold_prepare_extract_build_save_seconds": 16.927,
+  "warm_context_read_seconds": 0.711,
+  "single_round_read_decode_seconds": 0.0654,
+  "baseline_parser_calls": {
+    "parse_header": 1,
+    "parse_event": 7,
+    "parse_ticks": 1,
+    "list_game_events": 1
+  },
+  "cold_parser_calls": {
+    "parse_header": 1,
+    "parse_event": 8,
+    "parse_ticks": 3,
+    "list_game_events": 1,
+    "parse_events": 1
+  },
+  "warm_parser_calls": {},
+  "baseline_spatial_bytes": 49411186,
+  "new_spatial_bytes": 50657329,
+  "round_foundations_bytes": 6278742,
+  "peak_working_set_before_e1_mib": 556.87,
+  "peak_working_set_mib": 702.23,
+  "measurement_notes": [
+    "Single local run; no latency or memory SLA inferred.",
+    "Baseline: same spatial/replay extraction, optional E1 reads disabled; includes precontact ticks.",
+    "Cold includes source-file hash verification, extraction, foundations and atomic SQLite save.",
+    "Peak working set is process lifetime high-water mark, including native parser allocations.",
+    "All writes use a temporary database; production baseline opened read-only.",
+    "No independent in-game replay review or tactical intention validation."
+  ]
+}

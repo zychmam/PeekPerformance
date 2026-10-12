@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="pl"><head><meta charset="utf-8"><style>
+*{box-sizing:border-box}body{margin:0;background:#10151f;color:#e5e7eb;font:14px system-ui}
+button,select{background:#253044;color:#fff;border:1px solid #526078;border-radius:6px;padding:8px;cursor:pointer}
+button:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid #f59e0b}
+.controls{display:flex;align-items:center;gap:10px;padding:10px;flex-wrap:wrap}
+#seek{flex:1;min-width:130px;accent-color:#f59e0b}.stage{display:flex;gap:12px;padding:0 10px}
+.map{position:relative;flex:1;max-width:650px;aspect-ratio:1}canvas{width:100%;height:100%;display:block}
+#roster{width:190px;overflow:auto;max-height:650px}.player{padding:5px 0;border-bottom:1px solid #283345}
+.note{color:#aebaca;font-size:12px;margin:8px 12px}#feed{min-height:36px;margin:8px 12px;color:#d1d5db}
+@media(max-width:650px){.stage{display:block}.map{max-width:100%}#roster{width:auto;max-height:100px;display:flex;flex-wrap:wrap;gap:12px}.player{font-size:12px}}
+</style></head><body>
+<div class="controls">
+<button id="play" aria-label="Odtwórz lub zatrzymaj">▶ Odtwórz</button>
+<button id="back" aria-label="Cofnij o ćwierć sekundy">−0,25 s</button>
+<button id="next" aria-label="Przesuń o ćwierć sekundy">+0,25 s</button>
+<input id="seek" type="range" min="0" step="0.015625" aria-label="Czas rundy">
+<span id="time"></span>
+<select id="speed" aria-label="Prędkość odtwarzania"><option value="0.5">×0,5</option><option value="1" selected>×1</option><option value="2">×2</option><option value="4">×4</option></select>
+</div>
+<div class="controls"><label><input type="checkbox" id="smooth"> Wygładź ruch między próbkami</label><label><input type="checkbox" id="smokes" checked> Aktywne smoke’y</label><label><input type="checkbox" id="shots" checked> Błyski strzałów</label><label><input type="checkbox" id="util" checked> Detonacje z ostatniej 1 s</label><select id="events" aria-label="Przejdź do zdarzenia"><option value="">Przejdź do zdarzenia…</option></select></div>
+<div class="stage"><div class="map"><canvas id="radar" width="1024" height="1024" aria-label="Animowany radar mapy"></canvas></div><div id="roster"></div></div>
+<div id="feed" aria-live="off"></div>
+<div class="note" id="quality"></div>
+<div class="note">Pomarańczowy: T · niebieski: CT · obwódka: wybrany gracz · ★: nosiciel bomby. Strzałka: kierunek patrzenia. Smoke’y mają orientacyjny obrys bez odwzorowania ścian; przy brakującym wygaśnięciu czas jest szacowany na 22 s. Krzyżyk: detonacja/start ognia. Wygładzanie jest interpolacją; radar nie odwzorowuje widoczności. Na mapach z poziomami wybierz właściwy poziom nad odtwarzaczem.</div>
+<img id="mapImage" src="data:image/png;base64,__RADAR__" hidden>
+<script id="data" type="application/json">__PAYLOAD__</script>
+<script>__SCRIPT__</script>
+</body></html>

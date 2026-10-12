@@ -1,0 +1,47 @@
+{
+  "demo_name": ".m2-mirage-real.dem",
+  "demo_id": "bd296c05d542b9ee5b5fc261394f25190791469f022323152ba8bc8988e70ed0",
+  "base_analysis_origin": "fresh_parser",
+  "counts": {
+    "clock": 21,
+    "states": 127630,
+    "utility": 267,
+    "equipment": 2653,
+    "economy": 210,
+    "bombs": 111,
+    "shots": 2236,
+    "throws": 275,
+    "utility_lifecycles": 267,
+    "smokes": 74
+  },
+  "entries": 25,
+  "historical_entry_round_site_tick_match": null,
+  "measurements": {
+    "cold_prepare_all_rounds_and_read_round_1_seconds": 18.092491000017617,
+    "warm_round_context_seconds": 0.17051480000372976,
+    "warm_round_tactical_report_seconds": 0.6412330999737605,
+    "map_semantics_rebuild_all_rounds_seconds": 3.9000312999705784,
+    "presentation_change_round_read_seconds": 0.1707590000005439
+  },
+  "cold_parser_calls": {
+    "parse_header": 1,
+    "parse_event": 8,
+    "parse_ticks": 3,
+    "list_game_events": 1,
+    "parse_events": 1
+  },
+  "warm_and_profile_change_parser_calls": {},
+  "stage_payload_bytes": {
+    "entries": 64820,
+    "foundations": 7261630,
+    "observations": 66923015,
+    "spatial": 7143540
+  },
+  "peak_process_working_set_mib": 856.45,
+  "notes": [
+    "One local run, not an SLA.",
+    "Peak includes all preceding stages and native parser.",
+    "All writes use a temporary database; source database opened read-only.",
+    "Independent in-game replay review remains open."
+  ]
+}

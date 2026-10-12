@@ -1,0 +1,359 @@
+{
+  "file": "1-2826a5a8-a40f-4b7f-8654-daf5abb2289b-1-1.dem",
+  "parser_version": "0.42.0",
+  "notes": [
+    "Event counts include warmup and pre-match rounds.",
+    "Not listed does not establish parser support or verified absence."
+  ],
+  "header": {
+    "server_name": "FACEIT.com register to play here",
+    "map_name": "de_mirage",
+    "demo_version_name": "valve_demo_2",
+    "demo_file_stamp": "PBDEMS2\u0000",
+    "allow_clientside_entities": "true",
+    "client_name": "SourceTV Demo",
+    "demo_version_guid": "8e9d71ab-04a1-4c01-bb61-acfede27c046",
+    "fullpackets_version": "2",
+    "allow_clientside_particles": "true",
+    "addons": "",
+    "game_directory": "/home/hz09430/cs2/game/csgo",
+    "patch_version": "14189"
+  },
+  "events": {
+    "round_freeze_end": {
+      "listed": true,
+      "rows": 23,
+      "columns": [
+        "tick"
+      ]
+    },
+    "bomb_planted": {
+      "listed": true,
+      "rows": 10,
+      "columns": [
+        "c4",
+        "site",
+        "tick",
+        "user_name",
+        "user_steamid"
+      ]
+    },
+    "bomb_defused": {
+      "listed": true,
+      "rows": 2,
+      "columns": [
+        "c4",
+        "site",
+        "tick",
+        "user_name",
+        "user_steamid"
+      ]
+    },
+    "bomb_exploded": {
+      "listed": true,
+      "rows": 1,
+      "columns": [
+        "c4",
+        "site",
+        "tick",
+        "user_name",
+        "user_steamid"
+      ]
+    },
+    "bomb_pickup": {
+      "listed": true,
+      "rows": 50,
+      "columns": [
+        "tick",
+        "user_name",
+        "user_steamid"
+      ]
+    },
+    "bomb_dropped": {
+      "listed": true,
+      "rows": 36,
+      "columns": [
+        "entindex",
+        "tick",
+        "user_name",
+        "user_steamid"
+      ]
+    },
+    "bomb_beginplant": {
+      "listed": true,
+      "rows": 11,
+      "columns": [
+        "site",
+        "tick",
+        "user_name",
+        "user_steamid"
+      ]
+    },
+    "bomb_abortplant": {
+      "listed": false,
+      "rows": null,
+      "columns": []
+    },
+    "bomb_begindefuse": {
+      "listed": true,
+      "rows": 2,
+      "columns": [
+        "haskit",
+        "tick",
+        "user_name",
+        "user_steamid"
+      ]
+    },
+    "bomb_abortdefuse": {
+      "listed": false,
+      "rows": null,
+      "columns": []
+    },
+    "weapon_fire": {
+      "listed": true,
+      "rows": 2970,
+      "columns": [
+        "silenced",
+        "tick",
+        "user_name",
+        "user_steamid",
+        "weapon"
+      ]
+    },
+    "grenade_thrown": {
+      "listed": false,
+      "rows": null,
+      "columns": []
+    },
+    "smokegrenade_detonate": {
+      "listed": true,
+      "rows": 75,
+      "columns": [
+        "entityid",
+        "tick",
+        "user_name",
+        "user_steamid",
+        "x",
+        "y",
+        "z"
+      ]
+    },
+    "smokegrenade_expired": {
+      "listed": true,
+      "rows": 63,
+      "columns": [
+        "entityid",
+        "tick",
+        "user_name",
+        "user_steamid",
+        "x",
+        "y",
+        "z"
+      ]
+    },
+    "flashbang_detonate": {
+      "listed": true,
+      "rows": 95,
+      "columns": [
+        "entityid",
+        "tick",
+        "user_name",
+        "user_steamid",
+        "x",
+        "y",
+        "z"
+      ]
+    },
+    "hegrenade_detonate": {
+      "listed": true,
+      "rows": 55,
+      "columns": [
+        "entityid",
+        "tick",
+        "user_name",
+        "user_steamid",
+        "x",
+        "y",
+        "z"
+      ]
+    },
+    "inferno_startburn": {
+      "listed": true,
+      "rows": 47,
+      "columns": [
+        "entityid",
+        "tick",
+        "user_name",
+        "user_steamid",
+        "x",
+        "y",
+        "z"
+      ]
+    },
+    "inferno_expire": {
+      "listed": true,
+      "rows": 46,
+      "columns": [
+        "entityid",
+        "tick",
+        "user_name",
+        "user_steamid",
+        "x",
+        "y",
+        "z"
+      ]
+    }
+  },
+  "properties": {
+    "inventory": {
+      "status": "ok",
+      "rows": 30,
+      "columns": [
+        "inventory",
+        "tick",
+        "steamid",
+        "name"
+      ],
+      "samples": [
+        {
+          "inventory": [
+            "M9 Bayonet",
+            "Flashbang",
+            "Flashbang",
+            "USP-S",
+            "M4A1-S",
+            "High Explosive Grenade",
+            "Smoke Grenade"
+          ]
+        },
+        {
+          "inventory": [
+            "Nomad Knife",
+            "USP-S",
+            "M4A1-S",
+            "Smoke Grenade",
+            "Incendiary Grenade",
+            "High Explosive Grenade"
+          ]
+        },
+        {
+          "inventory": [
+            "Shadow Daggers",
+            "Glock-18",
+            "AK-47",
+            "Flashbang",
+            "Molotov",
+            "High Explosive Grenade",
+            "Smoke Grenade",
+            "C4 Explosive"
+          ]
+        }
+      ]
+    },
+    "weapon": {
+      "status": "ok",
+      "rows": 30,
+      "columns": [
+        "active_weapon_name",
+        "tick",
+        "steamid",
+        "name"
+      ],
+      "samples": [
+        {
+          "active_weapon_name": "M9 Bayonet"
+        },
+        {
+          "active_weapon_name": "Nomad Knife"
+        },
+        {
+          "active_weapon_name": "Smoke Grenade"
+        }
+      ]
+    },
+    "armor": {
+      "status": "ok",
+      "rows": 30,
+      "columns": [
+        "has_helmet",
+        "armor_value",
+        "tick",
+        "steamid",
+        "name"
+      ],
+      "samples": [
+        {
+          "armor_value": 100,
+          "has_helmet": false
+        },
+        {
+          "armor_value": 100,
+          "has_helmet": false
+        },
+        {
+          "armor_value": 99,
+          "has_helmet": true
+        }
+      ]
+    },
+    "defuse": {
+      "status": "ok",
+      "rows": 30,
+      "columns": [
+        "has_defuser",
+        "tick",
+        "steamid",
+        "name"
+      ],
+      "samples": [
+        {
+          "has_defuser": false
+        },
+        {
+          "has_defuser": true
+        },
+        {
+          "has_defuser": false
+        }
+      ]
+    },
+    "economy": {
+      "status": "ok",
+      "rows": 30,
+      "columns": [
+        "balance",
+        "start_balance",
+        "cash_spent_this_round",
+        "current_equip_value",
+        "round_start_equip_value",
+        "tick",
+        "steamid",
+        "name"
+      ],
+      "samples": [
+        {
+          "balance": 1100,
+          "current_equip_value": 4750,
+          "cash_spent_this_round": 4550,
+          "start_balance": 5650,
+          "round_start_equip_value": 200
+        },
+        {
+          "balance": 1050,
+          "current_equip_value": 5450,
+          "cash_spent_this_round": 5250,
+          "start_balance": 6300,
+          "round_start_equip_value": 200
+        },
+        {
+          "balance": 11600,
+          "current_equip_value": 5100,
+          "cash_spent_this_round": 1000,
+          "start_balance": 12600,
+          "round_start_equip_value": 4100
+        }
+      ]
+    }
+  },
+  "seconds": 2.178
+}

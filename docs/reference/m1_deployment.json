@@ -1,0 +1,21 @@
+{
+  "schema_before": 7,
+  "schema_after": 8,
+  "previous_analyses": 1,
+  "current_analyses": 1,
+  "demo_id": "bd296c05d542b9ee5b5fc261394f25190791469f022323152ba8bc8988e70ed0",
+  "map": "de_mirage",
+  "rounds": 21,
+  "rated_players": 10,
+  "tracked_players_preserved": 3,
+  "source_demos_preserved": 3,
+  "config_unchanged": true,
+  "stage_round_counts": {
+    "entries": 21,
+    "foundations": 21,
+    "observations": 21,
+    "spatial": 21
+  },
+  "warm_round_without_parser": true,
+  "sqlite_integrity": "ok"
+}

@@ -1,0 +1,305 @@
+{
+  "demo": "1-57640da7-9cd0-4aca-890f-4c82c1344eee-1-1.dem.zst",
+  "map": "de_inferno",
+  "patch": "14186",
+  "rounds": 20,
+  "players": 10,
+  "kills": 138,
+  "bomb_events": 9,
+  "states_round_1": 11140,
+  "locations_round_1": {
+    "observed": 11140
+  },
+  "regions_round_1": {
+    "t_spawn": 255,
+    "ct_spawn": 3321,
+    "arch": 195,
+    "lower_mid": 122,
+    "ruins": 570,
+    "second_mid": 349,
+    "top_mid": 381,
+    "site_b": 3236,
+    "t_ramp": 1046,
+    "banana": 1008,
+    "apartments": 101,
+    "site_a": 181,
+    "middle": 333,
+    "balcony": 15,
+    "library": 27
+  },
+  "entries_round_1": [
+    {
+      "round": 1,
+      "site": "B",
+      "tick": 10858,
+      "routes": {
+        "Ruiny": 2
+      },
+      "participants": 2
+    },
+    {
+      "round": 1,
+      "site": "B",
+      "tick": 11830,
+      "routes": {
+        "Ruiny": 1
+      },
+      "participants": 1
+    }
+  ],
+  "locations_all_rounds": {
+    "observed": 153711,
+    "unknown": 39
+  },
+  "entries_all_rounds": [
+    {
+      "round": 1,
+      "site": "B",
+      "tick": 10858,
+      "routes": {
+        "Ruiny": 2
+      },
+      "participants": 2
+    },
+    {
+      "round": 1,
+      "site": "B",
+      "tick": 11830,
+      "routes": {
+        "Ruiny": 1
+      },
+      "participants": 1
+    },
+    {
+      "round": 3,
+      "site": "A",
+      "tick": 24551,
+      "routes": {
+        "Mid": 3
+      },
+      "participants": 3
+    },
+    {
+      "round": 4,
+      "site": "A",
+      "tick": 31306,
+      "routes": {
+        "Łuk": 2
+      },
+      "participants": 2
+    },
+    {
+      "round": 6,
+      "site": "A",
+      "tick": 40890,
+      "routes": {
+        "Quad": 1
+      },
+      "participants": 1
+    },
+    {
+      "round": 6,
+      "site": "A",
+      "tick": 41676,
+      "routes": {
+        "Mid": 1
+      },
+      "participants": 1
+    },
+    {
+      "round": 6,
+      "site": "A",
+      "tick": 42492,
+      "routes": {
+        "Mid": 2
+      },
+      "participants": 2
+    },
+    {
+      "round": 7,
+      "site": "B",
+      "tick": 47766,
+      "routes": {
+        "Banana": 1
+      },
+      "participants": 1
+    },
+    {
+      "round": 7,
+      "site": "B",
+      "tick": 49866,
+      "routes": {
+        "Banana": 1
+      },
+      "participants": 1
+    },
+    {
+      "round": 8,
+      "site": "A",
+      "tick": 55921,
+      "routes": {
+        "Mid": 2
+      },
+      "participants": 2
+    },
+    {
+      "round": 10,
+      "site": "B",
+      "tick": 67298,
+      "routes": {
+        "Banana": 3
+      },
+      "participants": 3
+    },
+    {
+      "round": 10,
+      "site": "B",
+      "tick": 68654,
+      "routes": {
+        "Banana": 1
+      },
+      "participants": 1
+    },
+    {
+      "round": 11,
+      "site": "B",
+      "tick": 74363,
+      "routes": {
+        "Banana": 2
+      },
+      "participants": 2
+    },
+    {
+      "round": 11,
+      "site": "B",
+      "tick": 75305,
+      "routes": {
+        "Banana": 1
+      },
+      "participants": 1
+    },
+    {
+      "round": 13,
+      "site": "A",
+      "tick": 86410,
+      "routes": {
+        "Balkon": 2
+      },
+      "participants": 2
+    },
+    {
+      "round": 14,
+      "site": "A",
+      "tick": 94561,
+      "routes": {
+        "Mid": 1
+      },
+      "participants": 1
+    },
+    {
+      "round": 15,
+      "site": "B",
+      "tick": 98481,
+      "routes": {
+        "Banana": 2
+      },
+      "participants": 2
+    },
+    {
+      "round": 15,
+      "site": "B",
+      "tick": 99567,
+      "routes": {
+        "Banana": 1
+      },
+      "participants": 1
+    },
+    {
+      "round": 16,
+      "site": "B",
+      "tick": 103718,
+      "routes": {
+        "Banana": 3
+      },
+      "participants": 3
+    },
+    {
+      "round": 19,
+      "site": "A",
+      "tick": 121791,
+      "routes": {
+        "Mid": 2
+      },
+      "participants": 2
+    },
+    {
+      "round": 20,
+      "site": "B",
+      "tick": 128089,
+      "routes": {
+        "Banana": 1
+      },
+      "participants": 1
+    },
+    {
+      "round": 20,
+      "site": "A",
+      "tick": 130567,
+      "routes": {
+        "Balkon": 1
+      },
+      "participants": 1
+    }
+  ],
+  "independent_plants": [
+    [
+      24989,
+      296,
+      "BombsiteA"
+    ],
+    [
+      32598,
+      296,
+      "BombsiteA"
+    ],
+    [
+      43380,
+      296,
+      "BombsiteA"
+    ],
+    [
+      51159,
+      1023,
+      "BombsiteB"
+    ],
+    [
+      56742,
+      296,
+      "BombsiteA"
+    ],
+    [
+      68896,
+      1023,
+      "BombsiteB"
+    ],
+    [
+      75721,
+      1023,
+      "BombsiteB"
+    ],
+    [
+      104167,
+      1023,
+      "BombsiteB"
+    ],
+    [
+      111971,
+      1023,
+      "BombsiteB"
+    ]
+  ],
+  "tactical_rounds_loaded": 1,
+  "radar_players": 10,
+  "radar_samples": 11140,
+  "cold_seconds": 33.04
+}

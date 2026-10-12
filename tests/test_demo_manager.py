@@ -5,7 +5,6 @@ from __future__ import annotations
 import gzip
 import time
 from pathlib import Path
-from unittest.mock import patch
 
 import pytest
 
@@ -63,8 +62,7 @@ class TestCleanup:
     def test_removes_old_files(self, dm: DemoManager) -> None:
         old = dm.demos_dir / "old.dem"
         old.write_bytes(b"data")
-        # Patch st_mtime to make the file appear old
-        real_stat = old.stat()
+        # Set st_mtime to make the file appear old.
         old_mtime = time.time() - 40 * 86400
         import os
         os.utime(old, (old_mtime, old_mtime))

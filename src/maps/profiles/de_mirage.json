@@ -1,0 +1,687 @@
+{
+  "schema_version": 1,
+  "map_name": "de_mirage",
+  "profile_version": 1,
+  "regions": [
+    {
+      "id": "site_a",
+      "name": "Site A",
+      "nav_labels": [
+        "BombsiteA"
+      ],
+      "kind": "site",
+      "site_id": "A",
+      "directions": [
+        "A"
+      ],
+      "support_sites": [],
+      "forward_sides": [],
+      "route_names": {},
+      "metadata": {
+        "source": "existing Mirage nav-label rules",
+        "verification": "reference-demo",
+        "legacy_zone": "A"
+      },
+      "route_requires_geometry": false,
+      "level_id": "main"
+    },
+    {
+      "id": "site_b",
+      "name": "Site B",
+      "nav_labels": [
+        "BombsiteB"
+      ],
+      "kind": "site",
+      "site_id": "B",
+      "directions": [
+        "B"
+      ],
+      "support_sites": [],
+      "forward_sides": [],
+      "route_names": {},
+      "metadata": {
+        "source": "existing Mirage nav-label rules",
+        "verification": "reference-demo",
+        "legacy_zone": "B"
+      },
+      "route_requires_geometry": false,
+      "level_id": "main"
+    },
+    {
+      "id": "ramp_a",
+      "name": "Rampa A",
+      "nav_labels": [
+        "TRamp"
+      ],
+      "kind": "approach",
+      "site_id": null,
+      "directions": [
+        "A"
+      ],
+      "support_sites": [],
+      "forward_sides": [
+        "CT"
+      ],
+      "route_names": {
+        "A": "Rampa A"
+      },
+      "metadata": {
+        "source": "existing Mirage nav-label rules",
+        "verification": "reference-demo",
+        "legacy_zone": "A approach"
+      },
+      "bounds": [
+        {
+          "x_min": 0,
+          "x_max": 650,
+          "y_min": -1800,
+          "y_max": -1250,
+          "z_min": -300,
+          "z_max": -100,
+          "include_max_z": false,
+          "nav_labels": [
+            "TRamp",
+            "PalaceAlley",
+            "PalaceInterior",
+            "Scaffolding"
+          ]
+        }
+      ],
+      "priority": 100,
+      "route_requires_geometry": true,
+      "level_id": "main"
+    },
+    {
+      "id": "palace",
+      "name": "Pałac",
+      "nav_labels": [
+        "PalaceInterior"
+      ],
+      "kind": "approach",
+      "site_id": null,
+      "directions": [
+        "A"
+      ],
+      "support_sites": [],
+      "forward_sides": [],
+      "route_names": {
+        "A": "Pałac"
+      },
+      "metadata": {
+        "source": "existing Mirage nav-label rules",
+        "verification": "reference-demo",
+        "legacy_zone": "A approach"
+      },
+      "bounds": [
+        {
+          "x_min": -200,
+          "x_max": 400,
+          "y_min": -2450,
+          "y_max": -1800,
+          "z_min": -100,
+          "z_max": 150,
+          "nav_labels": [
+            "TRamp",
+            "PalaceAlley",
+            "PalaceInterior",
+            "Scaffolding"
+          ]
+        }
+      ],
+      "priority": 100,
+      "route_requires_geometry": true,
+      "level_id": "main",
+      "geometry_required_labels": [
+        "PalaceInterior"
+      ]
+    },
+    {
+      "id": "alley_a",
+      "name": "Podejście A",
+      "nav_labels": [
+        "PalaceAlley"
+      ],
+      "kind": "approach",
+      "site_id": null,
+      "directions": [
+        "A"
+      ],
+      "support_sites": [],
+      "forward_sides": [
+        "CT"
+      ],
+      "route_names": {
+        "A": "Rampa A"
+      },
+      "metadata": {
+        "source": "existing Mirage nav-label rules",
+        "verification": "reference-demo",
+        "legacy_zone": "A approach"
+      },
+      "route_requires_geometry": true,
+      "level_id": "main"
+    },
+    {
+      "id": "scaffolding",
+      "name": "Rusztowanie",
+      "nav_labels": [
+        "Scaffolding"
+      ],
+      "kind": "approach",
+      "site_id": null,
+      "directions": [
+        "A"
+      ],
+      "support_sites": [],
+      "forward_sides": [],
+      "route_names": {
+        "A": "Pałac"
+      },
+      "metadata": {
+        "source": "existing Mirage nav-label rules",
+        "verification": "reference-demo",
+        "legacy_zone": "A approach"
+      },
+      "route_requires_geometry": true,
+      "level_id": "main"
+    },
+    {
+      "id": "apartments_b",
+      "name": "Apartamenty B",
+      "nav_labels": [
+        "Apartments"
+      ],
+      "kind": "approach",
+      "site_id": null,
+      "directions": [
+        "B"
+      ],
+      "support_sites": [],
+      "forward_sides": [
+        "CT"
+      ],
+      "route_names": {
+        "B": "Apartamenty B"
+      },
+      "metadata": {
+        "source": "existing Mirage nav-label rules",
+        "verification": "reference-demo",
+        "legacy_zone": "B approach"
+      },
+      "route_requires_geometry": false,
+      "level_id": "main"
+    },
+    {
+      "id": "alley_b",
+      "name": "Podejście B",
+      "nav_labels": [
+        "BackAlley"
+      ],
+      "kind": "approach",
+      "site_id": null,
+      "directions": [
+        "B"
+      ],
+      "support_sites": [],
+      "forward_sides": [
+        "CT"
+      ],
+      "route_names": {
+        "B": "Apartamenty B"
+      },
+      "metadata": {
+        "source": "existing Mirage nav-label rules",
+        "verification": "reference-demo",
+        "legacy_zone": "B approach"
+      },
+      "route_requires_geometry": false,
+      "level_id": "main"
+    },
+    {
+      "id": "short",
+      "name": "Short",
+      "nav_labels": [
+        "Catwalk"
+      ],
+      "kind": "connector",
+      "site_id": null,
+      "directions": [],
+      "support_sites": [
+        "B"
+      ],
+      "forward_sides": [],
+      "route_names": {
+        "B": "Short"
+      },
+      "metadata": {
+        "source": "existing Mirage nav-label rules",
+        "verification": "reference-demo",
+        "legacy_zone": "connector"
+      },
+      "route_requires_geometry": false,
+      "level_id": "main"
+    },
+    {
+      "id": "connector",
+      "name": "Connector",
+      "nav_labels": [
+        "Connector"
+      ],
+      "kind": "connector",
+      "site_id": null,
+      "directions": [],
+      "support_sites": [
+        "A"
+      ],
+      "forward_sides": [],
+      "route_names": {
+        "A": "Connector"
+      },
+      "metadata": {
+        "source": "existing Mirage nav-label rules",
+        "verification": "reference-demo",
+        "legacy_zone": "connector"
+      },
+      "route_requires_geometry": false,
+      "level_id": "main"
+    },
+    {
+      "id": "jungle",
+      "name": "Jungle",
+      "nav_labels": [
+        "Jungle"
+      ],
+      "kind": "connector",
+      "site_id": null,
+      "directions": [],
+      "support_sites": [
+        "A"
+      ],
+      "forward_sides": [],
+      "route_names": {
+        "A": "Jungle"
+      },
+      "metadata": {
+        "source": "existing Mirage nav-label rules",
+        "verification": "reference-demo",
+        "legacy_zone": "connector"
+      },
+      "route_requires_geometry": false,
+      "level_id": "main"
+    },
+    {
+      "id": "stairs",
+      "name": "Schody",
+      "nav_labels": [
+        "Stairs"
+      ],
+      "kind": "connector",
+      "site_id": null,
+      "directions": [],
+      "support_sites": [
+        "A"
+      ],
+      "forward_sides": [],
+      "route_names": {
+        "A": "Schody"
+      },
+      "metadata": {
+        "source": "existing Mirage nav-label rules",
+        "verification": "reference-demo",
+        "legacy_zone": "connector"
+      },
+      "route_requires_geometry": false,
+      "level_id": "main"
+    },
+    {
+      "id": "market",
+      "name": "Market",
+      "nav_labels": [
+        "Shop"
+      ],
+      "kind": "connector",
+      "site_id": null,
+      "directions": [],
+      "support_sites": [
+        "B"
+      ],
+      "forward_sides": [],
+      "route_names": {
+        "B": "Market"
+      },
+      "metadata": {
+        "source": "existing Mirage nav-label rules",
+        "verification": "reference-demo",
+        "legacy_zone": "connector"
+      },
+      "route_requires_geometry": false,
+      "level_id": "main"
+    },
+    {
+      "id": "van",
+      "name": "Van / Truck",
+      "nav_labels": [
+        "Truck"
+      ],
+      "kind": "connector",
+      "site_id": null,
+      "directions": [],
+      "support_sites": [
+        "B"
+      ],
+      "forward_sides": [],
+      "route_names": {
+        "B": "Van / Truck"
+      },
+      "metadata": {
+        "source": "existing Mirage nav-label rules",
+        "verification": "reference-demo",
+        "legacy_zone": "connector"
+      },
+      "route_requires_geometry": false,
+      "level_id": "main"
+    },
+    {
+      "id": "ladder",
+      "name": "Drabina",
+      "nav_labels": [
+        "Ladder"
+      ],
+      "kind": "connector",
+      "site_id": null,
+      "directions": [],
+      "support_sites": [],
+      "forward_sides": [],
+      "route_names": {},
+      "metadata": {
+        "source": "existing Mirage nav-label rules",
+        "verification": "reference-demo",
+        "legacy_zone": "connector"
+      },
+      "route_requires_geometry": false,
+      "level_id": "main"
+    },
+    {
+      "id": "mid",
+      "name": "Mid",
+      "nav_labels": [
+        "Middle"
+      ],
+      "kind": "mid",
+      "site_id": null,
+      "directions": [
+        "mid"
+      ],
+      "support_sites": [],
+      "forward_sides": [
+        "CT"
+      ],
+      "route_names": {},
+      "metadata": {
+        "source": "existing Mirage nav-label rules",
+        "verification": "reference-demo",
+        "legacy_zone": "mid"
+      },
+      "route_requires_geometry": false,
+      "level_id": "main"
+    },
+    {
+      "id": "top_mid",
+      "name": "Top mid",
+      "nav_labels": [
+        "TopofMid"
+      ],
+      "kind": "mid",
+      "site_id": null,
+      "directions": [
+        "mid"
+      ],
+      "support_sites": [],
+      "forward_sides": [
+        "CT"
+      ],
+      "route_names": {},
+      "metadata": {
+        "source": "existing Mirage nav-label rules",
+        "verification": "reference-demo",
+        "legacy_zone": "mid"
+      },
+      "route_requires_geometry": false,
+      "level_id": "main"
+    },
+    {
+      "id": "window",
+      "name": "Window",
+      "nav_labels": [
+        "SnipersNest"
+      ],
+      "kind": "mid",
+      "site_id": null,
+      "directions": [
+        "mid"
+      ],
+      "support_sites": [],
+      "forward_sides": [],
+      "route_names": {},
+      "metadata": {
+        "source": "existing Mirage nav-label rules",
+        "verification": "reference-demo",
+        "legacy_zone": "mid"
+      },
+      "route_requires_geometry": false,
+      "level_id": "main"
+    },
+    {
+      "id": "underpass",
+      "name": "Underpass",
+      "nav_labels": [
+        "Underpass"
+      ],
+      "kind": "mid",
+      "site_id": null,
+      "directions": [
+        "mid"
+      ],
+      "support_sites": [],
+      "forward_sides": [
+        "CT"
+      ],
+      "route_names": {},
+      "metadata": {
+        "source": "existing Mirage nav-label rules",
+        "verification": "reference-demo",
+        "legacy_zone": "mid"
+      },
+      "route_requires_geometry": false,
+      "level_id": "main"
+    },
+    {
+      "id": "spawn_t",
+      "name": "Spawn T",
+      "nav_labels": [
+        "TSpawn"
+      ],
+      "kind": "spawn",
+      "site_id": null,
+      "directions": [],
+      "support_sites": [],
+      "forward_sides": [
+        "CT"
+      ],
+      "route_names": {},
+      "metadata": {
+        "source": "existing Mirage nav-label rules",
+        "verification": "reference-demo",
+        "legacy_zone": "spawn"
+      },
+      "route_requires_geometry": false,
+      "level_id": "main"
+    },
+    {
+      "id": "spawn_ct",
+      "name": "Spawn CT",
+      "nav_labels": [
+        "CTSpawn"
+      ],
+      "kind": "spawn",
+      "site_id": null,
+      "directions": [],
+      "support_sites": [
+        "A"
+      ],
+      "forward_sides": [],
+      "route_names": {
+        "A": "CT spawn",
+        "B": "CT spawn"
+      },
+      "metadata": {
+        "source": "existing Mirage nav-label rules",
+        "verification": "reference-demo",
+        "legacy_zone": "spawn"
+      },
+      "route_requires_geometry": false,
+      "level_id": "main"
+    },
+    {
+      "id": "side_alley",
+      "name": "Side alley",
+      "nav_labels": [
+        "SideAlley"
+      ],
+      "kind": "other",
+      "site_id": null,
+      "directions": [],
+      "support_sites": [],
+      "forward_sides": [
+        "CT"
+      ],
+      "route_names": {},
+      "metadata": {
+        "source": "existing Mirage nav-label rules",
+        "verification": "reference-demo",
+        "legacy_zone": "other"
+      },
+      "route_requires_geometry": false,
+      "level_id": "main"
+    },
+    {
+      "id": "house",
+      "name": "House",
+      "nav_labels": [
+        "House"
+      ],
+      "kind": "other",
+      "site_id": null,
+      "directions": [],
+      "support_sites": [],
+      "forward_sides": [
+        "CT"
+      ],
+      "route_names": {},
+      "metadata": {
+        "source": "existing Mirage nav-label rules",
+        "verification": "reference-demo",
+        "legacy_zone": "other"
+      },
+      "route_requires_geometry": false,
+      "level_id": "main"
+    }
+  ],
+  "connections": [
+    {
+      "from_region": "ramp_a",
+      "to_region": "site_a",
+      "bidirectional": true,
+      "verification": "limited"
+    },
+    {
+      "from_region": "palace",
+      "to_region": "site_a",
+      "bidirectional": true,
+      "verification": "limited"
+    },
+    {
+      "from_region": "connector",
+      "to_region": "site_a",
+      "bidirectional": true,
+      "verification": "limited"
+    },
+    {
+      "from_region": "stairs",
+      "to_region": "site_a",
+      "bidirectional": true,
+      "verification": "limited"
+    },
+    {
+      "from_region": "jungle",
+      "to_region": "site_a",
+      "bidirectional": true,
+      "verification": "limited"
+    },
+    {
+      "from_region": "apartments_b",
+      "to_region": "site_b",
+      "bidirectional": true,
+      "verification": "limited"
+    },
+    {
+      "from_region": "short",
+      "to_region": "site_b",
+      "bidirectional": true,
+      "verification": "limited"
+    },
+    {
+      "from_region": "market",
+      "to_region": "site_b",
+      "bidirectional": true,
+      "verification": "limited"
+    },
+    {
+      "from_region": "connector",
+      "to_region": "mid",
+      "bidirectional": true,
+      "verification": "limited"
+    },
+    {
+      "from_region": "short",
+      "to_region": "mid",
+      "bidirectional": true,
+      "verification": "limited"
+    }
+  ],
+  "radar_levels": [
+    {
+      "id": "main",
+      "image": "src/assets/maps/de_mirage.png",
+      "origin_x": -3230,
+      "origin_y": 1713,
+      "scale": 5,
+      "width": 1024,
+      "height": 1024
+    }
+  ],
+  "capabilities": [
+    "regions",
+    "site_regions",
+    "approaches",
+    "support",
+    "directions",
+    "forward_positions",
+    "entry_routes",
+    "radar",
+    "site_boundaries",
+    "forward_presence"
+  ],
+  "compatibility": {
+    "verified_patch_versions": [
+      "14189"
+    ],
+    "unknown_patch": "unverified"
+  },
+  "coverage": {
+    "connections": "partial",
+    "geometry": "approach-boxes-only",
+    "visibility": "not_supported",
+    "source": "Mirage reference demo; inherited rules; no collision mesh"
+  }
+}

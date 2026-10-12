@@ -4,7 +4,6 @@ from __future__ import annotations
 
 import logging
 from pathlib import Path
-from typing import Any
 
 import pandas as pd
 from demoparser2 import DemoParser
@@ -12,6 +11,130 @@ from demoparser2 import DemoParser
 from src.models.models import DemoAnalysis
 
 logger = logging.getLogger(__name__)
+
+_ROUND_PROPS = ["total_rounds_played", "is_warmup_period"]
+_UTILITY_WEAPONS = {"hegrenade", "inferno", "molotov", "incgrenade"}
+
+
+def _live_events(events: pd.DataFrame) -> pd.DataFrame:
+    result = events.copy()
+    if "is_warmup_period" in result:
+        result = result[~result["is_warmup_period"].fillna(False).astype(bool)]
+    return result
+
+
+def normalize_rounds(
+    rounds: pd.DataFrame, starts: pd.DataFrame | None = None,
+) -> pd.DataFrame:
+    """Completed non-warmup rounds, numbered from 1 in chronological order.
+
+    Engine counters differ at event boundaries; round identity uses tick windows.
+    With starts available, exclude abandoned starts and post-round events. Without
+    starts, the previous round end is the conservative lower boundary. Warmup and
+    restart events must carry their parser flags. A repeated engine round 1
+    starts a new match segment; weapon choice alone never identifies knife rounds.
+    """
+    result = _live_events(rounds)
+    if result.empty or "tick" not in result:
+        return result
+    if "winner" in result:
+        result = result[result["winner"].isin([2, 3, "2", "3", "T", "CT", "TERRORIST"])]
+    if "reason" in result:
+        result = result[~result["reason"].isin([0, 16, "Game_Commencing", "game_commencing"])]
+    result = result.sort_values("tick").drop_duplicates("tick").reset_index(drop=True)
+    if "raw_total_rounds_played" not in result and "total_rounds_played" in result:
+        result["raw_total_rounds_played"] = result["total_rounds_played"]
+    if "raw_total_rounds_played" in result:
+        counters = pd.to_numeric(result["raw_total_rounds_played"], errors="coerce")
+        restarts = result.index[counters.eq(1) & counters.shift().ge(1)]
+        if len(restarts):
+            # FACEIT pre-match knife rounds can be marked non-warmup. Retain the
+            # final match segment after an explicit engine counter restart.
+            result = result.loc[restarts[-1]:].reset_index(drop=True)
+    result["total_rounds_played"] = range(1, len(result) + 1)
+    if starts is not None and not starts.empty and "tick" in starts:
+        start_ticks = _live_events(starts)["tick"].sort_values()
+        result["start_tick"] = [
+            start_ticks[start_ticks <= tick].max() for tick in result["tick"]
+        ]
+        result = result.dropna(subset=["start_tick"])
+    elif "start_tick" not in result:
+        result["start_tick"] = result["tick"].shift(fill_value=-1) + 1
+    return result
+
+
+def normalize_round_events(events: pd.DataFrame, rounds: pd.DataFrame) -> pd.DataFrame:
+    """Assign events to completed round windows, including their end tick."""
+    result = _live_events(events)
+    if result.empty:
+        return result
+    if rounds.empty or "tick" not in result:
+        return result.iloc[:0].copy()
+    if "raw_total_rounds_played" not in result and "total_rounds_played" in result:
+        result["raw_total_rounds_played"] = result["total_rounds_played"]
+    labels = pd.Series(pd.NA, index=result.index, dtype="Int64")
+    for row in rounds.itertuples():
+        labels.loc[result["tick"].between(row.start_tick, row.tick)] = row.total_rounds_played
+    result["total_rounds_played"] = labels
+    return result.dropna(subset=["total_rounds_played"]).reset_index(drop=True)
+
+
+def _steamid(value: object) -> str:
+    return "" if pd.isna(value) or str(value) in {"", "0", "None", "nan"} else str(value)
+
+
+def enemy_mask(events: pd.DataFrame) -> pd.Series:
+    """Only identified opposing T/CT players earn offensive credit."""
+    required = {"attacker_steamid", "user_steamid", "attacker_team_num", "user_team_num"}
+    if not required.issubset(events.columns):
+        return pd.Series(False, index=events.index)
+    attacker = events["attacker_steamid"].map(_steamid)
+    victim = events["user_steamid"].map(_steamid)
+    return (
+        attacker.ne("") & victim.ne("") & attacker.ne(victim)
+        & events["attacker_team_num"].isin([2, 3])
+        & events["user_team_num"].isin([2, 3])
+        & events["attacker_team_num"].ne(events["user_team_num"])
+    )
+
+
+def normalize_damage(damage: pd.DataFrame) -> pd.DataFrame:
+    """Keep raw damage and add capped HP loss, enemy damage and damaging utility.
+
+    All hurts consume HP, including self/world/team damage. The event's health
+    is remaining HP; if unavailable, assume 100 at the round start and subtract
+    all earlier hurts. Missing teams earn no enemy damage. Armor is excluded.
+    """
+    result = damage.copy()
+    if result.empty:
+        for column in ["actual_damage", "enemy_damage", "utility_damage"]:
+            result[column] = pd.Series(dtype=float)
+        result["is_enemy"] = pd.Series(dtype=bool)
+        return result
+    result = result.sort_values("tick", kind="stable").reset_index(drop=True)
+    result["is_enemy"] = enemy_mask(result)
+    hp: dict[tuple[object, str], float] = {}
+    actual_values = []
+    for row in result.to_dict("records"):
+        key = (row.get("total_rounds_played", 0), _steamid(row.get("user_steamid")))
+        raw = row.get("dmg_health", 0)
+        raw = max(0.0, float(raw)) if pd.notna(raw) else 0.0
+        before = hp.get(key, 100.0)
+        remaining = row.get("health", row.get("user_health"))
+        if pd.notna(remaining):
+            after = max(0.0, float(remaining))
+            actual = min(raw, max(0.0, before - after))
+        else:
+            actual = min(raw, before)
+            after = before - actual
+        hp[key] = after
+        actual_values.append(actual)
+    result["actual_damage"] = actual_values
+    result["enemy_damage"] = result["actual_damage"].where(result["is_enemy"], 0.0)
+    weapons = result.get("weapon", pd.Series("", index=result.index))
+    weapons = weapons.fillna("").str.removeprefix("weapon_")
+    result["utility_damage"] = result["enemy_damage"].where(weapons.isin(_UTILITY_WEAPONS), 0.0)
+    return result
 
 # Aggregate stat fields available once per round in demoparser2
 _AGGREGATE_FIELDS = [
@@ -120,11 +243,12 @@ class DemoAnalyzer:
     def get_kills(self) -> pd.DataFrame:
         """All player_death events with extra context."""
         try:
-            return self._parser.parse_event(
+            events = self._parser.parse_event(
                 "player_death",
                 player=_KILL_PLAYER_EXTRA,
-                other=["total_rounds_played"],
+                other=_ROUND_PROPS,
             )
+            return normalize_round_events(events, self.get_rounds())
         except Exception:
             logger.warning("Failed to parse player_death events")
             return pd.DataFrame()
@@ -132,24 +256,48 @@ class DemoAnalyzer:
     def get_damage(self) -> pd.DataFrame:
         """All player_hurt events with positions and round context."""
         try:
-            return self._parser.parse_event(
+            events = self._parser.parse_event(
                 "player_hurt",
                 player=_HURT_PLAYER_EXTRA,
-                other=["total_rounds_played"],
+                other=_ROUND_PROPS,
             )
+            return normalize_damage(normalize_round_events(events, self.get_rounds()))
         except Exception:
             logger.warning("Failed to parse player_hurt events")
             return pd.DataFrame()
 
     def get_rounds(self) -> pd.DataFrame:
         """round_end events: winner, reason, round number."""
+        if hasattr(self, "_rounds"):
+            return self._rounds.copy()
         try:
-            return self._parser.parse_event(
+            rounds = self._parser.parse_event(
                 "round_end",
-                other=["total_rounds_played"],
+                other=_ROUND_PROPS,
             )
         except Exception:
             logger.warning("Failed to parse round_end events")
+            return pd.DataFrame()
+        try:
+            starts = self._parser.parse_event("round_start", other=_ROUND_PROPS)
+        except Exception:
+            logger.warning("Round starts unavailable; using completed round boundaries")
+            starts = pd.DataFrame()
+        self._rounds = normalize_rounds(rounds, starts)
+        return self._rounds.copy()
+
+    def get_round_roster(self) -> pd.DataFrame:
+        """Actual side assignments at each completed round's start."""
+        rounds = self.get_rounds()
+        if rounds.empty:
+            return pd.DataFrame()
+        try:
+            roster = self._parser.parse_ticks(
+                ["team_num"], ticks=rounds["start_tick"].astype(int).tolist(),
+            )
+            return normalize_round_events(roster, rounds)
+        except Exception:
+            logger.warning("Failed to parse round rosters")
             return pd.DataFrame()
 
     def get_bomb_events(self) -> pd.DataFrame:
@@ -157,7 +305,7 @@ class DemoAnalyzer:
         try:
             results = self._parser.parse_events(
                 ["bomb_planted", "bomb_defused"],
-                other=["total_rounds_played"],
+                other=_ROUND_PROPS,
             )
             frames = []
             for event_name, df in results:
@@ -165,7 +313,8 @@ class DemoAnalyzer:
                     df = df.copy()
                     df["event"] = event_name
                     frames.append(df)
-            return pd.concat(frames, ignore_index=True) if frames else pd.DataFrame()
+            events = pd.concat(frames, ignore_index=True) if frames else pd.DataFrame()
+            return normalize_round_events(events, self.get_rounds())
         except Exception:
             logger.warning("Failed to parse bomb events")
             return pd.DataFrame()
@@ -181,21 +330,29 @@ class DemoAnalyzer:
     def get_player_blinds(self) -> pd.DataFrame:
         """player_blind events: who was blinded, by whom, duration."""
         try:
-            return self._parser.parse_event(
+            events = self._parser.parse_event(
                 "player_blind",
-                other=["total_rounds_played"],
+                player=["team_num"],
+                other=_ROUND_PROPS,
             )
+            events = normalize_round_events(events, self.get_rounds())
+            events["is_enemy"] = enemy_mask(events)
+            return events
         except Exception:
             logger.warning("Failed to parse player_blind events")
             return pd.DataFrame()
 
-    def get_economy(self) -> pd.DataFrame:
+    def get_economy(self, *, freeze_ticks: list[int] | None = None,
+                    strict: bool = False) -> pd.DataFrame:
         """Per-round economy data from round_freeze_end ticks."""
         try:
-            freeze_end = self._parser.parse_event("round_freeze_end")
-            if freeze_end.empty:
+            if freeze_ticks is None:
+                freeze_end = self._parser.parse_event("round_freeze_end")
+                if freeze_end.empty:
+                    return pd.DataFrame()
+                freeze_ticks = freeze_end["tick"].tolist()
+            if not freeze_ticks:
                 return pd.DataFrame()
-            ticks = freeze_end["tick"].tolist()
             return self._parser.parse_ticks(
                 [
                     "balance",
@@ -205,9 +362,11 @@ class DemoAnalyzer:
                     "round_start_equip_value",
                     "team_num",
                 ],
-                ticks=ticks,
+                ticks=freeze_ticks,
             )
         except Exception:
+            if strict:
+                raise
             logger.warning("Failed to parse economy data")
             return pd.DataFrame()
 
@@ -240,66 +399,10 @@ class DemoAnalyzer:
     # ------------------------------------------------------------------
 
     def get_round_stats(self) -> pd.DataFrame:
-        """Kills, deaths, damage per round per player (computed from events)."""
-        kills_df = self.get_kills()
-        damage_df = self.get_damage()
-
-        frames = []
-
-        if not kills_df.empty and "total_rounds_played" in kills_df.columns:
-            # Kills per round per attacker
-            if "attacker_steamid" in kills_df.columns:
-                k = (
-                    kills_df.groupby(["total_rounds_played", "attacker_steamid"])
-                    .size()
-                    .reset_index(name="kills")
-                )
-                k = k.rename(columns={"attacker_steamid": "steamid"})
-                frames.append(k)
-
-            # Deaths per round per victim
-            if "user_steamid" in kills_df.columns:
-                d = (
-                    kills_df.groupby(["total_rounds_played", "user_steamid"])
-                    .size()
-                    .reset_index(name="deaths")
-                )
-                d = d.rename(columns={"user_steamid": "steamid"})
-                frames.append(d)
-
-            # Headshot kills
-            if "headshot" in kills_df.columns and "attacker_steamid" in kills_df.columns:
-                hs = (
-                    kills_df[kills_df["headshot"] == True]  # noqa: E712
-                    .groupby(["total_rounds_played", "attacker_steamid"])
-                    .size()
-                    .reset_index(name="hs_kills")
-                )
-                hs = hs.rename(columns={"attacker_steamid": "steamid"})
-                frames.append(hs)
-
-        if not damage_df.empty and "total_rounds_played" in damage_df.columns:
-            if "attacker_steamid" in damage_df.columns and "dmg_health" in damage_df.columns:
-                dmg = (
-                    damage_df.groupby(["total_rounds_played", "attacker_steamid"])["dmg_health"]
-                    .sum()
-                    .reset_index(name="damage")
-                )
-                dmg = dmg.rename(columns={"attacker_steamid": "steamid"})
-                frames.append(dmg)
-
-        if not frames:
-            return pd.DataFrame()
-
-        # Merge all
-        from functools import reduce
-        result = reduce(
-            lambda left, right: pd.merge(
-                left, right, on=["total_rounds_played", "steamid"], how="outer"
-            ),
-            frames,
+        """Enemy kills, all deaths and effective enemy HP damage per round."""
+        return calculate_round_stats(
+            self.get_kills(), self.get_damage(), self.get_rounds(), self.get_round_roster(),
         )
-        return result.fillna(0).sort_values(["total_rounds_played", "steamid"]).reset_index(drop=True)
 
     # ------------------------------------------------------------------
     # Full analysis
@@ -307,10 +410,16 @@ class DemoAnalyzer:
 
     def get_full_analysis(self) -> DemoAnalysis:
         """Run all parsers and return a complete DemoAnalysis."""
+        from src.demos.rating_calculator import (
+            compute_rating_from_events,
+            round_stats_from_rating,
+        )
+        from src.demos.versions import ANALYSIS_VERSION
+
         header = self.get_header()
         map_name = header.get("map_name", "")
 
-        return DemoAnalysis(
+        analysis = DemoAnalysis(
             file_name=self._path.name,
             map_name=map_name,
             header=header,
@@ -322,7 +431,26 @@ class DemoAnalyzer:
             bomb_events_df=self.get_bomb_events(),
             grenades_df=self.get_grenades(),
             player_blinds_df=self.get_player_blinds(),
-            round_stats_df=self.get_round_stats(),
+            round_roster_df=self.get_round_roster(),
+            analysis_version=ANALYSIS_VERSION,
             chat_messages_df=self.get_chat_messages(),
             convars=self.get_convars(),
         )
+        _, per_round = compute_rating_from_events(
+            analysis.player_info, analysis.kills_df, analysis.damage_df,
+            analysis.rounds_df, analysis.bomb_events_df, roster=analysis.round_roster_df,
+        )
+        analysis.round_stats_df = round_stats_from_rating(per_round)
+        return analysis
+
+
+def calculate_round_stats(
+    kills: pd.DataFrame, damage: pd.DataFrame, rounds: pd.DataFrame,
+    roster: pd.DataFrame | None = None,
+) -> pd.DataFrame:
+    from src.demos.rating_calculator import compute_rating_from_events, round_stats_from_rating
+
+    _, per_round = compute_rating_from_events(
+        pd.DataFrame(), kills, damage, rounds, pd.DataFrame(), roster=roster,
+    )
+    return round_stats_from_rating(per_round)

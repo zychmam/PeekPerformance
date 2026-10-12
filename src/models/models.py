@@ -1,4 +1,4 @@
-"""Data models for Leetify match and player data."""
+"""Data model for a parsed Counter-Strike 2 demo."""
 
 from __future__ import annotations
 
@@ -6,91 +6,11 @@ import io
 import zipfile
 from dataclasses import dataclass, field
 from datetime import UTC, datetime
-from pathlib import Path
 from typing import Any
 
 import pandas as pd
 
-
-@dataclass
-class PlayerProfile:
-    """A Leetify player profile summary."""
-
-    steam_id: str
-    name: str
-    leetify_rating: float | None = None
-    aim_rating: float | None = None
-    utility_rating: float | None = None
-    positioning_rating: float | None = None
-    avatar_url: str = ""
-    rank: int | None = None
-    rank_type: str = ""
-    fetched_at: str = ""
-
-    def __post_init__(self) -> None:
-        if not self.fetched_at:
-            self.fetched_at = datetime.now(UTC).isoformat()
-
-
-@dataclass
-class MatchSummary:
-    """Lightweight match information from a player's match list."""
-
-    game_id: str
-    map_name: str
-    match_date: str
-    score_own: int
-    score_enemy: int
-    result: str  # "win" | "loss" | "tie"
-    game_mode: str = ""
-    data_source: str = ""
-
-    # Per-player stats within that match
-    steam_id: str = ""
-    kills: int = 0
-    deaths: int = 0
-    assists: int = 0
-    leetify_rating: float | None = None
-    hltv_rating: float | None = None
-    adr: float | None = None
-    hs_percent: float | None = None
-    kd_ratio: float | None = None
-
-
-@dataclass
-class MatchDetail:
-    """Full match detail from /v2/matches/{gameId}."""
-
-    game_id: str
-    map_name: str
-    match_date: str
-    score_team_a: int
-    score_team_b: int
-    game_mode: str = ""
-    data_source: str = ""
-    rounds_played: int = 0
-    players: list[MatchPlayerStats] = field(default_factory=list)
-
-
-@dataclass
-class MatchPlayerStats:
-    """Per-player stats within a detailed match."""
-
-    steam_id: str
-    name: str
-    team: str = ""
-    kills: int = 0
-    deaths: int = 0
-    assists: int = 0
-    leetify_rating: float | None = None
-    hltv_rating: float | None = None
-    adr: float | None = None
-    hs_percent: float | None = None
-    kd_ratio: float | None = None
-    utility_damage: float | None = None
-    flash_assists: int = 0
-    first_kills: int = 0
-    first_deaths: int = 0
+from src.demos.presentation import presentation_frame
 
 
 @dataclass
@@ -112,6 +32,10 @@ class DemoAnalysis:
     chat_messages_df: pd.DataFrame = field(default_factory=pd.DataFrame)
     convars: dict[str, str] = field(default_factory=dict)
     analyzed_at: str = ""
+    content_hash: str = ""
+    stored_file_name: str = ""
+    round_roster_df: pd.DataFrame = field(default_factory=pd.DataFrame)
+    analysis_version: int = 0
 
     def __post_init__(self) -> None:
         if not self.analyzed_at:
@@ -127,6 +51,7 @@ class DemoAnalysis:
             "Grenades": self.grenades_df,
             "PlayerBlinds": self.player_blinds_df,
             "RoundStats": self.round_stats_df,
+            "RoundRoster": self.round_roster_df,
             "ChatMessages": self.chat_messages_df,
             "PlayerInfo": self.player_info,
         }
@@ -140,7 +65,9 @@ class DemoAnalysis:
         with pd.ExcelWriter(buf, engine="openpyxl") as writer:
             for sheet_name, df in self._dataframes_xlsx().items():
                 if not df.empty:
-                    df.to_excel(writer, sheet_name=sheet_name, index=False)
+                    presentation_frame(df, self.player_info).to_excel(
+                        writer, sheet_name=sheet_name, index=False
+                    )
         return buf.getvalue()
 
     def to_csv_zip(self) -> bytes:
@@ -148,5 +75,8 @@ class DemoAnalysis:
         with zipfile.ZipFile(buf, "w", zipfile.ZIP_DEFLATED) as zf:
             for name, df in self._dataframes().items():
                 if not df.empty:
-                    zf.writestr(f"{name}.csv", df.to_csv(index=False))
+                    zf.writestr(
+                        f"{name}.csv",
+                        presentation_frame(df, self.player_info).to_csv(index=False),
+                    )
         return buf.getvalue()

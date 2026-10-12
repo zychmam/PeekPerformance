@@ -6,10 +6,10 @@ Zawsze odpowiadaj po polsku.
 ## Projekt
 PeekPerformance to lokalna aplikacja do analizy plików demo Counter-Strike 2 (`.dem` i `.dem.gz`).
 Główny przepływ: wgranie demo, analiza statystyk i zdarzeń oraz eksport wyników do Excela lub CSV.
-Istniejąca integracja z Leetify jest starszą funkcją planowaną do usunięcia. Nie rozbudowuj jej bez wyraźnego polecenia.
+Źródłem meczów są wyłącznie lokalnie przeparsowane pliki demo. Nie dodawaj integracji z zewnętrzną historią meczów bez wyraźnego polecenia.
 
 ## Stack technologiczny
-- **Język**: Python 3.10+
+- **Język**: Python 3.11+
 - **Interfejs**: `Streamlit`
 - **Parsowanie demek**: `demoparser2`
 - **Dane i wykresy**: `pandas`, `Plotly`

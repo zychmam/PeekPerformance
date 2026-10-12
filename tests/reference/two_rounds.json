@@ -1,0 +1,72 @@
+{
+  "provenance": {
+    "kind": "synthetic",
+    "description": "Hand-authored events, not parsed from a real demo. Names and identifiers are test labels, not identities of real players.",
+    "tick_rate": 64,
+    "round_counter_convention": "Combat counters 0/1, round_end counters 1/2; canonical rounds use tick intervals.",
+    "live_tick_intervals": [[100, 640], [700, 1280]]
+  },
+  "player_info": [
+    {"steamid": "76561198008873401", "name": "A1"},
+    {"steamid": "76561198008873402", "name": "A2"},
+    {"steamid": "76561198008873403", "name": "A3"},
+    {"steamid": "76561198008873404", "name": "A4"},
+    {"steamid": "76561198008873405", "name": "A5"},
+    {"steamid": "76561198008873406", "name": "B1"},
+    {"steamid": "76561198008873407", "name": "B2"},
+    {"steamid": "76561198008873408", "name": "B3"},
+    {"steamid": "76561198008873409", "name": "B4"},
+    {"steamid": "76561198008873410", "name": "B5"}
+  ],
+  "round_starts": [{"tick": 100}, {"tick": 700}, {"tick": 1400}],
+  "round_ends": [
+    {"tick": 640, "total_rounds_played": 1, "winner": "CT"},
+    {"tick": 1280, "total_rounds_played": 2, "winner": "TERRORIST"}
+  ],
+  "roster_teams": {"1": {"A": 2, "B": 3}, "2": {"A": 3, "B": 2}},
+  "bomb_planted": [{"tick": 900, "total_rounds_played": 1}],
+  "damage": [
+    {"tick": 50, "total_rounds_played": 0, "attacker": "A1", "victim": "B1", "weapon": "ak47", "dmg_health": 100, "health": 0, "note": "warmup, excluded"},
+    {"tick": 150, "total_rounds_played": 0, "attacker": "A1", "victim": "B1", "weapon": "ak47", "dmg_health": 30, "health": 70, "expected_actual": 30, "expected_enemy": 30, "expected_utility": 0},
+    {"tick": 180, "total_rounds_played": 0, "attacker": "A1", "victim": "A3", "weapon": "ak47", "dmg_health": 100, "health": 0, "expected_actual": 100, "expected_enemy": 0, "expected_utility": 0},
+    {"tick": 250, "total_rounds_played": 0, "attacker": "A2", "victim": "B1", "weapon": "ak47", "dmg_health": 120, "health": 0, "expected_actual": 70, "expected_enemy": 70, "expected_utility": 0},
+    {"tick": 350, "total_rounds_played": 0, "attacker": "A1", "victim": "A2", "weapon": "ak47", "dmg_health": 25, "health": 75, "expected_actual": 25, "expected_enemy": 0, "expected_utility": 0},
+    {"tick": 400, "total_rounds_played": 0, "attacker": "B2", "victim": "A2", "weapon": "ak47", "dmg_health": 120, "health": 0, "expected_actual": 75, "expected_enemy": 75, "expected_utility": 0},
+    {"tick": 500, "total_rounds_played": 0, "attacker": "A1", "victim": "B2", "weapon": "hegrenade", "dmg_health": 35, "health": 65, "expected_actual": 35, "expected_enemy": 35, "expected_utility": 35},
+    {"tick": 540, "total_rounds_played": 0, "attacker": "WORLD", "victim": "B2", "weapon": "world", "dmg_health": 65, "health": 0, "expected_actual": 65, "expected_enemy": 0, "expected_utility": 0},
+    {"tick": 660, "total_rounds_played": 1, "attacker": "A1", "victim": "B1", "weapon": "hegrenade", "dmg_health": 100, "health": 0, "note": "after round end, excluded"},
+    {"tick": 780, "total_rounds_played": 1, "attacker": "B1", "victim": "A1", "weapon": "inferno", "dmg_health": 40, "health": 60, "expected_actual": 40, "expected_enemy": 40, "expected_utility": 40},
+    {"tick": 840, "total_rounds_played": 1, "attacker": "B1", "victim": "A1", "weapon": "ak47", "dmg_health": 80, "health": 0, "expected_actual": 60, "expected_enemy": 60, "expected_utility": 0},
+    {"tick": 940, "total_rounds_played": 1, "attacker": "A2", "victim": "B1", "weapon": "ak47", "dmg_health": 100, "health": 0, "expected_actual": 100, "expected_enemy": 100, "expected_utility": 0},
+    {"tick": 1100, "total_rounds_played": 1, "attacker": "A2", "victim": "A2", "weapon": "hegrenade", "dmg_health": 100, "health": 0, "expected_actual": 100, "expected_enemy": 0, "expected_utility": 0},
+    {"tick": 1450, "total_rounds_played": 2, "attacker": "A1", "victim": "B1", "weapon": "ak47", "dmg_health": 100, "health": 0, "note": "unfinished round, excluded"}
+  ],
+  "kills": [
+    {"tick": 60, "total_rounds_played": 0, "attacker": "A1", "victim": "B1", "headshot": true, "note": "warmup, excluded"},
+    {"tick": 200, "total_rounds_played": 0, "attacker": "A1", "victim": "A3", "headshot": true},
+    {"tick": 300, "total_rounds_played": 0, "attacker": "A2", "victim": "B1", "headshot": true, "assister": "A1", "assistedflash": true},
+    {"tick": 450, "total_rounds_played": 0, "attacker": "B2", "victim": "A2", "headshot": false},
+    {"tick": 550, "total_rounds_played": 0, "attacker": "WORLD", "victim": "B2", "headshot": false},
+    {"tick": 670, "total_rounds_played": 1, "attacker": "A1", "victim": "B1", "headshot": true, "note": "after round end, excluded"},
+    {"tick": 850, "total_rounds_played": 1, "attacker": "B1", "victim": "A1", "headshot": true},
+    {"tick": 950, "total_rounds_played": 1, "attacker": "A2", "victim": "B1", "headshot": false},
+    {"tick": 1150, "total_rounds_played": 1, "attacker": "A2", "victim": "A2", "headshot": false},
+    {"tick": 1460, "total_rounds_played": 2, "attacker": "A1", "victim": "B1", "headshot": true, "note": "unfinished round, excluded"}
+  ],
+  "expected_summary": {
+    "A1": {"K": 0, "A": 1, "D": 1, "ADR": 32.5, "HS%": 0.0, "KAST%": 100.0, "Avg Swing": -5.79},
+    "A2": {"K": 2, "A": 0, "D": 2, "ADR": 85.0, "HS%": 50.0, "KAST%": 100.0, "Avg Swing": -5.21},
+    "A3": {"K": 0, "A": 0, "D": 1, "ADR": 0.0, "HS%": 0.0, "KAST%": 50.0, "Avg Swing": -11.0},
+    "A4": {"K": 0, "A": 0, "D": 0, "ADR": 0.0, "HS%": 0.0, "KAST%": 100.0, "Avg Swing": 0.0},
+    "A5": {"K": 0, "A": 0, "D": 0, "ADR": 0.0, "HS%": 0.0, "KAST%": 100.0, "Avg Swing": 0.0},
+    "B1": {"K": 1, "A": 0, "D": 2, "ADR": 50.0, "HS%": 100.0, "KAST%": 100.0, "Avg Swing": -3.79},
+    "B2": {"K": 1, "A": 0, "D": 1, "ADR": 37.5, "HS%": 0.0, "KAST%": 100.0, "Avg Swing": -1.71},
+    "B3": {"K": 0, "A": 0, "D": 0, "ADR": 0.0, "HS%": 0.0, "KAST%": 100.0, "Avg Swing": 0.0},
+    "B4": {"K": 0, "A": 0, "D": 0, "ADR": 0.0, "HS%": 0.0, "KAST%": 100.0, "Avg Swing": 0.0},
+    "B5": {"K": 0, "A": 0, "D": 0, "ADR": 0.0, "HS%": 0.0, "KAST%": 100.0, "Avg Swing": 0.0}
+  },
+  "expected_round_swing": {
+    "1": {"A1": 6.6, "A2": -7.6, "A3": -22.0, "A4": 0.0, "A5": 0.0, "B1": -16.59, "B2": -3.41, "B3": 0.0, "B4": 0.0, "B5": 0.0},
+    "2": {"A1": -18.18, "A2": -2.82, "A3": 0.0, "A4": 0.0, "A5": 0.0, "B1": 9.0, "B2": 0.0, "B3": 0.0, "B4": 0.0, "B5": 0.0}
+  }
+}

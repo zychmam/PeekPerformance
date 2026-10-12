@@ -2,14 +2,12 @@
 
 Analyze Counter-Strike 2 demo files locally and explore player and match statistics.
 
-Upload a `.dem` or `.dem.gz` file to inspect player performance, rounds, damage, grenades, economy, and events. Export the analysis to Excel or a ZIP archive of CSV files. Demo analysis uses `demoparser2` and does not require a Leetify account or API key.
-
-> The older Leetify player and match features are still present in the app but are planned for removal. The demo workflow is the focus of this project.
+Upload a `.dem`, `.dem.gz`, or `.dem.zst` file to inspect player performance, rounds, damage, grenades, economy, and events. Export the analysis to Excel or a ZIP archive of CSV files. Demo analysis uses `demoparser2` and runs locally.
 
 ## Requirements
 
-- Python 3.10 or newer
-- A Counter-Strike 2 demo file (`.dem` or `.dem.gz`) to analyze
+- Python 3.11 or newer
+- A Counter-Strike 2 demo file (`.dem`, `.dem.gz`, or `.dem.zst`) to analyze
 
 ## Quick Start
 
@@ -20,13 +18,24 @@ pip install -e ".[dev]"
 streamlit run src/gui/app.py
 ```
 
-Open `http://localhost:8501`, then upload your file in **Demo Analysis**. When no Leetify players are tracked, the demo analysis screen opens directly. You can also select a previously analyzed demo from the local cache.
+Open `http://localhost:8501`, then upload your file. You can also select a previously analyzed demo from the local database. Choose a player from the demo roster and click **Śledź gracza** to track them. The **Mecze gracza** view lists that player's parsed matches with their PeekPerformance rating, kills, deaths, and ADR.
 
 ## Demo Analysis
 
-The app shows player statistics such as kills, deaths, assists, ADR, headshot percentage, and approximate rating. Its detailed views cover rounds, damage, grenades, economy, player states, raw events, and chat and match metadata. You can download an Excel workbook or a ZIP archive containing CSV files.
+The single-match screen starts with a selected player, four key metrics and a compact five-column player table. **Rundy** shows the winning side, the selected player's round stats and a short kill feed. **Walka** charts enemy damage by round. **Utility i ekonomia** shows HE/fire damage and flash events; economy is parsed only when requested. Full parser tables, optional player-state samples, raw events and Excel/CSV export are under **Dane i eksport**.
 
-Demo parsing happens locally. An API key is not needed for uploading, analyzing, or exporting demos.
+Match tables, charts, player choices, and exports show nicknames instead of SteamIDs. Identical nicknames receive stable numbered labels within a match; SteamIDs remain internal keys for correctly linking events and matches.
+
+Demo parsing happens locally. Each parsed match is saved by the SHA-256 hash of its decompressed contents, so repeat uploads reuse one database entry. The database stores the full analysis separately from a small match catalog, per-demo player roster, tracked SteamIDs, and one compact rating summary per player and match. The player panel reads indexed catalog entries and stored ratings without loading event tables or reparsing demos. Older imported demos get ratings once when first opened in the panel. A tracked player can only be selected from a parsed demo. On the first launch of this demo-only schema, old API tables and previous demo cache rows are deleted.
+
+Metric definitions and the current synthetic regression fixture are described in [docs/metrics_reference.md](docs/metrics_reference.md). The approximate rating still needs validation against real demos.
+
+Full rating components and per-round counters are persisted with input and metric versions.
+The overview, player cards and round charts use the same event counters. Opening a current
+saved result does not require the source demo. Old analyses are upgraded once from their
+source file to store round rosters; if that file is missing, the app asks for the same demo
+again. Updating metric formulas recalculates results from stored events. Input replacement
+invalidates derived results, while schema migration preserves saved matches and tracked players.
 
 ## Technology
 
@@ -37,12 +46,6 @@ Demo parsing happens locally. An API key is not needed for uploading, analyzing,
 | Tables and charts | `pandas`, `Plotly` |
 | Local cache | SQLite |
 | Excel export | `openpyxl` |
-
-The legacy Leetify integration also uses `requests`. Its export format is documented separately in [docs/data_model.md](docs/data_model.md).
-
-## Current legacy features
-
-The app still includes Leetify player profiles, match browsing, charts, comparison, and match export. These features use the Leetify Public CS API and are planned for removal. If you use them in the meantime, enter a Steam64 ID in the sidebar; an optional Leetify API key can be set in **Settings** for higher rate limits. Data in those views is provided by [Leetify](https://leetify.com).
 
 ## Development
 

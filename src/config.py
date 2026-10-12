@@ -3,26 +3,18 @@
 from __future__ import annotations
 
 import json
-import os
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from pathlib import Path
 
 _DEFAULT_CONFIG_PATH = Path.home() / ".peek_performance" / "config.json"
 _DEFAULT_DB_PATH = Path.home() / ".peek_performance" / "peekperformance.db"
 _DEFAULT_DEMOS_DIR = Path.home() / ".peek_performance" / "demos"
 
-API_BASE_URL = "https://api-public.cs-prod.leetify.com"
-
-
 @dataclass
 class Config:
     """Application configuration."""
 
-    api_key: str = ""
     db_path: str = str(_DEFAULT_DB_PATH)
-    api_base_url: str = API_BASE_URL
-    request_timeout: int = 30
-    tracked_steam_ids: list[str] = field(default_factory=list)
     demos_dir: str = str(_DEFAULT_DEMOS_DIR)
 
     # -------------------------------------------------------------------
@@ -37,20 +29,14 @@ class Config:
 
     @classmethod
     def load(cls, path: Path | None = None) -> Config:
-        """Load configuration from disk, falling back to environment / defaults."""
+        """Load local storage paths; ignore obsolete API and player settings."""
         path = path or _DEFAULT_CONFIG_PATH
         data: dict = {}
         if path.exists():
             data = json.loads(path.read_text(encoding="utf-8"))
 
-        # Environment variable overrides
-        api_key = os.environ.get("LEETIFY_API_KEY", data.get("api_key", ""))
         return cls(
-            api_key=api_key,
             db_path=data.get("db_path", str(_DEFAULT_DB_PATH)),
-            api_base_url=data.get("api_base_url", API_BASE_URL),
-            request_timeout=int(data.get("request_timeout", 30)),
-            tracked_steam_ids=data.get("tracked_steam_ids", []),
             demos_dir=data.get("demos_dir", str(_DEFAULT_DEMOS_DIR)),
         )
 
@@ -60,10 +46,6 @@ class Config:
 
     def _to_dict(self) -> dict:
         return {
-            "api_key": self.api_key,
             "db_path": self.db_path,
-            "api_base_url": self.api_base_url,
-            "request_timeout": self.request_timeout,
-            "tracked_steam_ids": self.tracked_steam_ids,
             "demos_dir": self.demos_dir,
         }
