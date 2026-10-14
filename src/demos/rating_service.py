@@ -34,9 +34,13 @@ def calculate_and_store_rating(
     if source is None:
         raise ValueError("Cannot calculate metrics for an unknown demo")
     source = ensure_current_analysis(db, manager, source)
+    from src.demos.observations import observations_key
+
+    clock = db.get_observation_clock(demo_id, observations_key(source))
     summary, per_round = compute_rating_from_events(
         source.player_info, source.kills_df, source.damage_df,
         source.rounds_df, source.bomb_events_df, roster=source.round_roster_df,
+        round_clock=clock if not clock.empty else None,
     )
     source.round_stats_df = round_stats_from_rating(per_round)
     if analysis is not None and source is not analysis:

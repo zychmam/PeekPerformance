@@ -1,51 +1,441 @@
 {
   "schema_version": 1,
   "map_name": "de_inferno",
-  "profile_version": "1",
+  "profile_version": "1-m4.1",
   "regions": [
-    {"id":"site_a","name":"Site A","nav_labels":["BombsiteA"],"kind":"site","site_id":"A","directions":["A"],"level_id":"main"},
-    {"id":"site_b","name":"Site B","nav_labels":["BombsiteB"],"kind":"site","site_id":"B","directions":["B"],"level_id":"main"},
-    {"id":"banana","name":"Banana","nav_labels":["Banana"],"kind":"approach","directions":["B"],"forward_sides":["CT"],"route_names":{"B":"Banana"},"level_id":"main"},
-    {"id":"ruins","name":"Ruiny","nav_labels":["Ruins"],"kind":"connector","support_sites":["B"],"route_names":{"B":"Ruiny"},"level_id":"main"},
-    {"id":"middle","name":"Mid","nav_labels":["Middle"],"kind":"mid","directions":["mid"],"forward_sides":["CT"],"level_id":"main"},
-    {"id":"top_mid","name":"Top Mid","nav_labels":["TopofMid"],"kind":"approach","directions":["A"],"forward_sides":["CT"],"route_names":{"A":"Mid"},"level_id":"main"},
-    {"id":"second_mid","name":"Second Mid","nav_labels":["SecondMid"],"kind":"mid","directions":["mid"],"level_id":"main"},
-    {"id":"lower_mid","name":"Lower Mid","nav_labels":["LowerMid"],"kind":"mid","directions":["mid"],"level_id":"main"},
-    {"id":"quad","name":"Quad","nav_labels":["Quad"],"kind":"approach","directions":["A"],"route_names":{"A":"Quad"},"level_id":"main"},
-    {"id":"apartments","name":"Apartamenty","nav_labels":["Apartments"],"kind":"approach","directions":["A"],"route_names":{"A":"Apartamenty"},"level_id":"main"},
-    {"id":"balcony","name":"Balkon","nav_labels":["Balcony"],"kind":"approach","directions":["A"],"route_names":{"A":"Balkon"},"level_id":"main"},
-    {"id":"pit","name":"Pit","nav_labels":["Pit"],"kind":"connector","support_sites":["A"],"route_names":{"A":"Pit"},"level_id":"main"},
-    {"id":"arch","name":"Łuk","nav_labels":["Arch"],"kind":"connector","support_sites":["A"],"route_names":{"A":"Łuk"},"level_id":"main"},
-    {"id":"library","name":"Biblioteka","nav_labels":["Library"],"kind":"connector","support_sites":["A"],"route_names":{"A":"Biblioteka"},"level_id":"main"},
-    {"id":"t_ramp","name":"Rampa T","nav_labels":["TRamp"],"kind":"connector","level_id":"main"},
-    {"id":"t_spawn","name":"Spawn T","nav_labels":["TSpawn"],"kind":"spawn","level_id":"main"},
-    {"id":"ct_spawn","name":"Spawn CT","nav_labels":["CTSpawn"],"kind":"spawn","support_sites":["A","B"],"route_names":{"A":"Spawn CT","B":"Spawn CT"},"level_id":"main"},
-    {"id":"back_alley","name":"Back Alley","nav_labels":["BackAlley"],"kind":"connector","level_id":"main"},
-    {"id":"underpass","name":"Underpass","nav_labels":["Underpass"],"kind":"connector","level_id":"main"},
-    {"id":"bridge","name":"Most","nav_labels":["Bridge"],"kind":"connector","level_id":"main"},
-    {"id":"upstairs","name":"Górne przejście","nav_labels":["Upstairs"],"kind":"connector","level_id":"main"},
-    {"id":"kitchen","name":"Kuchnia","nav_labels":["Kitchen"],"kind":"connector","level_id":"main"},
-    {"id":"deck","name":"Deck","nav_labels":["Deck"],"kind":"connector","level_id":"main"}
+    {
+      "id": "site_a",
+      "name": "Site A",
+      "nav_labels": [
+        "BombsiteA"
+      ],
+      "kind": "site",
+      "site_id": "A",
+      "directions": [
+        "A"
+      ],
+      "level_id": "main",
+      "defense_sector": "A"
+    },
+    {
+      "id": "site_b",
+      "name": "Site B",
+      "nav_labels": [
+        "BombsiteB"
+      ],
+      "kind": "site",
+      "site_id": "B",
+      "directions": [
+        "B"
+      ],
+      "level_id": "main",
+      "defense_sector": "B"
+    },
+    {
+      "id": "banana",
+      "name": "Banana",
+      "nav_labels": [
+        "Banana"
+      ],
+      "kind": "approach",
+      "directions": [
+        "B"
+      ],
+      "forward_sides": [
+        "CT"
+      ],
+      "route_names": {
+        "B": "Banana"
+      },
+      "level_id": "main",
+      "defense_sector": "B",
+      "forward_bounds": {
+        "CT": [
+          {
+            "x_min": -150,
+            "x_max": 1100,
+            "y_min": 900,
+            "y_max": 1700
+          }
+        ]
+      }
+    },
+    {
+      "id": "ruins",
+      "name": "Ruiny",
+      "nav_labels": [
+        "Ruins"
+      ],
+      "kind": "connector",
+      "support_sites": [
+        "B"
+      ],
+      "route_names": {
+        "B": "Ruiny"
+      },
+      "level_id": "main",
+      "defense_sector": "B"
+    },
+    {
+      "id": "middle",
+      "name": "Mid",
+      "nav_labels": [
+        "Middle"
+      ],
+      "kind": "mid",
+      "directions": [
+        "mid"
+      ],
+      "forward_sides": [
+        "CT"
+      ],
+      "level_id": "main",
+      "defense_sector": "mid"
+    },
+    {
+      "id": "top_mid",
+      "name": "Top Mid",
+      "nav_labels": [
+        "TopofMid"
+      ],
+      "kind": "approach",
+      "directions": [
+        "A"
+      ],
+      "forward_sides": [],
+      "route_names": {
+        "A": "Mid"
+      },
+      "level_id": "main",
+      "defense_sector": "A"
+    },
+    {
+      "id": "second_mid",
+      "name": "Second Mid",
+      "nav_labels": [
+        "SecondMid"
+      ],
+      "kind": "mid",
+      "directions": [
+        "mid"
+      ],
+      "level_id": "main",
+      "defense_sector": "mid"
+    },
+    {
+      "id": "lower_mid",
+      "name": "Lower Mid",
+      "nav_labels": [
+        "LowerMid"
+      ],
+      "kind": "mid",
+      "directions": [
+        "mid"
+      ],
+      "level_id": "main",
+      "defense_sector": "mid"
+    },
+    {
+      "id": "quad",
+      "name": "Quad",
+      "nav_labels": [
+        "Quad"
+      ],
+      "kind": "approach",
+      "directions": [
+        "A"
+      ],
+      "route_names": {
+        "A": "Quad"
+      },
+      "level_id": "main",
+      "defense_sector": "A"
+    },
+    {
+      "id": "apartments",
+      "name": "Apartamenty",
+      "nav_labels": [
+        "Apartments"
+      ],
+      "kind": "approach",
+      "directions": [
+        "A"
+      ],
+      "route_names": {
+        "A": "Apartamenty"
+      },
+      "level_id": "main",
+      "defense_sector": "A"
+    },
+    {
+      "id": "balcony",
+      "name": "Balkon",
+      "nav_labels": [
+        "Balcony"
+      ],
+      "kind": "approach",
+      "directions": [
+        "A"
+      ],
+      "route_names": {
+        "A": "Balkon"
+      },
+      "level_id": "main",
+      "defense_sector": "A"
+    },
+    {
+      "id": "pit",
+      "name": "Pit",
+      "nav_labels": [
+        "Pit"
+      ],
+      "kind": "connector",
+      "support_sites": [
+        "A"
+      ],
+      "route_names": {
+        "A": "Pit"
+      },
+      "level_id": "main",
+      "defense_sector": "A"
+    },
+    {
+      "id": "arch",
+      "name": "Łuk",
+      "nav_labels": [
+        "Arch"
+      ],
+      "kind": "connector",
+      "support_sites": [
+        "A"
+      ],
+      "route_names": {
+        "A": "Łuk"
+      },
+      "level_id": "main",
+      "defense_sector": "A"
+    },
+    {
+      "id": "library",
+      "name": "Biblioteka",
+      "nav_labels": [
+        "Library"
+      ],
+      "kind": "connector",
+      "support_sites": [
+        "A"
+      ],
+      "route_names": {
+        "A": "Biblioteka"
+      },
+      "level_id": "main",
+      "defense_sector": "A"
+    },
+    {
+      "id": "t_ramp",
+      "name": "Rampa T",
+      "nav_labels": [
+        "TRamp"
+      ],
+      "kind": "connector",
+      "level_id": "main"
+    },
+    {
+      "id": "t_spawn",
+      "name": "Spawn T",
+      "nav_labels": [
+        "TSpawn"
+      ],
+      "kind": "spawn",
+      "level_id": "main"
+    },
+    {
+      "id": "ct_spawn",
+      "name": "Spawn CT",
+      "nav_labels": [
+        "CTSpawn"
+      ],
+      "kind": "spawn",
+      "support_sites": [
+        "A",
+        "B"
+      ],
+      "route_names": {
+        "A": "Spawn CT",
+        "B": "Spawn CT"
+      },
+      "level_id": "main"
+    },
+    {
+      "id": "back_alley",
+      "name": "Back Alley",
+      "nav_labels": [
+        "BackAlley"
+      ],
+      "kind": "connector",
+      "level_id": "main"
+    },
+    {
+      "id": "underpass",
+      "name": "Underpass",
+      "nav_labels": [
+        "Underpass"
+      ],
+      "kind": "connector",
+      "level_id": "main"
+    },
+    {
+      "id": "bridge",
+      "name": "Most",
+      "nav_labels": [
+        "Bridge"
+      ],
+      "kind": "connector",
+      "level_id": "main"
+    },
+    {
+      "id": "upstairs",
+      "name": "Górne przejście",
+      "nav_labels": [
+        "Upstairs"
+      ],
+      "kind": "connector",
+      "level_id": "main"
+    },
+    {
+      "id": "kitchen",
+      "name": "Kuchnia",
+      "nav_labels": [
+        "Kitchen"
+      ],
+      "kind": "connector",
+      "level_id": "main"
+    },
+    {
+      "id": "deck",
+      "name": "Deck",
+      "nav_labels": [
+        "Deck"
+      ],
+      "kind": "connector",
+      "level_id": "main"
+    }
   ],
   "connections": [
-    {"from_region":"banana","to_region":"site_b","bidirectional":true,"verification":"limited"},
-    {"from_region":"ruins","to_region":"site_b","bidirectional":true,"verification":"limited"},
-    {"from_region":"ct_spawn","to_region":"site_b","bidirectional":true,"verification":"limited"},
-    {"from_region":"quad","to_region":"site_a","bidirectional":true,"verification":"limited"},
-    {"from_region":"balcony","to_region":"site_a","bidirectional":true,"verification":"limited"},
-    {"from_region":"pit","to_region":"site_a","bidirectional":true,"verification":"limited"},
-    {"from_region":"library","to_region":"site_a","bidirectional":true,"verification":"limited"},
-    {"from_region":"ct_spawn","to_region":"site_a","bidirectional":true,"verification":"limited"},
-    {"from_region":"top_mid","to_region":"quad","bidirectional":true,"verification":"limited"},
-    {"from_region":"apartments","to_region":"balcony","bidirectional":true,"verification":"limited"},
-    {"from_region":"arch","to_region":"library","bidirectional":true,"verification":"limited"},
-    {"from_region":"middle","to_region":"top_mid","bidirectional":true,"verification":"limited"},
-    {"from_region":"second_mid","to_region":"apartments","bidirectional":true,"verification":"limited"}
+    {
+      "from_region": "banana",
+      "to_region": "site_b",
+      "bidirectional": true,
+      "verification": "limited"
+    },
+    {
+      "from_region": "ruins",
+      "to_region": "site_b",
+      "bidirectional": true,
+      "verification": "limited"
+    },
+    {
+      "from_region": "ct_spawn",
+      "to_region": "site_b",
+      "bidirectional": true,
+      "verification": "limited"
+    },
+    {
+      "from_region": "quad",
+      "to_region": "site_a",
+      "bidirectional": true,
+      "verification": "limited"
+    },
+    {
+      "from_region": "balcony",
+      "to_region": "site_a",
+      "bidirectional": true,
+      "verification": "limited"
+    },
+    {
+      "from_region": "pit",
+      "to_region": "site_a",
+      "bidirectional": true,
+      "verification": "limited"
+    },
+    {
+      "from_region": "library",
+      "to_region": "site_a",
+      "bidirectional": true,
+      "verification": "limited"
+    },
+    {
+      "from_region": "ct_spawn",
+      "to_region": "site_a",
+      "bidirectional": true,
+      "verification": "limited"
+    },
+    {
+      "from_region": "top_mid",
+      "to_region": "quad",
+      "bidirectional": true,
+      "verification": "limited"
+    },
+    {
+      "from_region": "apartments",
+      "to_region": "balcony",
+      "bidirectional": true,
+      "verification": "limited"
+    },
+    {
+      "from_region": "arch",
+      "to_region": "library",
+      "bidirectional": true,
+      "verification": "limited"
+    },
+    {
+      "from_region": "middle",
+      "to_region": "top_mid",
+      "bidirectional": true,
+      "verification": "limited"
+    },
+    {
+      "from_region": "second_mid",
+      "to_region": "apartments",
+      "bidirectional": true,
+      "verification": "limited"
+    }
   ],
   "radar_levels": [
-    {"id":"main","image":"src/assets/maps/de_inferno.png","origin_x":-2087,"origin_y":3870,"scale":4.9,"width":1024,"height":1024}
+    {
+      "id": "main",
+      "image": "src/assets/maps/de_inferno.png",
+      "origin_x": -2087,
+      "origin_y": 3870,
+      "scale": 4.9,
+      "width": 1024,
+      "height": 1024
+    }
   ],
-  "capabilities": ["regions","site_regions","approaches","support","directions","forward_positions","entry_routes","radar","site_boundaries","forward_presence"],
-  "compatibility": {"verified_patch_versions":["14186"],"unknown_patch":"unverified"},
-  "coverage": {"connections":"partial","geometry":"nav-label-only","visibility":"not_supported","source":"Inferno FACEIT demo 1-57640da7-9cd0-4aca-890f-4c82c1344eee-1-1; Awpy radar release 2000927"}
+  "capabilities": [
+    "regions",
+    "site_regions",
+    "approaches",
+    "support",
+    "directions",
+    "forward_positions",
+    "entry_routes",
+    "radar",
+    "site_boundaries",
+    "forward_presence"
+  ],
+  "compatibility": {
+    "verified_patch_versions": [
+      "14186"
+    ],
+    "unknown_patch": "unverified"
+  },
+  "coverage": {
+    "connections": "partial",
+    "geometry": "nav-label-only",
+    "visibility": "not_supported",
+    "source": "Inferno FACEIT demo 1-57640da7-9cd0-4aca-890f-4c82c1344eee-1-1; Awpy radar release 2000927",
+    "defensive_sectors": "unique positional assignments; support is separate; spawn remains unknown",
+    "forward_boundaries": "conservative lower banana y<=1700; top mid is not automatically forward; reference-demo coordinates, visual calibration pending"
+  }
 }

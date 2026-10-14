@@ -64,6 +64,9 @@ class Region:
     route_requires_geometry: bool = False
     metadata: dict = field(default_factory=dict)
     geometry_required_labels: list[str] = field(default_factory=list)
+    # One physical defensive assignment, separate from possible support.
+    defense_sector: str | None = None
+    forward_bounds: dict[str, list[RegionBounds]] = field(default_factory=dict)
 
     def __post_init__(self):
         if not self.id or not self.name:
@@ -74,6 +77,18 @@ class Region:
             raise ValueError("Site region requires site_id")
         if any(side not in {"T", "CT"} for side in self.forward_sides):
             raise ValueError("Unknown tactical side")
+        if any(side not in self.forward_sides for side in self.forward_bounds):
+            raise ValueError("Forward geometry requires declared side")
+
+    def is_forward(self, side: str, sample: dict) -> bool | None:
+        if side not in self.forward_sides:
+            return False
+        if side not in self.forward_bounds:
+            return True
+        coordinates = [sample.get(axis, sample.get(axis.lower())) for axis in ("X", "Y", "Z")]
+        if any(value is None for value in coordinates[:2]):
+            return None
+        return any(bound.contains(*coordinates) for bound in self.forward_bounds[side])
 
 
 @dataclass(frozen=True)
@@ -148,6 +163,8 @@ class MapProfile:
             raise ValueError("Duplicate radar level ID")
         sites = {r.site_id for r in self.regions if r.kind == "site"}
         for region in self.regions:
+            if region.defense_sector not in sites | {None, "mid"}:
+                raise ValueError("Unknown defense sector")
             if region.level_id and region.level_id not in levels:
                 raise ValueError("Unknown region radar level")
             if any(site not in sites for site in region.support_sites):
@@ -185,7 +202,9 @@ class MapProfile:
         if isinstance(regions, dict):
             regions = [dict(value, id=key) for key, value in regions.items()]
         values["regions"] = [
-            Region(**{**item, "bounds": [RegionBounds(**b) for b in item.get("bounds", [])]})
+            Region(**{**item, "bounds": [RegionBounds(**b) for b in item.get("bounds", [])],
+                      "forward_bounds": {side: [RegionBounds(**b) for b in bounds]
+                                         for side, bounds in item.get("forward_bounds", {}).items()}})
             for item in regions
         ]
         values["connections"] = [
@@ -283,9 +302,13 @@ class SpatialRelations:
         region = self.regions.get(region_id)
         return tuple(region.directions) if region else ()
 
-    def forward(self, region_id: str, side: str) -> bool | None:
+    def forward(self, region_id: str, side: str, sample=None) -> bool | None:
         region = self.regions.get(region_id)
-        return side in region.forward_sides if region else None
+        if not region:
+            return None
+        if sample is None:
+            return None if side in region.forward_bounds else side in region.forward_sides
+        return region.is_forward(side, sample)
 
     def connection(self, from_region: str, to_region: str) -> SpatialConnection | None:
         return self.edges.get((from_region, to_region))

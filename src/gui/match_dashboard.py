@@ -278,10 +278,13 @@ def _utility_economy(
 
 def _raw_data(
     analysis: DemoAnalysis, demo_path: Callable[[DemoAnalysis], Path | None],
+    match_report=None,
 ) -> None:
     st.subheader("Dane i eksport")
+    from src.gui.match_export_view import render_match_export
+    render_match_export(analysis, match_report)
     st.caption(
-        "Pełne dane parsera do sprawdzenia i eksportu; "
+        "Surowe dane parsera do przeglądania; "
         "identyfikatory graczy są zastąpione nickami."
     )
     frames = {name: frame for name, frame in analysis._dataframes().items() if not frame.empty}
@@ -301,20 +304,6 @@ def _raw_data(
         selected = st.selectbox("Zestaw danych", list(frames), key="raw_dataset")
         st.dataframe(presentation_frame(frames[selected], analysis.player_info),
                      hide_index=True, use_container_width=True, height=450)
-    cols = st.columns(2)
-    with cols[0]:
-        st.download_button(
-            "Eksport Excel", data=analysis.to_excel(),
-            file_name=f"{analysis.file_name.removesuffix('.dem')}.xlsx",
-            mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-            use_container_width=True,
-        )
-    with cols[1]:
-        st.download_button(
-            "Eksport CSV (zip)", data=analysis.to_csv_zip(),
-            file_name=f"{analysis.file_name.removesuffix('.dem')}_csv.zip",
-            mime="application/zip", use_container_width=True,
-        )
 
     with st.expander("Dodatkowe zdarzenia i stany gracza"):
         path = demo_path(analysis)
@@ -368,6 +357,8 @@ def render_match_dashboard(
     track_player: Callable[[str], None],
     demo_path: Callable[[DemoAnalysis], Path | None],
     spatial_context: Callable[[DemoAnalysis], SpatialContext] | None = None,
+    map_round_facts: Callable[[DemoAnalysis], list[dict]] | None = None,
+    match_report: Callable[[DemoAnalysis], dict] | None = None,
 ) -> None:
     """Render one focused section per rerun; parser tables stay out of Overview."""
     st.subheader(analysis.map_name or "Mecz")
@@ -392,11 +383,21 @@ def render_match_dashboard(
         st.toast(f"Dodano: {labels[player_id]}")
 
     pending_round = st.session_state.pop("pending_match_round", None)
+    tactical_navigation = st.session_state.pop("pending_tactical_navigation", None)
+    if tactical_navigation and tactical_navigation["demo_id"] == analysis.content_hash:
+        number = tactical_navigation["round"]
+        st.session_state["match_section"] = "Analiza rundy"
+        st.session_state[f"tactical_round_{analysis.content_hash}"] = number
+        st.session_state[f"auto_tactical_{analysis.content_hash}_{number}"] = True
+        if tactical_navigation["seconds"] is not None:
+            st.session_state[f"round_time_{analysis.content_hash}_{number}"] = float(tactical_navigation["seconds"])
     if pending_round is not None:
         st.session_state["match_section"] = "Rundy"
         st.session_state[f"round_{analysis.content_hash}"] = pending_round
+    if st.session_state.get("match_section") == "Kontekst mapy":
+        st.session_state["match_section"] = "Analiza rundy"
     section = st.radio(
-        "Sekcja", ["Przegląd", "Rundy", "Kontekst mapy", "Walka",
+        "Sekcja", ["Przegląd", "Rundy", "Analiza rundy", "Tendencje mapy", "Walka",
                    "Utility i ekonomia", "Dane i eksport"],
         key="match_section", horizontal=True, label_visibility="collapsed",
     )
@@ -406,9 +407,12 @@ def render_match_dashboard(
         _rounds(analysis, player_id)
     elif section == "Walka":
         _fight(analysis, summary, player_id)
-    elif section == "Kontekst mapy":
+    elif section == "Analiza rundy":
         render_round_context(analysis, player_id, spatial_context)
+    elif section == "Tendencje mapy":
+        from src.gui.map_tendencies_view import render_map_tendencies
+        render_map_tendencies(analysis, player_id, labels, map_round_facts)
     elif section == "Utility i ekonomia":
         _utility_economy(analysis, player_id, demo_path)
     else:
-        _raw_data(analysis, demo_path)
+        _raw_data(analysis, demo_path, match_report)

@@ -9,6 +9,7 @@ import pandas as pd
 import streamlit as st
 import streamlit.components.v1 as components
 
+from src.demos.viewer_blinds import recorded_flash_windows
 from src.maps.registry import WORKSPACE
 from src.models.observations import RoundClock
 
@@ -50,6 +51,7 @@ def playback_data(context, analysis, rnd, labels, player_id, start_seconds=0, le
             "selected": pid == str(player_id),
             "samples": [],
             "death": None,
+            "flash_intervals": [],
         }
         for pid in ids
     ]
@@ -80,9 +82,14 @@ def playback_data(context, analysis, rnd, labels, player_id, start_seconds=0, le
     if "total_rounds_played" in kills:
         for row in kills[kills.total_rounds_played.eq(rnd)].to_dict("records"):
             seconds = (int(row["tick"]) - freeze) / rate
+            if seconds < 0 or int(row["tick"]) > end:
+                continue
             victim, attacker = str(row.get("user_steamid")), str(row.get("attacker_steamid"))
             if victim in index:
-                players[index[victim]]["death"] = seconds
+                previous = players[index[victim]]["death"]
+                players[index[victim]]["death"] = (
+                    min(previous, seconds) if previous is not None else seconds
+                )
             events.append(
                 {
                     "time": seconds,
@@ -151,12 +158,71 @@ def playback_data(context, analysis, rnd, labels, player_id, start_seconds=0, le
     metadata = (
         {"pos_x": level.origin_x, "pos_y": level.origin_y, "scale": level.scale} if level else None
     )
+    throws, projectiles = [], []
+    source_throws = getattr(context, "throws", pd.DataFrame())
+    if "total_rounds_played" in source_throws:
+        for row in source_throws[source_throws.total_rounds_played.eq(rnd)].to_dict("records"):
+            tick = int(row["tick"])
+            if not freeze <= tick <= end:
+                continue
+            owner = str(row.get("user_steamid", ""))
+            name = labels.get(owner, "Gracz")
+            kind = str(row.get("kind", "Granat"))
+            seconds = (tick - freeze) / rate
+            events.append({"time": seconds, "text": f"{name} rzuca {kind}"})
+            x, y, z = (_number(row.get(f"user_{axis}")) for axis in ("X", "Y", "Z"))
+            if x is not None and y is not None:
+                throws.append({"time": seconds, "x": x, "y": y, "kind": kind,
+                               "name": name, "selected": owner == str(player_id),
+                               "team": _number(row.get("user_team_num")),
+                               "level_id": sample_level(z)})
+    loader = getattr(context, "load_projectiles", None)
+    projectile_status = "unavailable"
+    if loader is not None:
+        saved = loader(int(rnd))
+        projectile_status = "ready"
+        for row in saved["projectiles"]:
+            owner = row["owner"]
+            team = None
+            if owner in index and players[index[owner]]["samples"]:
+                team = players[index[owner]]["samples"][0][5]
+            projectiles.append({
+                "kind": row["kind"], "name": labels.get(owner, "Gracz"), "team": team,
+                "selected": owner == str(player_id),
+                "start": (row["start_tick"] - freeze) / rate,
+                "end": (row["end_tick"] - freeze) / rate,
+                "max_gap": row["max_gap_seconds"],
+                "samples": [[(s[0] - freeze) / rate, s[1], s[2], s[3], sample_level(s[3])]
+                            for s in row["samples"]],
+            })
+    deaths = {pid: freeze + players[i]["death"] * rate
+              for pid, i in index.items() if players[i]["death"] is not None}
+    flashes, flash_events = recorded_flash_windows(
+        analysis.player_blinds_df, rnd, freeze, end, rate, deaths,
+    )
+    for pid, intervals in flashes.items():
+        if pid in index:
+            players[index[pid]]["flash_intervals"] = intervals
+    for event in flash_events:
+        victim = labels.get(event["victim"], "Gracz")
+        attacker = labels.get(event["attacker"], "Nieznany gracz")
+        duration_text = (f"{event['duration']:.2f} s" if event["duration"] is not None
+                         else "czas nieznany")
+        events.append({"time": (event["tick"] - freeze) / rate,
+                       "text": f"{victim} trafiony flashem · {attacker} · {duration_text}"})
     return {
         "players": players,
         "events": sorted(events, key=lambda e: e["time"]),
         "utility": utility,
         "smokes": smokes,
         "shots": shots,
+        "throws": throws,
+        "projectiles": projectiles,
+        "projectile_status": projectile_status,
+        "flash_event_count": len(flash_events),
+        "flash_timing": "recorded_effect_window_not_full_blindness",
+        "level_ranges": [{"id": item.id, "z_min": item.z_min, "z_max": item.z_max}
+                         for item in levels],
         "duration": duration,
         "start": min(duration, max(0, start_seconds)),
         "sample_seconds": context.diagnostics.get("sample_ticks", 64) / rate,
@@ -207,5 +273,6 @@ def render_radar_player(context, analysis, rnd, labels, player_id, start_seconds
             "Radar pokazuje wybrany poziom; pozycje o nieustalonej wysokości "
             "pozostają tylko na liście graczy."
         )
-    data = playback_data(context, analysis, rnd, labels, player_id, start_seconds, selected)
+    with st.spinner("Przygotowanie animacji granatów…"):
+        data = playback_data(context, analysis, rnd, labels, player_id, start_seconds, selected)
     components.html(playback_html(data), height=900, scrolling=True)

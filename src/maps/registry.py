@@ -11,6 +11,8 @@ WORKSPACE = Path(__file__).resolve().parents[2]
 _REGISTERED = {
     "de_mirage": PROFILE_DIR / "de_mirage.json",
     "de_inferno": PROFILE_DIR / "de_inferno.json",
+    "de_dust2": PROFILE_DIR / "de_dust2.json",
+    "de_anubis": PROFILE_DIR / "de_anubis.json",
 }
 
 

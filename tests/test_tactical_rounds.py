@@ -51,8 +51,8 @@ def test_reviewed_clocks_kills_refrags_plants_and_winners(inputs):
             if key in case:
                 assert any(e.source == "bombs" and e.tick == case[key]
                            and e.data["event"] == name for e in events)
-        assert rnd.fights_status == Status.NOT_EVALUATED  # No invented tactical detections.
-        assert rnd.retake.status == Status.NOT_EVALUATED
+        assert {ref for fight in rnd.fights for ref in fight.contact_ids} == {c.id for c in rnd.contacts}
+        assert rnd.retake.status != Status.NOT_EVALUATED
 
 
 def test_team_identity_survives_switch_and_serialization(inputs):

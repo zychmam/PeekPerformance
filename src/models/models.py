@@ -2,15 +2,11 @@
 
 from __future__ import annotations
 
-import io
-import zipfile
 from dataclasses import dataclass, field
 from datetime import UTC, datetime
 from typing import Any
 
 import pandas as pd
-
-from src.demos.presentation import presentation_frame
 
 
 @dataclass
@@ -55,28 +51,3 @@ class DemoAnalysis:
             "ChatMessages": self.chat_messages_df,
             "PlayerInfo": self.player_info,
         }
-
-    def _dataframes_xlsx(self) -> dict[str, pd.DataFrame]:
-        """Dataframes suitable for Excel — Grenades excluded (can exceed 1M rows)."""
-        return {k: v for k, v in self._dataframes().items() if k != "Grenades"}
-
-    def to_excel(self) -> bytes:
-        buf = io.BytesIO()
-        with pd.ExcelWriter(buf, engine="openpyxl") as writer:
-            for sheet_name, df in self._dataframes_xlsx().items():
-                if not df.empty:
-                    presentation_frame(df, self.player_info).to_excel(
-                        writer, sheet_name=sheet_name, index=False
-                    )
-        return buf.getvalue()
-
-    def to_csv_zip(self) -> bytes:
-        buf = io.BytesIO()
-        with zipfile.ZipFile(buf, "w", zipfile.ZIP_DEFLATED) as zf:
-            for name, df in self._dataframes().items():
-                if not df.empty:
-                    zf.writestr(
-                        f"{name}.csv",
-                        presentation_frame(df, self.player_info).to_csv(index=False),
-                    )
-        return buf.getvalue()

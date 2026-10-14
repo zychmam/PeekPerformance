@@ -6,7 +6,6 @@ import sqlite3
 from unittest.mock import patch
 
 import pandas as pd
-import pytest
 
 from src.demos import rating_service
 from src.demos.demo_manager import DemoManager
@@ -137,3 +136,41 @@ def test_legacy_inputs_are_upgraded_once_and_tracking_survives(tmp_path) -> None
     assert not old.round_roster_df.empty
     assert db.get_demo_analysis("match").analysis_version == ANALYSIS_VERSION
     assert db.list_tracked_players()[0]["steamid"] == SID
+
+
+def test_new_observation_clock_invalidates_unknown_clock_metrics_without_parser(tmp_path):
+    from src.demos.observations import observations_key
+
+    db = Database(str(tmp_path / "clock.db"))
+    source = analysis_fixture()
+    source.rounds_df = source.rounds_df.iloc[:1]
+    source.round_roster_df = pd.DataFrame([
+        {"steamid": SID, "team_num": 3, "total_rounds_played": 1},
+        {"steamid": "victim", "team_num": 2, "total_rounds_played": 1},
+    ])
+    source.kills_df = pd.DataFrame([
+        {"tick": 20, "attacker_steamid": "victim", "user_steamid": "victim",
+         "attacker_team_num": 2, "user_team_num": 2},
+        {"tick": 60, "attacker_steamid": SID, "user_steamid": "victim",
+         "attacker_team_num": 3, "user_team_num": 2},
+    ])
+    db.upsert_demo_analysis(source)
+    manager = DemoManager(str(tmp_path / "demos"))
+    before, _ = rating_service.calculate_and_store_rating(db, manager, "match", "match.dem")
+    assert before.K.sum() == 0
+    key = observations_key(source)
+    db.save_stages("match", {"observations": (
+        key, {"demo_id": "match", "cache_key": key, "round_numbers": [1]},
+        {1: {"clock": [{"tick": 100, "freeze_tick": 50}], "states": ["not decoded"]}},
+    )})
+    assert db.get_demo_metrics("match", ANALYSIS_VERSION, RATING_VERSION) is None
+    assert db.list_player_matches(SID, RATING_VERSION)[0]["rating"] is None
+    with (
+        patch.object(manager, "analysis_path", side_effect=AssertionError("binary opened")),
+        patch.object(db, "get_stage_rounds", side_effect=AssertionError("trajectories decoded")),
+    ):
+        after, per_round = rating_service.calculate_and_store_rating(
+            db, manager, "match", "match.dem",
+        )
+    assert after.K.sum() == 1
+    assert set(per_round.metrics_clock_status) == {"known"}

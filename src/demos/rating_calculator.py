@@ -76,6 +76,9 @@ def compute_rating(demo_path: Path) -> tuple[pd.DataFrame, pd.DataFrame]:
     ends = parser.parse_event("round_end", other=round_props)
     starts = _optional_event(parser, "round_start", other=round_props)
     rounds = normalize_rounds(ends, starts)
+    from src.demos.observations import round_clock
+
+    rounds = round_clock(rounds, _optional_event(parser, "round_freeze_end"))
     if rounds.empty:
         return pd.DataFrame(), pd.DataFrame()
     kills = parser.parse_event(
@@ -113,6 +116,7 @@ def compute_rating_from_events(
     *,
     roster: pd.DataFrame | None = None,
     tick_rate: int = 64,
+    round_clock: pd.DataFrame | None = None,
 ) -> tuple[pd.DataFrame, pd.DataFrame]:
     """Compute a heuristic rating from events with explicit round and team context.
 
@@ -120,12 +124,15 @@ def compute_rating_from_events(
     only; deaths include team kills and world damage. Team side is taken per round
     from the roster, so a side switch does not require guessed assignments.
     """
-    rounds = normalize_rounds(rounds)
+    from src.demos.rating_window import active_round_events, metric_clock
+
+    rounds = metric_clock(normalize_rounds(rounds), round_clock)
     if rounds.empty:
         return pd.DataFrame(), pd.DataFrame()
-    kills = normalize_round_events(kills, rounds)
-    damage = normalize_damage(normalize_round_events(damage, rounds))
-    bombs = normalize_round_events(bomb_planted, rounds)
+    kills = active_round_events(kills, rounds)
+    # Rebuild HP after filtering: pre-freeze hurts must not consume the new life.
+    damage = normalize_damage(active_round_events(damage, rounds))
+    bombs = active_round_events(bomb_planted, rounds)
     if "event" in bombs:
         bombs = bombs[bombs["event"].eq("bomb_planted")]
     if roster is None:
@@ -181,6 +188,7 @@ def compute_rating_from_events(
     trade_window = max(1, int(tick_rate) * 5)
 
     round_metrics = {}
+    clock_status = rounds.set_index("total_rounds_played").metrics_clock_status.to_dict()
     for rnd in round_ids:
         before_counters = {sid: values.copy() for sid, values in counters.items()}
         ct = {sid for sid in players if teams.get((sid, rnd)) == 3}
@@ -307,6 +315,7 @@ def compute_rating_from_events(
                 "hs_kills": int(delta_stats["hs"]), "utility_damage": utility,
                 "kast": int(delta_stats["kast"]), "survived": int(delta_stats["survived"]),
                 "team_num": teams.get((sid, rnd), 0),
+                "metrics_clock_status": clock_status[rnd],
             }
 
     summary_rows = []

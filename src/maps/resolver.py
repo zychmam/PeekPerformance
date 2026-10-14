@@ -173,9 +173,13 @@ def support_sites(region_id, profile):
     return list(item.support_sites) if item else []
 
 
-def is_forward(region_id, side, profile):
+def is_forward(region_id, side, profile, sample=None):
     item = region(profile, region_id)
-    return side in item.forward_sides if item else False
+    if item is None:
+        return False
+    if sample is None:
+        return None if side in item.forward_bounds else side in item.forward_sides
+    return item.is_forward(side, sample)
 
 
 def entry_route(site, data, profile):

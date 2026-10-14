@@ -13,6 +13,15 @@ from src.demos.early_round import (
     enrich_early_round,
 )
 from src.demos.observations import EFFECTS
+from src.demos.round_alive import ALIVE_DETECTOR_VERSION, assign_opening, build_alive_states
+from src.demos.round_contacts import (
+    CONTACT_DETECTOR_VERSION,
+    assign_first_contacts,
+    build_round_contacts,
+)
+from src.demos.round_index import round_state_index
+from src.demos.round_refrags import REFRAG_DETECTOR_VERSION, enrich_refrags
+from src.demos.round_moments import MOMENTS_VERSION, build_round_moments
 from src.demos.tactical_evidence import collect_evidence
 from src.maps.registry import get_profile
 from src.maps.resolver import resolve_region
@@ -123,6 +132,7 @@ def build_tactical_match(
     foundations=None,
     config=None,
     profile=None,
+    cached_actions=None,
 ) -> TacticalMatch:
     config = config or DetectorConfig()
     profile = profile or getattr(spatial, "profile", None) or get_profile(analysis.map_name)
@@ -407,13 +417,35 @@ def build_tactical_match(
                     Status.PARTIAL,
                     ["Observed pickup/drop events and carrier samples; gaps remain explicit."],
                 )
+        indexed_states = round_state_index(rr, evidence)
+        rr.contacts, rr.contacts_status = build_round_contacts(
+            rr, evidence, tick_rate=rate, config=config, areas=assigned if profile else None,
+            state_index=indexed_states,
+        )
+        assign_first_contacts(rr, evidence)
+        assign_opening(rr, evidence)
+        rr.alive_states, rr.alive_status = build_alive_states(
+            rr, evidence, tick_rate=rate, config=config, state_index=indexed_states,
+        )
+        enrich_refrags(rr, evidence, tick_rate=rate, response_seconds=config.refrag_seconds)
+        rr.moments = build_round_moments(rr, evidence)
+        from src.demos.tactical_actions import TACTICAL_ACTIONS_VERSION, enrich_actions
+        enrich_actions(rr, evidence, profile, tick_rate=rate, config=config,
+                       state_index=indexed_states,
+                       cached=(cached_actions or {}).get(rnd))
         result.append(rr)
     match = TacticalMatch(
         analysis.content_hash, analysis.map_name, analysis.analysis_version, result, evidence, teams
     )
     match.parameters.update(
+        tactical_actions_version=TACTICAL_ACTIONS_VERSION,
         early_detector_version=EARLY_DETECTOR_VERSION,
         early_interpretation_version=INTERPRETATION_VERSION,
+        contact_detector_version=CONTACT_DETECTOR_VERSION,
+        alive_detector_version=ALIVE_DETECTOR_VERSION,
+        refrag_detector_version=REFRAG_DETECTOR_VERSION,
+        moments_version=MOMENTS_VERSION,
+        response_seconds=config.refrag_seconds,
         snapshot_max_age_ticks=MAX_AGE,
         movement_max_gap_ticks=MAX_GAP,
         movement_confirm_ticks=CONFIRM_TICKS,
@@ -441,4 +473,5 @@ def load_tactical_match(db: Database, demo_id: str, round_number=None) -> Tactic
     foundations = {number: decode_foundation(value)[0] for number, value in saved.items()}
     if round_number is not None:
         analysis = round_analysis(analysis, round_number)
-    return build_tactical_match(analysis, spatial, foundations=foundations or None)
+    return build_tactical_match(analysis, spatial, foundations=foundations or None,
+                               cached_actions=getattr(spatial, "tactical_actions", None))

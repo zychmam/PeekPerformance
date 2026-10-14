@@ -284,6 +284,13 @@ class DemoAnalyzer:
             logger.warning("Round starts unavailable; using completed round boundaries")
             starts = pd.DataFrame()
         self._rounds = normalize_rounds(rounds, starts)
+        from src.demos.observations import round_clock
+
+        try:
+            freezes = self._parser.parse_event("round_freeze_end", other=_ROUND_PROPS)
+        except Exception:
+            freezes = pd.DataFrame()
+        self._rounds = round_clock(self._rounds, freezes)
         return self._rounds.copy()
 
     def get_round_roster(self) -> pd.DataFrame:
@@ -322,7 +329,7 @@ class DemoAnalyzer:
     def get_grenades(self) -> pd.DataFrame:
         """Full grenade trajectories: X/Y/Z per tick, thrower, type."""
         try:
-            return self._parser.parse_grenades()
+            return self._parser.parse_grenades(grenades=False)
         except Exception:
             logger.warning("Failed to parse grenades")
             return pd.DataFrame()

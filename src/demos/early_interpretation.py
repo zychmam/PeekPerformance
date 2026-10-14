@@ -163,7 +163,7 @@ def interpret_preparation(rnd, evidence, *, profile=None, config=None, tick_rate
                 start = previous = None
                 for ev in samples:
                     place = ev.data.get("region_id") or resolve_region(ev.data, profile)
-                    if not ev.data.get("is_alive") or not is_forward(place, "CT", profile):
+                    if not ev.data.get("is_alive") or not is_forward(place, "CT", profile, ev.data):
                         start = previous = None
                         continue
                     if (

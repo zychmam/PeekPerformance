@@ -281,6 +281,7 @@ class Database:
         demo_id: str,
         *,
         include_auxiliary: bool = True,
+        include_grenades: bool = True,
     ) -> DemoAnalysis | None:
         """Read saved inputs; coaching can skip trajectories, chat and scoreboard."""
         columns = (
@@ -292,6 +293,12 @@ class Database:
                 "analyzed_at, round_roster, analysis_version"
             )
         )
+        if include_auxiliary and not include_grenades:
+            columns = (
+                "file_name, content_hash, stored_file_name, map_name, header, player_info, "
+                "scoreboard, kills, damage, rounds, bomb_events, player_blinds, round_stats, "
+                "chat_messages, convars, analyzed_at, round_roster, analysis_version"
+            )
         with self._connect() as conn:
             row = conn.execute(
                 f"SELECT {columns} FROM demo_analyses WHERE demo_id = ?", (demo_id,)
@@ -378,6 +385,12 @@ class Database:
                 )
             )
         with self._connect() as conn:
+            if "observations" in stages:
+                # A newly available freeze clock changes eligibility of metric
+                # events, including metrics previously calculated without it.
+                conn.execute("DELETE FROM demo_metric_results WHERE demo_id=?", (demo_id,))
+                conn.execute("DELETE FROM demo_ratings WHERE demo_id=?", (demo_id,))
+                conn.execute("UPDATE demo_catalog SET rating_version=0 WHERE demo_id=?", (demo_id,))
             for stage, key, manifest_json, values in prepared:
                 conn.execute(
                     "INSERT INTO coach_stage_manifests VALUES (?, ?, ?, ?) "
@@ -389,6 +402,35 @@ class Database:
                     "DELETE FROM coach_stage_rounds WHERE demo_id=? AND stage=?", (demo_id, stage)
                 )
                 conn.executemany("INSERT INTO coach_stage_rounds VALUES (?, ?, ?, ?, ?)", values)
+
+    def get_observation_clock(self, demo_id: str, cache_key: str) -> pd.DataFrame:
+        """Read only the small clock projection, without decoding trajectories."""
+        return self.get_observation_frame(demo_id, cache_key, "clock")
+
+    def get_observation_frame(self, demo_id: str, cache_key: str, name: str) -> pd.DataFrame:
+        """Project one source collection in SQLite, without decoding player states."""
+        if not name.isidentifier():
+            raise ValueError("Invalid observation frame")
+        with self._connect() as conn:
+            rows = conn.execute(
+                "SELECT json_extract(r.payload, ?) AS frame "
+                "FROM coach_stage_rounds r JOIN coach_stage_manifests m "
+                "ON m.demo_id=r.demo_id AND m.stage=r.stage AND m.cache_key=r.cache_key "
+                "WHERE r.demo_id=? AND r.stage='observations' AND r.cache_key=? "
+                "ORDER BY r.round_number", (f"$.{name}", demo_id, cache_key),
+            ).fetchall()
+        return pd.DataFrame([item for row in rows for item in json.loads(row["frame"] or "[]")])
+
+    def get_demo_projectiles(self, demo_id: str) -> pd.DataFrame:
+        """Cold viewer preparation reads only projectile objects, not held grenades."""
+        with self._connect() as conn:
+            rows = conn.execute(
+                "SELECT j.value AS payload FROM demo_analyses a, json_each(a.grenades) j "
+                "WHERE a.demo_id=? AND json_extract(j.value,'$.grenade_type') IN "
+                "('CFlashbangProjectile','CHEGrenadeProjectile','CSmokeGrenadeProjectile',"
+                "'CMolotovProjectile','CDecoyProjectile')", (demo_id,),
+            ).fetchall()
+        return pd.DataFrame([json.loads(row["payload"]) for row in rows])
 
     def delete_demo_analysis(self, demo_id: str) -> None:
         with self._connect() as conn:

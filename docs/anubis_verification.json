@@ -1,0 +1,141 @@
+{
+  "demo": "1-1ccc85d8-33b4-4de8-a6fd-ed34154629d0-1-1.dem",
+  "demo_id": "c5f3f99d0cfe9eee7f1bf0dbdc2ab8ff2509a4ef01630ac3451bd9ced7dddda0",
+  "map": "de_anubis",
+  "patch": "14189",
+  "rounds": 24,
+  "players": 10,
+  "kills": 166,
+  "independent_plants": [
+    {
+      "round": 4,
+      "tick": 24968,
+      "site": "A",
+      "engine_site": 444,
+      "sample": {
+        "X": 1276.0712890625,
+        "Y": 1938.0682373046875,
+        "Z": -191.96875,
+        "last_place_name": "BombsiteA"
+      }
+    },
+    {
+      "round": 7,
+      "tick": 42955,
+      "site": "B",
+      "engine_site": 239,
+      "sample": {
+        "X": -1136.4544677734375,
+        "Y": 686.6987915039062,
+        "Z": -1.96875,
+        "last_place_name": "BombsiteB"
+      }
+    },
+    {
+      "round": 13,
+      "tick": 70909,
+      "site": "B",
+      "engine_site": 239,
+      "sample": {
+        "X": -1182.9974365234375,
+        "Y": 797.2803955078125,
+        "Z": -3.96875,
+        "last_place_name": "BombsiteB"
+      }
+    },
+    {
+      "round": 18,
+      "tick": 96123,
+      "site": "B",
+      "engine_site": 239,
+      "sample": {
+        "X": -1136.0372314453125,
+        "Y": 699.96875,
+        "Z": -1.96875,
+        "last_place_name": "BombsiteB"
+      }
+    },
+    {
+      "round": 20,
+      "tick": 104149,
+      "site": "B",
+      "engine_site": 239,
+      "sample": {
+        "X": -1136.062255859375,
+        "Y": 699.96875,
+        "Z": -1.96875,
+        "last_place_name": "BombsiteB"
+      }
+    },
+    {
+      "round": 21,
+      "tick": 110132,
+      "site": "A",
+      "engine_site": 444,
+      "sample": {
+        "X": 967.3289794921875,
+        "Y": 1752.1756591796875,
+        "Z": -191.96875,
+        "last_place_name": "BombsiteA"
+      }
+    },
+    {
+      "round": 24,
+      "tick": 126297,
+      "site": "B",
+      "engine_site": 239,
+      "sample": {
+        "X": -1136.062744140625,
+        "Y": 688.289306640625,
+        "Z": -1.96875,
+        "last_place_name": "BombsiteB"
+      }
+    }
+  ],
+  "excluded_postround_plant_ticks": [
+    33309
+  ],
+  "aggregates": [
+    {
+      "team": "team_1",
+      "side": "T",
+      "rounds": 12,
+      "attempts": 9,
+      "rotations": 0,
+      "snapshot_known": 12
+    },
+    {
+      "team": "team_1",
+      "side": "CT",
+      "rounds": 12,
+      "attempts": 0,
+      "rotations": 51,
+      "snapshot_known": 12
+    },
+    {
+      "team": "team_2",
+      "side": "T",
+      "rounds": 12,
+      "attempts": 12,
+      "rotations": 0,
+      "snapshot_known": 12
+    },
+    {
+      "team": "team_2",
+      "side": "CT",
+      "rounds": 12,
+      "attempts": 0,
+      "rotations": 53,
+      "snapshot_known": 12
+    }
+  ],
+  "locations": {
+    "observed": 139021,
+    "unknown": 39
+  },
+  "unknown_places": {
+    "": 39
+  },
+  "warm_read_seconds": 0.059,
+  "total_seconds": 38.04
+}

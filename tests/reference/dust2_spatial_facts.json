@@ -1,0 +1,177 @@
+{
+  "demo": "1-610da466-b271-4c18-90d4-c2da4b0d75d4-1-1.dem",
+  "patch": "14186",
+  "source": "demoparser2 direct parse_ticks at 128-tick interval; direct bomb_planted positions, independent of spatial resolver",
+  "places": [
+    {
+      "last_place_name": "ARamp",
+      "X": 1403.361,
+      "Y": 2554.216,
+      "Z": 64.691
+    },
+    {
+      "last_place_name": "BDoors",
+      "X": -1058.036,
+      "Y": 2311.435,
+      "Z": -15.019
+    },
+    {
+      "last_place_name": "BombsiteA",
+      "X": 1113.659,
+      "Y": 2601.131,
+      "Z": 96.473
+    },
+    {
+      "last_place_name": "BombsiteB",
+      "X": -1792.507,
+      "Y": 2243.879,
+      "Z": -0.222
+    },
+    {
+      "last_place_name": "CTSpawn",
+      "X": 274.789,
+      "Y": 2458.388,
+      "Z": -121.284
+    },
+    {
+      "last_place_name": "Catwalk",
+      "X": -158.36,
+      "Y": 1380.138,
+      "Z": -0.161
+    },
+    {
+      "last_place_name": "ExtendedA",
+      "X": 415.415,
+      "Y": 2376.626,
+      "Z": 95.46
+    },
+    {
+      "last_place_name": "Hole",
+      "X": -1323.407,
+      "Y": 2677.688,
+      "Z": 130.031
+    },
+    {
+      "last_place_name": "LongA",
+      "X": 1374.343,
+      "Y": 1546.656,
+      "Z": -6.524
+    },
+    {
+      "last_place_name": "LongDoors",
+      "X": 721.687,
+      "Y": 858.97,
+      "Z": -0.138
+    },
+    {
+      "last_place_name": "LowerTunnel",
+      "X": -884.877,
+      "Y": 1420.71,
+      "Z": -112.127
+    },
+    {
+      "last_place_name": "MidDoors",
+      "X": -503.7,
+      "Y": 2156.399,
+      "Z": -124.685
+    },
+    {
+      "last_place_name": "Middle",
+      "X": -395.801,
+      "Y": 1339.799,
+      "Z": -124.964
+    },
+    {
+      "last_place_name": "OutsideLong",
+      "X": 343.17,
+      "Y": -29.596,
+      "Z": -3.061
+    },
+    {
+      "last_place_name": "OutsideTunnel",
+      "X": -1569.585,
+      "Y": 277.943,
+      "Z": 2.164
+    },
+    {
+      "last_place_name": "Pit",
+      "X": 1358.388,
+      "Y": 729.768,
+      "Z": -22.656
+    },
+    {
+      "last_place_name": "ShortStairs",
+      "X": 357.583,
+      "Y": 1667.343,
+      "Z": 39.609
+    },
+    {
+      "last_place_name": "Side",
+      "X": 1656.39,
+      "Y": 780.757,
+      "Z": 4.091
+    },
+    {
+      "last_place_name": "TRamp",
+      "X": -1921.392,
+      "Y": -245.29,
+      "Z": 29.814
+    },
+    {
+      "last_place_name": "TSpawn",
+      "X": -697.011,
+      "Y": -806.603,
+      "Z": 116.708
+    },
+    {
+      "last_place_name": "TopofMid",
+      "X": -341.645,
+      "Y": 397.931,
+      "Z": -3.932
+    },
+    {
+      "last_place_name": "TunnelStairs",
+      "X": -1094.928,
+      "Y": 1157.457,
+      "Z": -50.545
+    },
+    {
+      "last_place_name": "UnderA",
+      "X": 819.068,
+      "Y": 2237.881,
+      "Z": -33.611
+    },
+    {
+      "last_place_name": "UpperTunnel",
+      "X": -1938.151,
+      "Y": 1314.999,
+      "Z": 29.963
+    }
+  ],
+  "plants": [
+    {
+      "tick": 6363,
+      "engine_site": 498,
+      "X": 1156.0711669922,
+      "Y": 2478.7551269531,
+      "Z": 95.4390411377,
+      "last_place_name": "BombsiteA"
+    },
+    {
+      "tick": 10112,
+      "engine_site": 248,
+      "X": -1478.0325927734,
+      "Y": 2615.962890625,
+      "Z": 60.8780136108,
+      "last_place_name": "BombsiteB"
+    },
+    {
+      "tick": 143378,
+      "engine_site": 248,
+      "X": -1635.8812255859,
+      "Y": 2623.8989257812,
+      "Z": 4.9687614441,
+      "last_place_name": "BombsiteB"
+    }
+  ]
+}

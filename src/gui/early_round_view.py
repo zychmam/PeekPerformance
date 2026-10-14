@@ -24,19 +24,21 @@ def area_label(value, profile=None):
     return region_label(value, profile)
 
 
-def render_early_round(analysis, context, rnd, labels):
+def render_early_round(analysis, context, rnd, labels, match=None):
     presentation = context.profile.presentation_fingerprint if context.profile else "none"
     key = (
         f"early_{EARLY_DETECTOR_VERSION}_{INTERPRETATION_VERSION}_"
         f"foundation_{FOUNDATION_VERSION}_{context_key(analysis, context.profile)}_"
         f"{presentation}_{rnd}"
     )
-    if key not in st.session_state:
-        match = build_tactical_match(
-            round_analysis(analysis, rnd),
-            context,
-            foundations=getattr(context, "foundations", None),
-        )
+    if match is None and key in st.session_state:
+        payload = st.session_state[key]
+    else:
+        if match is None:
+            match = build_tactical_match(
+                round_analysis(analysis, rnd), context,
+                foundations=getattr(context, "foundations", None),
+            )
         # Keep the compact observations, not a second copy of all source evidence.
         refs = {
             eid
@@ -45,7 +47,7 @@ def render_early_round(analysis, context, rnd, labels):
             for finding in p.findings
             for eid in finding.evidence_ids
         }
-        st.session_state[key] = {
+        payload = {
             "rounds": {r.number: r for r in match.rounds},
             "proof": {
                 eid: {
@@ -59,7 +61,11 @@ def render_early_round(analysis, context, rnd, labels):
                 r.number: [match.evidence[eid] for eid in r.bomb_event_ids] for r in match.rounds
             },
         }
-    record = st.session_state[key]["rounds"][rnd]
+        if match is not None and len(match.rounds) > 1:
+            # Standalone callers retain the old compact cache; the round view
+            # already owns a one-round tactical result in the session.
+            st.session_state[key] = payload
+    record = payload["rounds"][rnd]
     clock = RoundClock.from_row(
         context.clock[context.clock.total_rounds_played.eq(rnd)].iloc[0].to_dict()
     )
@@ -85,7 +91,7 @@ def render_early_round(analysis, context, rnd, labels):
                         st.write(finding.text)
                         for limit in finding.limitations:
                             st.caption(limit)
-                        rows = [st.session_state[key]["proof"][eid] for eid in finding.evidence_ids]
+                        rows = [payload["proof"][eid] for eid in finding.evidence_ids]
                         st.caption(
                             f"Dowodów: {len(rows)}. "
                             + ("Pokazano pierwszych 12." if len(rows) > 12 else "")
@@ -207,7 +213,7 @@ def render_early_round(analysis, context, rnd, labels):
     )
     from src.gui.foundation_view import render_foundation
 
-    render_foundation(record, st.session_state[key]["foundation_events"][rnd], labels)
+    render_foundation(record, payload["foundation_events"][rnd], labels)
     if st.button("Pokaż ustawienie na mapie", key=f"early_jump_{analysis.content_hash}_{rnd}"):
         if isinstance(moment, str):
             snapshot = (

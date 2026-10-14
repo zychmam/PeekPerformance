@@ -57,7 +57,9 @@ def _untrack_selected_player() -> None:
 
 
 def _open_saved_demo(demo_id: str) -> None:
-    st.session_state["current_demo_analysis"] = _get_db().get_demo_analysis(demo_id)
+    st.session_state["current_demo_analysis"] = _get_db().get_demo_analysis(
+        demo_id, include_grenades=False,
+    )
     st.session_state["active_view"] = "Analiza demo"
     st.session_state["match_section"] = "Przegląd"
 
@@ -176,7 +178,7 @@ def _analyze_demo(file_name: str, data: bytes) -> DemoAnalysis:
 def _load_or_parse_demo(content_hash: str) -> DemoAnalysis | None:
     """Return cached analysis from DB if available."""
     db = _get_db()
-    return db.get_demo_analysis(content_hash)
+    return db.get_demo_analysis(content_hash, include_grenades=False)
 
 
 def _analysis_demo_path(analysis: DemoAnalysis) -> Path | None:
@@ -189,9 +191,12 @@ def _cached_demo_rating(
     analysis: DemoAnalysis,
 ) -> tuple[pd.DataFrame, pd.DataFrame] | None:
     """Reuse the computed rating across the overview and rating tabs."""
+    clock_manifest = _get_db().get_stage_manifest(analysis.content_hash, "observations")
+    clock_key = clock_manifest.get("cache_key", "unknown") if clock_manifest else "unknown"
     cache_key = (
         f"rating_{analysis.content_hash or analysis.file_name}"
         f"_a{ANALYSIS_VERSION}_m{RATING_VERSION}"
+        f"_clock{clock_key}"
     )
     if cache_key in st.session_state:
         cached_summary, _ = st.session_state[cache_key]
@@ -242,6 +247,8 @@ def _tab_demo_analysis() -> None:
                         if dm.analysis_path(cached.stored_file_name, content_hash) is None:
                             path = dm.save_uploaded(file_name, data)
                             if cached.stored_file_name != path.name:
+                                # Preserve auxiliary sources when updating the stored filename.
+                                cached = db.get_demo_analysis(content_hash)
                                 cached.stored_file_name = path.name
                                 db.upsert_demo_analysis(cached)
                         st.session_state["current_demo_analysis"] = cached
@@ -279,12 +286,12 @@ def _tab_demo_analysis() -> None:
                 current = st.session_state.get("current_demo_analysis")
                 if current is None or current.content_hash != selected_cached:
                     st.session_state["current_demo_analysis"] = db.get_demo_analysis(
-                        selected_cached
+                        selected_cached, include_grenades=False,
                     )
 
     analysis = st.session_state.get("current_demo_analysis")
     if analysis is not None and not isinstance(analysis, DemoAnalysis):
-        analysis = db.get_demo_analysis(analysis.content_hash)
+        analysis = db.get_demo_analysis(analysis.content_hash, include_grenades=False)
         st.session_state["current_demo_analysis"] = analysis
     if analysis is None:
         st.info("Wgraj plik .dem, .dem.gz lub .dem.zst albo wybierz zapisane demo.")
@@ -292,11 +299,15 @@ def _tab_demo_analysis() -> None:
 
     rating_result = _cached_demo_rating(analysis)
     summary = rating_result[0] if rating_result is not None else pd.DataFrame()
+    from src.demos.map_tendencies_service import get_map_round_facts
+    from src.demos.match_report import prepare_match_report
     from src.demos.spatial_service import get_spatial_context
 
     render_match_dashboard(
         analysis, summary, db.track_player, _analysis_demo_path,
         lambda match, rnd=None: get_spatial_context(db, _get_demo_manager(), match, rnd),
+        lambda match: get_map_round_facts(db, _get_demo_manager(), match),
+        lambda match: prepare_match_report(db, _get_demo_manager(), match),
     )
 
 

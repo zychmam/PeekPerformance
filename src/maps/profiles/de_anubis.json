@@ -1,0 +1,595 @@
+{
+  "schema_version": 1,
+  "map_name": "de_anubis",
+  "profile_version": "1-m5.an",
+  "regions": [
+    {
+      "id": "site_a",
+      "name": "Site A",
+      "nav_labels": [
+        "BombsiteA"
+      ],
+      "kind": "site",
+      "site_id": "A",
+      "directions": [
+        "A"
+      ],
+      "defense_sector": "A",
+      "level_id": "main"
+    },
+    {
+      "id": "site_b",
+      "name": "Site B",
+      "nav_labels": [
+        "BombsiteB"
+      ],
+      "kind": "site",
+      "site_id": "B",
+      "directions": [
+        "B"
+      ],
+      "defense_sector": "B",
+      "level_id": "main"
+    },
+    {
+      "id": "a_main",
+      "name": "A main",
+      "nav_labels": [
+        "Main"
+      ],
+      "kind": "approach",
+      "directions": [
+        "A"
+      ],
+      "route_names": {
+        "A": "A main"
+      },
+      "defense_sector": "A",
+      "forward_sides": [
+        "CT"
+      ],
+      "forward_bounds": {
+        "CT": [
+          {
+            "x_min": 1250,
+            "x_max": 1850,
+            "y_min": 750,
+            "y_max": 1300
+          }
+        ]
+      },
+      "level_id": "main"
+    },
+    {
+      "id": "walkway",
+      "name": "Walkway / przejście od mida",
+      "nav_labels": [
+        "Walkway"
+      ],
+      "kind": "approach",
+      "directions": [
+        "A"
+      ],
+      "route_names": {
+        "A": "Walkway / od mida"
+      },
+      "defense_sector": "A",
+      "level_id": "main"
+    },
+    {
+      "id": "fountain",
+      "name": "Fontanna",
+      "nav_labels": [
+        "Fountain"
+      ],
+      "kind": "approach",
+      "directions": [
+        "A"
+      ],
+      "route_names": {
+        "A": "Fontanna"
+      },
+      "defense_sector": "A",
+      "level_id": "main"
+    },
+    {
+      "id": "heaven",
+      "name": "Heaven A",
+      "nav_labels": [
+        "Heaven"
+      ],
+      "kind": "connector",
+      "support_sites": [
+        "A"
+      ],
+      "route_names": {
+        "A": "Heaven"
+      },
+      "defense_sector": "A",
+      "level_id": "main"
+    },
+    {
+      "id": "a_tunnel",
+      "name": "Tunel CT do A",
+      "nav_labels": [
+        "Tunnel"
+      ],
+      "kind": "connector",
+      "support_sites": [
+        "A"
+      ],
+      "route_names": {
+        "A": "Od CT / tunel"
+      },
+      "defense_sector": "A",
+      "level_id": "main"
+    },
+    {
+      "id": "a_tunnel_stairs",
+      "name": "Schody tunelu A",
+      "nav_labels": [
+        "TunnelStairs"
+      ],
+      "kind": "connector",
+      "support_sites": [
+        "A"
+      ],
+      "route_names": {
+        "A": "Od CT / schody"
+      },
+      "defense_sector": "A",
+      "level_id": "main"
+    },
+    {
+      "id": "b_main",
+      "name": "B main / long",
+      "nav_labels": [
+        "OutsideLong"
+      ],
+      "kind": "approach",
+      "directions": [
+        "B"
+      ],
+      "route_names": {
+        "B": "B main / long"
+      },
+      "defense_sector": "B",
+      "forward_sides": [
+        "CT"
+      ],
+      "level_id": "main"
+    },
+    {
+      "id": "ruins",
+      "name": "Ruiny",
+      "nav_labels": [
+        "Ruins"
+      ],
+      "kind": "approach",
+      "directions": [
+        "B"
+      ],
+      "route_names": {
+        "B": "Ruiny / B main"
+      },
+      "defense_sector": "B",
+      "forward_sides": [
+        "CT"
+      ],
+      "level_id": "main"
+    },
+    {
+      "id": "b_connector",
+      "name": "Łącznik woda — B",
+      "nav_labels": [
+        "Connector"
+      ],
+      "kind": "approach",
+      "directions": [
+        "B"
+      ],
+      "route_names": {
+        "B": "Łącznik / od wody"
+      },
+      "defense_sector": "B",
+      "forward_sides": [
+        "CT"
+      ],
+      "level_id": "main"
+    },
+    {
+      "id": "back_b",
+      "name": "Tył B",
+      "nav_labels": [
+        "BackofB"
+      ],
+      "kind": "connector",
+      "support_sites": [
+        "B"
+      ],
+      "route_names": {
+        "B": "Od tyłu B"
+      },
+      "defense_sector": "B",
+      "level_id": "main"
+    },
+    {
+      "id": "bricks",
+      "name": "Bricks",
+      "nav_labels": [
+        "Bricks"
+      ],
+      "kind": "connector",
+      "support_sites": [
+        "B"
+      ],
+      "route_names": {
+        "B": "Bricks / od CT"
+      },
+      "defense_sector": "B",
+      "level_id": "main"
+    },
+    {
+      "id": "alley",
+      "name": "Aleja za B",
+      "nav_labels": [
+        "Alley"
+      ],
+      "kind": "connector",
+      "support_sites": [
+        "B"
+      ],
+      "defense_sector": "B",
+      "level_id": "main"
+    },
+    {
+      "id": "palace",
+      "name": "Palace",
+      "nav_labels": [
+        "PalaceInterior"
+      ],
+      "kind": "connector",
+      "support_sites": [
+        "B"
+      ],
+      "route_names": {
+        "B": "Palace / od mida"
+      },
+      "defense_sector": "B",
+      "level_id": "main"
+    },
+    {
+      "id": "b_lower_tunnel",
+      "name": "Dolny tunel CT do B",
+      "nav_labels": [
+        "LowerTunnel"
+      ],
+      "kind": "connector",
+      "support_sites": [
+        "B"
+      ],
+      "defense_sector": "B",
+      "level_id": "main"
+    },
+    {
+      "id": "snipers_nest",
+      "name": "Snipers nest",
+      "nav_labels": [
+        "SnipersNest"
+      ],
+      "kind": "connector",
+      "support_sites": [
+        "B"
+      ],
+      "defense_sector": "B",
+      "level_id": "main"
+    },
+    {
+      "id": "ct_upper",
+      "name": "Górne przejście CT",
+      "nav_labels": [
+        "CTSideUpper"
+      ],
+      "kind": "connector",
+      "support_sites": [
+        "B"
+      ],
+      "defense_sector": "B",
+      "level_id": "main"
+    },
+    {
+      "id": "middle",
+      "name": "Mid",
+      "nav_labels": [
+        "Middle"
+      ],
+      "kind": "mid",
+      "directions": [
+        "mid"
+      ],
+      "defense_sector": "mid",
+      "level_id": "main"
+    },
+    {
+      "id": "mid_doors",
+      "name": "Drzwi mid",
+      "nav_labels": [
+        "MidDoors"
+      ],
+      "kind": "mid",
+      "directions": [
+        "mid"
+      ],
+      "defense_sector": "mid",
+      "forward_sides": [
+        "CT"
+      ],
+      "forward_bounds": {
+        "CT": [
+          {
+            "x_min": -150,
+            "x_max": 400,
+            "y_min": 250,
+            "y_max": 500
+          }
+        ]
+      },
+      "level_id": "main"
+    },
+    {
+      "id": "bridge",
+      "name": "Most",
+      "nav_labels": [
+        "Bridge"
+      ],
+      "kind": "mid",
+      "directions": [
+        "mid"
+      ],
+      "defense_sector": "mid",
+      "forward_sides": [
+        "CT"
+      ],
+      "level_id": "main"
+    },
+    {
+      "id": "canal",
+      "name": "Kanał / woda pod mostem",
+      "nav_labels": [
+        "Canal"
+      ],
+      "kind": "connector",
+      "directions": [
+        "A",
+        "B",
+        "mid"
+      ],
+      "support_sites": [
+        "A",
+        "B"
+      ],
+      "forward_sides": [
+        "CT"
+      ],
+      "level_id": "main"
+    },
+    {
+      "id": "t_stairs",
+      "name": "Schody T do kanału",
+      "nav_labels": [
+        "TStairs"
+      ],
+      "kind": "connector",
+      "support_sites": [
+        "A",
+        "B"
+      ],
+      "forward_sides": [
+        "CT"
+      ],
+      "level_id": "main"
+    },
+    {
+      "id": "t_upper",
+      "name": "Górne przejście T",
+      "nav_labels": [
+        "TSideUpper"
+      ],
+      "kind": "connector",
+      "directions": [
+        "A"
+      ],
+      "forward_sides": [
+        "CT"
+      ],
+      "level_id": "main"
+    },
+    {
+      "id": "street",
+      "name": "Ulica T",
+      "nav_labels": [
+        "Street"
+      ],
+      "kind": "connector",
+      "directions": [
+        "A",
+        "mid"
+      ],
+      "forward_sides": [
+        "CT"
+      ],
+      "level_id": "main"
+    },
+    {
+      "id": "t_spawn",
+      "name": "Resp T",
+      "nav_labels": [
+        "TSpawn"
+      ],
+      "kind": "spawn",
+      "forward_sides": [
+        "CT"
+      ],
+      "level_id": "main"
+    },
+    {
+      "id": "ct_spawn",
+      "name": "Resp CT",
+      "nav_labels": [
+        "CTSpawn"
+      ],
+      "kind": "spawn",
+      "support_sites": [
+        "A",
+        "B"
+      ],
+      "level_id": "main"
+    },
+    {
+      "id": "ct_water",
+      "name": "Woda za respem CT",
+      "nav_labels": [
+        "Water"
+      ],
+      "kind": "other",
+      "level_id": "main"
+    }
+  ],
+  "connections": [
+    {
+      "from_region": "a_main",
+      "to_region": "site_a",
+      "bidirectional": true,
+      "verification": "limited"
+    },
+    {
+      "from_region": "walkway",
+      "to_region": "site_a",
+      "bidirectional": true,
+      "verification": "limited"
+    },
+    {
+      "from_region": "fountain",
+      "to_region": "site_a",
+      "bidirectional": true,
+      "verification": "limited"
+    },
+    {
+      "from_region": "heaven",
+      "to_region": "site_a",
+      "verification": "limited",
+      "kind": "drop"
+    },
+    {
+      "from_region": "a_tunnel",
+      "to_region": "a_tunnel_stairs",
+      "bidirectional": true,
+      "verification": "limited"
+    },
+    {
+      "from_region": "a_tunnel_stairs",
+      "to_region": "heaven",
+      "bidirectional": true,
+      "verification": "limited"
+    },
+    {
+      "from_region": "b_main",
+      "to_region": "site_b",
+      "bidirectional": true,
+      "verification": "limited"
+    },
+    {
+      "from_region": "b_connector",
+      "to_region": "site_b",
+      "bidirectional": true,
+      "verification": "limited"
+    },
+    {
+      "from_region": "back_b",
+      "to_region": "site_b",
+      "bidirectional": true,
+      "verification": "limited"
+    },
+    {
+      "from_region": "bricks",
+      "to_region": "site_b",
+      "bidirectional": true,
+      "verification": "limited"
+    },
+    {
+      "from_region": "ruins",
+      "to_region": "b_main",
+      "bidirectional": true,
+      "verification": "limited"
+    },
+    {
+      "from_region": "bridge",
+      "to_region": "mid_doors",
+      "bidirectional": true,
+      "verification": "limited"
+    },
+    {
+      "from_region": "mid_doors",
+      "to_region": "middle",
+      "bidirectional": true,
+      "verification": "limited"
+    },
+    {
+      "from_region": "middle",
+      "to_region": "walkway",
+      "bidirectional": true,
+      "verification": "limited"
+    },
+    {
+      "from_region": "canal",
+      "to_region": "a_main",
+      "bidirectional": true,
+      "verification": "limited"
+    },
+    {
+      "from_region": "canal",
+      "to_region": "b_connector",
+      "bidirectional": true,
+      "verification": "limited"
+    }
+  ],
+  "radar_levels": [
+    {
+      "id": "main",
+      "image": "src/assets/maps/de_anubis.png",
+      "origin_x": -2796,
+      "origin_y": 3328,
+      "scale": 5.22,
+      "width": 1024,
+      "height": 1024
+    }
+  ],
+  "capabilities": [
+    "regions",
+    "site_regions",
+    "approaches",
+    "support",
+    "directions",
+    "forward_positions",
+    "entry_routes",
+    "radar",
+    "site_boundaries",
+    "forward_presence"
+  ],
+  "compatibility": {
+    "verified_patch_versions": [
+      "14189"
+    ],
+    "unknown_patch": "unverified"
+  },
+  "coverage": {
+    "connections": "partial",
+    "geometry": "nav-label-only",
+    "visibility": "not_supported",
+    "source": "Anubis FACEIT demo 1-1ccc85d8-33b4-4de8-a6fd-ed34154629d0-1-1, patch 14189; Awpy radar release 2000927",
+    "defensive_sectors": "single A/B/mid assignment where unambiguous; CTSpawn and Canal shared support remain unassigned",
+    "forward_boundaries": "A main y<=1300 and mid doors y<=500 are conservative heuristic boundaries; other forward regions use observed nav labels; visual calibration pending",
+    "stacked_areas": "Bridge/Canal are distinguished by independent nav labels; missing nav stays unknown even with coordinates; Water is behind CT spawn, not Canal",
+    "direction_ambiguity": "Canal and Street do not imply a unique A/B commitment; geometry, visibility and intent are not inferred"
+  }
+}

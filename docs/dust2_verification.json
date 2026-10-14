@@ -1,0 +1,270 @@
+{
+  "demo": "1-610da466-b271-4c18-90d4-c2da4b0d75d4-1-1.dem",
+  "demo_id": "1ac357e6b6d8a27e88223d18c32b12028b0931d1ff4a4c93f8bcd8807f35c4f5",
+  "map": "de_dust2",
+  "patch": "14186",
+  "rounds": 28,
+  "players": 10,
+  "kills": 205,
+  "independent_plants": [
+    {
+      "round": 1,
+      "tick": 6363,
+      "site": "A",
+      "engine_site": 498,
+      "sample": {
+        "X": 1156.0711669921875,
+        "Y": 2478.755126953125,
+        "Z": 95.43904113769531,
+        "last_place_name": "BombsiteA"
+      }
+    },
+    {
+      "round": 2,
+      "tick": 10112,
+      "site": "B",
+      "engine_site": 248,
+      "sample": {
+        "X": -1478.0325927734375,
+        "Y": 2615.962890625,
+        "Z": 60.878013610839844,
+        "last_place_name": "BombsiteB"
+      }
+    },
+    {
+      "round": 3,
+      "tick": 16151,
+      "site": "A",
+      "engine_site": 498,
+      "sample": {
+        "X": 1205.1646728515625,
+        "Y": 2561.06103515625,
+        "Z": 97.69526672363281,
+        "last_place_name": "BombsiteA"
+      }
+    },
+    {
+      "round": 4,
+      "tick": 21106,
+      "site": "B",
+      "engine_site": 248,
+      "sample": {
+        "X": -1370.106689453125,
+        "Y": 2555.05322265625,
+        "Z": 4.574106693267822,
+        "last_place_name": "BombsiteB"
+      }
+    },
+    {
+      "round": 5,
+      "tick": 29577,
+      "site": "A",
+      "engine_site": 498,
+      "sample": {
+        "X": 1171.4923095703125,
+        "Y": 2561.073974609375,
+        "Z": 96.539306640625,
+        "last_place_name": "BombsiteA"
+      }
+    },
+    {
+      "round": 11,
+      "tick": 67814,
+      "site": "A",
+      "engine_site": 498,
+      "sample": {
+        "X": 1235.9560546875,
+        "Y": 2460.96875,
+        "Z": 97.89473724365234,
+        "last_place_name": "BombsiteA"
+      }
+    },
+    {
+      "round": 12,
+      "tick": 73029,
+      "site": "A",
+      "engine_site": 498,
+      "sample": {
+        "X": 1225.6280517578125,
+        "Y": 2561.186767578125,
+        "Z": 98.96221160888672,
+        "last_place_name": "BombsiteA"
+      }
+    },
+    {
+      "round": 13,
+      "tick": 79111,
+      "site": "A",
+      "engine_site": 498,
+      "sample": {
+        "X": 1097.2630615234375,
+        "Y": 2526.52734375,
+        "Z": 96.03125762939453,
+        "last_place_name": "BombsiteA"
+      }
+    },
+    {
+      "round": 14,
+      "tick": 84239,
+      "site": "A",
+      "engine_site": 498,
+      "sample": {
+        "X": 1237.5289306640625,
+        "Y": 2439.342529296875,
+        "Z": 127.03125,
+        "last_place_name": "BombsiteA"
+      }
+    },
+    {
+      "round": 15,
+      "tick": 91300,
+      "site": "A",
+      "engine_site": 498,
+      "sample": {
+        "X": 1089.125,
+        "Y": 2479.09375,
+        "Z": 95.68299102783203,
+        "last_place_name": "BombsiteA"
+      }
+    },
+    {
+      "round": 16,
+      "tick": 95958,
+      "site": "A",
+      "engine_site": 498,
+      "sample": {
+        "X": 1166.0384521484375,
+        "Y": 2562.83154296875,
+        "Z": 96.48804473876953,
+        "last_place_name": "BombsiteA"
+      }
+    },
+    {
+      "round": 17,
+      "tick": 103804,
+      "site": "A",
+      "engine_site": 498,
+      "sample": {
+        "X": 990.1146850585938,
+        "Y": 2536.095703125,
+        "Z": 96.53125,
+        "last_place_name": "BombsiteA"
+      }
+    },
+    {
+      "round": 18,
+      "tick": 113919,
+      "site": "A",
+      "engine_site": 498,
+      "sample": {
+        "X": 1220.166015625,
+        "Y": 2418.861572265625,
+        "Z": 98.08765411376953,
+        "last_place_name": "BombsiteA"
+      }
+    },
+    {
+      "round": 19,
+      "tick": 120083,
+      "site": "A",
+      "engine_site": 498,
+      "sample": {
+        "X": 1235.94921875,
+        "Y": 2598.361572265625,
+        "Z": 98.87484741210938,
+        "last_place_name": "BombsiteA"
+      }
+    },
+    {
+      "round": 21,
+      "tick": 134002,
+      "site": "A",
+      "engine_site": 498,
+      "sample": {
+        "X": 987.93701171875,
+        "Y": 2516.44384765625,
+        "Z": 96.53125,
+        "last_place_name": "BombsiteA"
+      }
+    },
+    {
+      "round": 22,
+      "tick": 143378,
+      "site": "B",
+      "engine_site": 248,
+      "sample": {
+        "X": -1635.8812255859375,
+        "Y": 2623.89892578125,
+        "Z": 4.968761444091797,
+        "last_place_name": "BombsiteB"
+      }
+    },
+    {
+      "round": 24,
+      "tick": 152012,
+      "site": "A",
+      "engine_site": 498,
+      "sample": {
+        "X": 1129.466796875,
+        "Y": 2477.23583984375,
+        "Z": 95.50435638427734,
+        "last_place_name": "BombsiteA"
+      }
+    },
+    {
+      "round": 28,
+      "tick": 177230,
+      "site": "A",
+      "engine_site": 498,
+      "sample": {
+        "X": 1141.1710205078125,
+        "Y": 2516.76025390625,
+        "Z": 95.38972473144531,
+        "last_place_name": "BombsiteA"
+      }
+    }
+  ],
+  "excluded_postround_plant_ticks": [
+    148697
+  ],
+  "aggregates": [
+    {
+      "team": "team_1",
+      "side": "T",
+      "rounds": 13,
+      "attempts": 16,
+      "rotations": 0,
+      "snapshot_known": 13
+    },
+    {
+      "team": "team_1",
+      "side": "CT",
+      "rounds": 15,
+      "attempts": 0,
+      "rotations": 75,
+      "snapshot_known": 15
+    },
+    {
+      "team": "team_2",
+      "side": "T",
+      "rounds": 15,
+      "attempts": 24,
+      "rotations": 0,
+      "snapshot_known": 15
+    },
+    {
+      "team": "team_2",
+      "side": "CT",
+      "rounds": 13,
+      "attempts": 0,
+      "rotations": 62,
+      "snapshot_known": 13
+    }
+  ],
+  "locations": {
+    "observed": 214330
+  },
+  "unknown_places": {},
+  "warm_read_seconds": 0.074,
+  "total_seconds": 25.92
+}

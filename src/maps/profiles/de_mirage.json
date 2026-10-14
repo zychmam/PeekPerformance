@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "map_name": "de_mirage",
-  "profile_version": 1,
+  "profile_version": "1-m4.1",
   "regions": [
     {
       "id": "site_a",
@@ -23,7 +23,8 @@
         "legacy_zone": "A"
       },
       "route_requires_geometry": false,
-      "level_id": "main"
+      "level_id": "main",
+      "defense_sector": "A"
     },
     {
       "id": "site_b",
@@ -45,7 +46,8 @@
         "legacy_zone": "B"
       },
       "route_requires_geometry": false,
-      "level_id": "main"
+      "level_id": "main",
+      "defense_sector": "B"
     },
     {
       "id": "ramp_a",
@@ -89,7 +91,8 @@
       ],
       "priority": 100,
       "route_requires_geometry": true,
-      "level_id": "main"
+      "level_id": "main",
+      "defense_sector": "A"
     },
     {
       "id": "palace",
@@ -133,7 +136,8 @@
       "level_id": "main",
       "geometry_required_labels": [
         "PalaceInterior"
-      ]
+      ],
+      "defense_sector": "A"
     },
     {
       "id": "alley_a",
@@ -209,7 +213,8 @@
         "legacy_zone": "B approach"
       },
       "route_requires_geometry": false,
-      "level_id": "main"
+      "level_id": "main",
+      "defense_sector": "B"
     },
     {
       "id": "alley_b",
@@ -259,7 +264,8 @@
         "legacy_zone": "connector"
       },
       "route_requires_geometry": false,
-      "level_id": "main"
+      "level_id": "main",
+      "defense_sector": "B"
     },
     {
       "id": "connector",
@@ -283,7 +289,8 @@
         "legacy_zone": "connector"
       },
       "route_requires_geometry": false,
-      "level_id": "main"
+      "level_id": "main",
+      "defense_sector": "mid"
     },
     {
       "id": "jungle",
@@ -307,7 +314,8 @@
         "legacy_zone": "connector"
       },
       "route_requires_geometry": false,
-      "level_id": "main"
+      "level_id": "main",
+      "defense_sector": "A"
     },
     {
       "id": "stairs",
@@ -331,7 +339,8 @@
         "legacy_zone": "connector"
       },
       "route_requires_geometry": false,
-      "level_id": "main"
+      "level_id": "main",
+      "defense_sector": "A"
     },
     {
       "id": "market",
@@ -355,7 +364,8 @@
         "legacy_zone": "connector"
       },
       "route_requires_geometry": false,
-      "level_id": "main"
+      "level_id": "main",
+      "defense_sector": "B"
     },
     {
       "id": "van",
@@ -379,7 +389,8 @@
         "legacy_zone": "connector"
       },
       "route_requires_geometry": false,
-      "level_id": "main"
+      "level_id": "main",
+      "defense_sector": "B"
     },
     {
       "id": "ladder",
@@ -423,7 +434,8 @@
         "legacy_zone": "mid"
       },
       "route_requires_geometry": false,
-      "level_id": "main"
+      "level_id": "main",
+      "defense_sector": "mid"
     },
     {
       "id": "top_mid",
@@ -469,7 +481,8 @@
         "legacy_zone": "mid"
       },
       "route_requires_geometry": false,
-      "level_id": "main"
+      "level_id": "main",
+      "defense_sector": "mid"
     },
     {
       "id": "underpass",
@@ -682,6 +695,7 @@
     "connections": "partial",
     "geometry": "approach-boxes-only",
     "visibility": "not_supported",
-    "source": "Mirage reference demo; inherited rules; no collision mesh"
+    "source": "Mirage reference demo; inherited rules; no collision mesh",
+    "defensive_sectors": "unique positional assignments; support is separate; spawn remains unknown"
   }
 }

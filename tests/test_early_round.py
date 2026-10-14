@@ -91,6 +91,17 @@ def reference():
     return analysis, MirageContext.from_json(json.dumps(data["spatial"]))
 
 
+def test_refrag_window_change_reuses_saved_spatial_context():
+    from src.demos.spatial_service import context_key as spatial_context_key
+    from src.models.observations import DetectorConfig
+
+    analysis, context = reference()
+    current = spatial_context_key(analysis, context.profile)
+    assert current == spatial_context_key(
+        analysis, context.profile, DetectorConfig(refrag_seconds=10.0)
+    )
+
+
 def test_recorded_early_mirage_counts_and_utility_have_source_proof():
     match = build_tactical_match(*reference())
     expected = json.loads((Path(__file__).parent / "reference" /
@@ -112,6 +123,15 @@ def test_recorded_early_mirage_counts_and_utility_have_source_proof():
         assert len(record.t_preparation.utility)+len(record.ct_setup.utility) == (
             reviewed["utility_effects_0_to_15_seconds_both_sides"]
         )
+        opening_links = [link for link in record.refrag_links
+                         if link.death_id in record.opening_kill_ids]
+        if "refrag" in case:
+            assert [(match.evidence[link.response_kill_id].tick, link.delay_ticks)
+                    for link in opening_links] == [(
+                        case["refrag"]["tick"], case["refrag"]["delay_ticks"]
+                    )]
+        else:
+            assert not opening_links
     rnd = next(r for r in match.rounds if r.number == 1)
     snap = next(s for s in rnd.ct_setup.snapshots if s.seconds == 10)
     # Independently reviewed raw records: A=2, B=2, SnipersNest=1 at tick7468.
@@ -136,12 +156,34 @@ def test_early_view_uses_nicks_and_jump_updates_radar_without_rebuilding():
     app = AppTest.from_string('''
 import streamlit as st
 from src.gui.round_context_view import render_round_context
-render_round_context(st.session_state['analysis'], 'P01', None)
+render_round_context(st.session_state['analysis'], st.session_state['player'], None)
 ''')
     app.session_state["analysis"] = analysis
+    app.session_state["player"] = "P01"
     app.session_state[f"spatial_{context_key(analysis)}_{context.profile.presentation_fingerprint}_1"] = context
+    app.session_state[f"spatial_{context_key(analysis)}_{context.profile.presentation_fingerprint}_6"] = context
     app.run(timeout=30)
     assert not app.exception
+    first_match = app.session_state["selected_tactical_round"][1]
+    assert any("Działania taktyczne" in m.value for m in app.markdown)
+    assert any("Podsumowanie rundy" in m.value for m in app.markdown)
+    assert any("Pierwszy kontakt" in m.value for m in app.markdown)
+    assert any("Odpowiedź po openingu" in m.value for m in app.markdown)
+    assert any("Oś rundy" in m.value for m in app.markdown)
+    timeline = next(w for w in app.selectbox if w.label == "Moment na osi")
+    timeline.set_value(1).run()
+    moment = app.session_state["selected_tactical_round"][1].rounds[0].moments[1]
+    next(b for b in app.button if b.label == "Przejdź do momentu na mapie").click().run()
+    assert app.slider[0].value == max(0, (moment.start_tick - 6828) / 64)
+    next(w for w in app.radio if w.label == "Perspektywa").set_value("Wybrany gracz").run()
+    assert app.session_state["selected_tactical_round"][1] is first_match
+    assert any("Udział w rundzie" in m.value for m in app.markdown)
+    assert any("Refragi gracza" in m.value for m in app.markdown)
+    jump = next(b for b in app.button if b.label.startswith("Pokaż na mapie"))
+    expected_time = float(jump.label.split("· ")[1].removesuffix(" s"))
+    jump.click().run()
+    assert not app.exception
+    assert abs(app.slider[0].value - expected_time) < 0.1
     assert any("Początek rundy" in m.value for m in app.markdown)
     assert any("podsumowanie przygotowania" in m.value for m in app.markdown)
     assert any("Interpretacja:" in m.value for m in app.markdown)
@@ -149,5 +191,14 @@ render_round_context(st.session_state['analysis'], 'P01', None)
     next(b for b in app.button if b.label == "Pokaż ustawienie na mapie").click().run()
     assert not app.exception
     assert app.slider[0].value == 5.0
+    app.session_state["player"] = "P02"
+    app.run(timeout=30)
+    assert not app.exception
+    assert app.session_state["selected_tactical_round"][1] is first_match
+    assert app.slider[0].value == 5.0
+    next(w for w in app.selectbox if w.label == "Runda taktyczna").set_value(6).run()
+    assert not app.exception
+    assert app.session_state["selected_tactical_round"][1] is not first_match
+    assert app.session_state["selected_tactical_round"][1].rounds[0].number == 6
     for table in app.dataframe:
         assert not any("steamid" in str(c).lower() for c in table.value.columns)

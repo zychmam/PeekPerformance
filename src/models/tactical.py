@@ -8,7 +8,7 @@ from dataclasses import asdict, dataclass, field, fields, is_dataclass
 from enum import StrEnum
 from typing import get_args, get_origin, get_type_hints
 
-TACTICAL_SCHEMA_VERSION = 4
+TACTICAL_SCHEMA_VERSION = 10
 
 
 class Status(StrEnum):
@@ -193,11 +193,12 @@ class Contact:
     attacker_side: str
     victim_side: str
     weapon: str | None = None
-    actual_damage: int | None = None
+    actual_damage: float | None = None
     attacker_position: PositionReference = field(default_factory=lambda: PositionReference(Status.UNKNOWN))
     victim_position: PositionReference = field(default_factory=lambda: PositionReference(Status.UNKNOWN))
     evidence_ids: list[str] = field(default_factory=list)
     status: Status = Status.NOT_EVALUATED
+    modality: str = "unknown"  # firearm / utility / mixed / unknown
 
 
 @dataclass
@@ -278,6 +279,10 @@ class Fight:
     before: dict = field(default_factory=dict)
     after: dict = field(default_factory=dict)
     space_changes: list[Finding] = field(default_factory=list)
+    contact_ids: list[str] = field(default_factory=list)
+    opening_kill_ids: list[str] = field(default_factory=list)
+    utility_context_ids: list[str] = field(default_factory=list)
+    utility_effect_ids: list[str] = field(default_factory=list)
 
 
 @dataclass
@@ -292,6 +297,21 @@ class Attack:
     main_group: list[str] = field(default_factory=list)
     detached_players: list[str] = field(default_factory=list)
     previous_attack_id: str | None = None
+    start_seconds: float | None = None
+    first_entry_tick: int | None = None
+    entry_spread_seconds: float | None = None
+    pauses_seconds: float = 0.0
+    region_hold_seconds: float = 0.0
+    tempo_reference_player_id: str | None = None
+    utility_context_ids: list[str] = field(default_factory=list)
+    detached_actions: list[dict] = field(default_factory=list)
+    entry_outcome: str = "unknown"
+    plant_outcome: str = "unknown"
+    round_outcome: str | None = None
+    start_basis: str | None = None
+    end_reason: str | None = None
+    before: dict = field(default_factory=dict)
+    after: dict = field(default_factory=dict)
 
     def __post_init__(self):
         if self.outcome not in {None, "stopped", "withdrawn", "entered", "planted", "unknown"}:
@@ -308,6 +328,10 @@ class Rotation:
     trigger_kind: str | None = None  # damage_contact / spotted / plant; no voice inference
     arrival_tick: int | None = None
     reaction_seconds: float | None = None
+    already_moving: bool | None = None
+    travel_seconds: float | None = None
+    outcome: str = "unknown"
+    target_site: str | None = None
 
 
 @dataclass
@@ -334,6 +358,55 @@ class PlayerRound:
     utility_ids: list[str] = field(default_factory=list)
     findings: list[Finding] = field(default_factory=list)
     contact_ids: list[str] = field(default_factory=list)
+    contact_references: dict[str, list[str]] = field(default_factory=dict)
+    contact_status: Status = Status.NOT_EVALUATED
+
+
+@dataclass
+class RegionStay:
+    id: str
+    player_id: str
+    side: str | None
+    area: str | None
+    start_tick: int
+    end_tick: int
+    status: Status
+    end_reason: str
+    evidence_ids: list[str] = field(default_factory=list)
+    previous_area: str | None = None
+    next_area: str | None = None
+    defense_sector: str | None = None
+    forward: bool | None = None
+
+
+@dataclass
+class RegionTransition:
+    player_id: str
+    from_area: str
+    to_area: str
+    departure_tick: int
+    arrival_tick: int
+    evidence_ids: list[str] = field(default_factory=list)
+
+
+@dataclass
+class UtilityContext:
+    id: str
+    player_id: str | None
+    side: str | None
+    kind: str
+    throw_tick: int | None = None
+    origin_area: str | None = None
+    effect_tick: int | None = None
+    effect_area: str | None = None
+    end_tick: int | None = None
+    match_status: str = "unknown"
+    end_source: str = "unknown"
+    evidence_ids: list[str] = field(default_factory=list)
+    effect_ids: list[str] = field(default_factory=list)
+    candidates: list[str] = field(default_factory=list)
+    origin_position: dict = field(default_factory=dict)
+    effect_position: dict = field(default_factory=dict)
 
 
 @dataclass
@@ -358,16 +431,36 @@ class RoundTactics:
     observed_entries: list[Episode] = field(default_factory=list)
     rotations_status: Status = Status.NOT_EVALUATED
     rotations: list[Rotation] = field(default_factory=list)
+    rotation_eligibility: list[dict] = field(default_factory=list)
     bomb_event_ids: list[str] = field(default_factory=list)
     retake: Retake = field(default_factory=Retake)
     team_findings: list[Finding] = field(default_factory=list)
     players: list[PlayerRound] = field(default_factory=list)
     capabilities: dict[str, Availability] = field(default_factory=dict)
     foundation: RoundFoundation | None = None
+    contacts_status: Status = Status.NOT_EVALUATED
     contacts: list[Contact] = field(default_factory=list)
+    contact_references: dict[str, list[str]] = field(default_factory=dict)
+    alive_status: Status = Status.NOT_EVALUATED
+    opening_status: Status = Status.NOT_EVALUATED
+    opening_kill_ids: list[str] = field(default_factory=list)
     refrag_links: list[RefragLink] = field(default_factory=list)
+    refrags_status: Status = Status.NOT_EVALUATED
+    opening_window_end_tick: int | None = None
+    opening_window_kill_ids: list[str] = field(default_factory=list)
+    opening_response_status: Status = Status.NOT_EVALUATED
     alive_states: list[AliveState] = field(default_factory=list)
     moments: list[RoundMoment] = field(default_factory=list)
+    movement_status: Status = Status.NOT_EVALUATED
+    region_stays: list[RegionStay] = field(default_factory=list)
+    region_transitions: list[RegionTransition] = field(default_factory=list)
+    movement_gaps: list[dict] = field(default_factory=list)
+    utility_context_status: Status = Status.NOT_EVALUATED
+    utility_contexts: list[UtilityContext] = field(default_factory=list)
+    ct_activity: list[Episode] = field(default_factory=list)
+    ct_sectors_before_contact: dict = field(default_factory=dict)
+    tactical_version: int = 0
+    t_pressure: list[Episode] = field(default_factory=list)
 
 
 @dataclass
@@ -381,7 +474,7 @@ class TacticalMatch:
     schema_version: int = TACTICAL_SCHEMA_VERSION
     parameters: dict = field(default_factory=lambda: {
         "tick_rate_assumption": 64, "early_seconds": 15,
-        "response_seconds": 10, "entry_wave_seconds": 8,
+        "response_seconds": 5, "entry_wave_seconds": 8,
     })
 
     def to_dict(self) -> dict:
@@ -420,6 +513,28 @@ class TacticalMatch:
                     if self.evidence[eid].round_number != rnd.number:
                         raise ValueError("Cross-round episode evidence")
             contacts = {item.id: item for item in rnd.contacts}
+            for stay in rnd.region_stays:
+                _validate_tick(stay.start_tick, rnd)
+                _validate_tick(stay.end_tick, rnd)
+                if stay.end_tick < stay.start_tick or not stay.evidence_ids:
+                    raise ValueError("Invalid observed region interval")
+            for transition in rnd.region_transitions:
+                _validate_tick(transition.departure_tick, rnd)
+                _validate_tick(transition.arrival_tick, rnd)
+                if transition.departure_tick > transition.arrival_tick:
+                    raise ValueError("Invalid movement interval")
+            for episode in ([f.episode for f in rnd.fights] + [a.episode for a in rnd.attacks]
+                            + [r.episode for r in rnd.rotations] + rnd.ct_activity + rnd.t_pressure
+                            + ([rnd.retake.episode] if rnd.retake.episode else [])):
+                _validate_tick(episode.start_tick, rnd)
+                _validate_tick(episode.end_tick, rnd)
+            for fight in rnd.fights:
+                if any(ref not in contacts for ref in fight.contact_ids):
+                    raise ValueError("Unknown fight contact")
+            for utility in rnd.utility_contexts:
+                for tick in (utility.throw_tick, utility.effect_tick, utility.end_tick):
+                    if tick is not None:
+                        _validate_tick(tick, rnd)
             alive = {item.id: item for item in rnd.alive_states}
             for group in (rnd.contacts, rnd.refrag_links, rnd.alive_states, rnd.moments):
                 for item in group:
@@ -432,6 +547,8 @@ class TacticalMatch:
                 _validate_tick(contact.tick, rnd)
                 if contact.kind not in {"damage", "kill_only"} or contact.attacker_side == contact.victim_side:
                     raise ValueError("Invalid enemy contact")
+                if contact.modality not in {"firearm", "utility", "mixed", "unknown"}:
+                    raise ValueError("Invalid contact modality")
                 if contact.attacker_side not in {"T", "CT"} or contact.victim_side not in {"T", "CT"}:
                     raise ValueError("Unknown contact side")
                 if contact.actual_damage is not None and contact.actual_damage < 0:
@@ -464,6 +581,21 @@ class TacticalMatch:
                     raise ValueError("Refrag must kill the teammate's exact killer")
                 if not {link.death_id, link.response_kill_id}.issubset(link.evidence_ids):
                     raise ValueError("Refrag lacks source evidence")
+                if (str(death.data.get("user_steamid")) == str(response.data.get("attacker_steamid"))
+                        or str(death.data.get("user_team_num")) != str(response.data.get("attacker_team_num"))):
+                    raise ValueError("Refrag response must come from a teammate")
+            if rnd.opening_window_end_tick is not None:
+                _validate_tick(rnd.opening_window_end_tick, rnd)
+                opening_ticks = {self.evidence[eid].tick for eid in rnd.opening_kill_ids}
+                if not opening_ticks or rnd.opening_window_end_tick < min(opening_ticks):
+                    raise ValueError("Invalid opening response window")
+            for eid in rnd.opening_window_kill_ids:
+                event = self.evidence.get(eid)
+                if (event is None or event.round_number != rnd.number or event.source != "kills"
+                        or rnd.opening_window_end_tick is None
+                        or not min(self.evidence[ref].tick for ref in rnd.opening_kill_ids)
+                        < event.tick <= rnd.opening_window_end_tick):
+                    raise ValueError("Invalid opening response kill")
             for state in rnd.alive_states:
                 _validate_tick(state.tick, rnd)
                 if state.t_alive is not None and state.t_alive < 0:
@@ -490,6 +622,16 @@ class TacticalMatch:
                     raise ValueError("Unknown player first contact")
                 if any(ref not in contacts for ref in player.contact_ids):
                     raise ValueError("Unknown player contact")
+                if any(ref not in contacts for refs in player.contact_references.values() for ref in refs):
+                    raise ValueError("Unknown player contact reference")
+            if any(ref not in contacts for refs in rnd.contact_references.values() for ref in refs):
+                raise ValueError("Unknown round contact reference")
+            for eid in rnd.opening_kill_ids:
+                event = self.evidence.get(eid)
+                if event is None or event.round_number != rnd.number or event.source != "kills":
+                    raise ValueError("Invalid opening kill reference")
+            if rnd.opening_status == Status.OBSERVED and not rnd.opening_kill_ids:
+                raise ValueError("Observed opening requires a kill")
             _validate_references(rnd, self.evidence, rnd.number)
 
 
@@ -537,7 +679,9 @@ def _decode(annotation, value):
 def _validate_references(obj, evidence: dict[str, Evidence], round_number: int):
     evidence_lists = {"event_ids", "evidence_ids", "snapshot_ids", "utility_ids",
                       "activity_ids", "kill_ids", "damage_ids", "bomb_event_ids",
-                      "shot_event_ids", "utility_lifecycle_ids", "thrown_utility_ids"}
+                      "shot_event_ids", "utility_lifecycle_ids", "thrown_utility_ids",
+                      "opening_kill_ids", "opening_window_kill_ids"}
+    evidence_lists.update({"effect_ids", "utility_effect_ids"})
     evidence_single = {"information_event_id", "opening_kill_id",
                        "plant_id", "defuse_id"}
     if is_dataclass(obj):

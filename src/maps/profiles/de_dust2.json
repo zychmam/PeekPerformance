@@ -1,0 +1,584 @@
+{
+  "schema_version": 1,
+  "map_name": "de_dust2",
+  "profile_version": "1-m5.d2",
+  "regions": [
+    {
+      "id": "site_a",
+      "name": "Site A",
+      "nav_labels": [
+        "BombsiteA"
+      ],
+      "kind": "site",
+      "site_id": "A",
+      "directions": [
+        "A"
+      ],
+      "defense_sector": "A",
+      "level_id": "main"
+    },
+    {
+      "id": "site_b",
+      "name": "Site B",
+      "nav_labels": [
+        "BombsiteB"
+      ],
+      "kind": "site",
+      "site_id": "B",
+      "directions": [
+        "B"
+      ],
+      "defense_sector": "B",
+      "level_id": "main"
+    },
+    {
+      "id": "long_a",
+      "name": "Long A",
+      "nav_labels": [
+        "LongA"
+      ],
+      "kind": "approach",
+      "directions": [
+        "A"
+      ],
+      "route_names": {
+        "A": "Long"
+      },
+      "defense_sector": "A",
+      "forward_sides": [
+        "CT"
+      ],
+      "forward_bounds": {
+        "CT": [
+          {
+            "x_min": 1200,
+            "x_max": 1850,
+            "y_min": 750,
+            "y_max": 1550
+          }
+        ]
+      },
+      "level_id": "main"
+    },
+    {
+      "id": "a_ramp",
+      "name": "Rampa A",
+      "nav_labels": [
+        "ARamp"
+      ],
+      "kind": "approach",
+      "directions": [
+        "A"
+      ],
+      "route_names": {
+        "A": "Long / rampa A"
+      },
+      "defense_sector": "A",
+      "level_id": "main"
+    },
+    {
+      "id": "extended_a",
+      "name": "Short A — przy site",
+      "nav_labels": [
+        "ExtendedA"
+      ],
+      "kind": "approach",
+      "directions": [
+        "A"
+      ],
+      "route_names": {
+        "A": "Short"
+      },
+      "defense_sector": "A",
+      "level_id": "main"
+    },
+    {
+      "id": "short_stairs",
+      "name": "Schody short",
+      "nav_labels": [
+        "ShortStairs"
+      ],
+      "kind": "approach",
+      "directions": [
+        "A"
+      ],
+      "route_names": {
+        "A": "Short"
+      },
+      "defense_sector": "A",
+      "forward_sides": [
+        "CT"
+      ],
+      "forward_bounds": {
+        "CT": [
+          {
+            "x_min": 200,
+            "x_max": 550,
+            "y_min": 1300,
+            "y_max": 1650
+          }
+        ]
+      },
+      "level_id": "main"
+    },
+    {
+      "id": "catwalk",
+      "name": "Catwalk",
+      "nav_labels": [
+        "Catwalk"
+      ],
+      "kind": "approach",
+      "directions": [
+        "A"
+      ],
+      "route_names": {
+        "A": "Short / catwalk"
+      },
+      "defense_sector": "A",
+      "forward_sides": [
+        "CT"
+      ],
+      "level_id": "main"
+    },
+    {
+      "id": "long_doors",
+      "name": "Drzwi long",
+      "nav_labels": [
+        "LongDoors"
+      ],
+      "kind": "approach",
+      "directions": [
+        "A"
+      ],
+      "route_names": {
+        "A": "Long"
+      },
+      "defense_sector": "A",
+      "forward_sides": [
+        "CT"
+      ],
+      "level_id": "main"
+    },
+    {
+      "id": "outside_long",
+      "name": "Przed drzwiami long",
+      "nav_labels": [
+        "OutsideLong"
+      ],
+      "kind": "approach",
+      "directions": [
+        "A"
+      ],
+      "route_names": {
+        "A": "Long"
+      },
+      "defense_sector": "A",
+      "forward_sides": [
+        "CT"
+      ],
+      "level_id": "main"
+    },
+    {
+      "id": "pit",
+      "name": "Pit",
+      "nav_labels": [
+        "Pit"
+      ],
+      "kind": "approach",
+      "directions": [
+        "A"
+      ],
+      "route_names": {
+        "A": "Long / pit"
+      },
+      "defense_sector": "A",
+      "forward_sides": [
+        "CT"
+      ],
+      "level_id": "main"
+    },
+    {
+      "id": "long_side",
+      "name": "Bok longa",
+      "nav_labels": [
+        "Side"
+      ],
+      "kind": "approach",
+      "directions": [
+        "A"
+      ],
+      "route_names": {
+        "A": "Long"
+      },
+      "defense_sector": "A",
+      "forward_sides": [
+        "CT"
+      ],
+      "level_id": "main"
+    },
+    {
+      "id": "under_a",
+      "name": "Pod A / przejście CT",
+      "nav_labels": [
+        "UnderA"
+      ],
+      "kind": "connector",
+      "support_sites": [
+        "A"
+      ],
+      "route_names": {
+        "A": "Od CT"
+      },
+      "defense_sector": "A",
+      "level_id": "main"
+    },
+    {
+      "id": "upper_tunnel",
+      "name": "Górny tunel",
+      "nav_labels": [
+        "UpperTunnel"
+      ],
+      "kind": "approach",
+      "directions": [
+        "B"
+      ],
+      "route_names": {
+        "B": "Tunel"
+      },
+      "defense_sector": "B",
+      "forward_sides": [
+        "CT"
+      ],
+      "level_id": "main"
+    },
+    {
+      "id": "outside_tunnel",
+      "name": "Przed tunelami",
+      "nav_labels": [
+        "OutsideTunnel"
+      ],
+      "kind": "approach",
+      "directions": [
+        "B"
+      ],
+      "route_names": {
+        "B": "Tunel"
+      },
+      "defense_sector": "B",
+      "forward_sides": [
+        "CT"
+      ],
+      "level_id": "main"
+    },
+    {
+      "id": "lower_tunnel",
+      "name": "Dolny tunel",
+      "nav_labels": [
+        "LowerTunnel"
+      ],
+      "kind": "connector",
+      "directions": [
+        "mid"
+      ],
+      "support_sites": [
+        "B"
+      ],
+      "defense_sector": "mid",
+      "forward_sides": [
+        "CT"
+      ],
+      "level_id": "main"
+    },
+    {
+      "id": "tunnel_stairs",
+      "name": "Schody tuneli",
+      "nav_labels": [
+        "TunnelStairs"
+      ],
+      "kind": "connector",
+      "directions": [
+        "B"
+      ],
+      "support_sites": [
+        "B"
+      ],
+      "defense_sector": "B",
+      "forward_sides": [
+        "CT"
+      ],
+      "level_id": "main"
+    },
+    {
+      "id": "b_doors",
+      "name": "Drzwi B",
+      "nav_labels": [
+        "BDoors"
+      ],
+      "kind": "approach",
+      "directions": [
+        "B"
+      ],
+      "route_names": {
+        "B": "Drzwi B"
+      },
+      "support_sites": [
+        "B"
+      ],
+      "defense_sector": "B",
+      "level_id": "main"
+    },
+    {
+      "id": "b_window",
+      "name": "Okno B",
+      "nav_labels": [
+        "Hole"
+      ],
+      "kind": "approach",
+      "directions": [
+        "B"
+      ],
+      "route_names": {
+        "B": "Okno B"
+      },
+      "support_sites": [
+        "B"
+      ],
+      "defense_sector": "B",
+      "level_id": "main"
+    },
+    {
+      "id": "middle",
+      "name": "Mid",
+      "nav_labels": [
+        "Middle"
+      ],
+      "kind": "mid",
+      "directions": [
+        "mid"
+      ],
+      "defense_sector": "mid",
+      "forward_sides": [
+        "CT"
+      ],
+      "level_id": "main"
+    },
+    {
+      "id": "top_mid",
+      "name": "Top mid",
+      "nav_labels": [
+        "TopofMid"
+      ],
+      "kind": "mid",
+      "directions": [
+        "mid"
+      ],
+      "defense_sector": "mid",
+      "forward_sides": [
+        "CT"
+      ],
+      "level_id": "main"
+    },
+    {
+      "id": "mid_doors",
+      "name": "Drzwi mid",
+      "nav_labels": [
+        "MidDoors"
+      ],
+      "kind": "mid",
+      "directions": [
+        "mid"
+      ],
+      "defense_sector": "mid",
+      "level_id": "main"
+    },
+    {
+      "id": "t_spawn",
+      "name": "Resp T",
+      "nav_labels": [
+        "TSpawn"
+      ],
+      "kind": "spawn",
+      "forward_sides": [
+        "CT"
+      ],
+      "level_id": "main"
+    },
+    {
+      "id": "t_ramp",
+      "name": "Rampa T",
+      "nav_labels": [
+        "TRamp"
+      ],
+      "kind": "connector",
+      "directions": [
+        "B"
+      ],
+      "forward_sides": [
+        "CT"
+      ],
+      "level_id": "main"
+    },
+    {
+      "id": "ct_spawn",
+      "name": "Resp CT",
+      "nav_labels": [
+        "CTSpawn"
+      ],
+      "kind": "spawn",
+      "support_sites": [
+        "A",
+        "B"
+      ],
+      "level_id": "main"
+    }
+  ],
+  "connections": [
+    {
+      "from_region": "outside_long",
+      "to_region": "long_doors",
+      "bidirectional": true,
+      "verification": "limited"
+    },
+    {
+      "from_region": "long_doors",
+      "to_region": "long_a",
+      "bidirectional": true,
+      "verification": "limited"
+    },
+    {
+      "from_region": "pit",
+      "to_region": "long_a",
+      "bidirectional": true,
+      "verification": "limited"
+    },
+    {
+      "from_region": "long_a",
+      "to_region": "a_ramp",
+      "bidirectional": true,
+      "verification": "limited"
+    },
+    {
+      "from_region": "a_ramp",
+      "to_region": "site_a",
+      "bidirectional": true,
+      "verification": "limited"
+    },
+    {
+      "from_region": "catwalk",
+      "to_region": "short_stairs",
+      "bidirectional": true,
+      "verification": "limited"
+    },
+    {
+      "from_region": "short_stairs",
+      "to_region": "extended_a",
+      "bidirectional": true,
+      "verification": "limited"
+    },
+    {
+      "from_region": "extended_a",
+      "to_region": "site_a",
+      "bidirectional": true,
+      "verification": "limited"
+    },
+    {
+      "from_region": "outside_tunnel",
+      "to_region": "upper_tunnel",
+      "bidirectional": true,
+      "verification": "limited"
+    },
+    {
+      "from_region": "upper_tunnel",
+      "to_region": "site_b",
+      "bidirectional": true,
+      "verification": "limited"
+    },
+    {
+      "from_region": "lower_tunnel",
+      "to_region": "tunnel_stairs",
+      "bidirectional": true,
+      "verification": "limited"
+    },
+    {
+      "from_region": "tunnel_stairs",
+      "to_region": "upper_tunnel",
+      "bidirectional": true,
+      "verification": "limited"
+    },
+    {
+      "from_region": "b_doors",
+      "to_region": "site_b",
+      "bidirectional": true,
+      "verification": "limited"
+    },
+    {
+      "from_region": "b_window",
+      "to_region": "site_b",
+      "kind": "jump",
+      "verification": "limited"
+    },
+    {
+      "from_region": "top_mid",
+      "to_region": "middle",
+      "bidirectional": true,
+      "verification": "limited"
+    },
+    {
+      "from_region": "middle",
+      "to_region": "mid_doors",
+      "bidirectional": true,
+      "verification": "limited"
+    },
+    {
+      "from_region": "middle",
+      "to_region": "lower_tunnel",
+      "bidirectional": true,
+      "verification": "limited"
+    },
+    {
+      "from_region": "ct_spawn",
+      "to_region": "under_a",
+      "bidirectional": true,
+      "verification": "limited"
+    }
+  ],
+  "radar_levels": [
+    {
+      "id": "main",
+      "image": "src/assets/maps/de_dust2.png",
+      "origin_x": -2476,
+      "origin_y": 3239,
+      "scale": 4.4,
+      "width": 1024,
+      "height": 1024
+    }
+  ],
+  "capabilities": [
+    "regions",
+    "site_regions",
+    "approaches",
+    "support",
+    "directions",
+    "forward_positions",
+    "entry_routes",
+    "radar",
+    "site_boundaries",
+    "forward_presence"
+  ],
+  "compatibility": {
+    "verified_patch_versions": [
+      "14186"
+    ],
+    "unknown_patch": "unverified"
+  },
+  "coverage": {
+    "connections": "partial",
+    "geometry": "nav-label-only",
+    "visibility": "not_supported",
+    "source": "Dust2 FACEIT demo 1-610da466-b271-4c18-90d4-c2da4b0d75d4-1-1, patch 14186; Awpy radar release 2000927",
+    "defensive_sectors": "unique physical assignments; CTSpawn is shared support, never counted in both A and B",
+    "forward_boundaries": "long A y<=1550 and short stairs y<=1650 are conservative heuristic boundaries; other forward regions use observed nav labels; visual calibration pending",
+    "radar_transform": "static north-up PNG; pos/scale transform follows Awpy, overview rotate/zoom are not applied to the extracted texture",
+    "stacked_areas": "UpperTunnel and LowerTunnel are distinguished by nav label, not radar height or inferred visibility"
+  }
+}

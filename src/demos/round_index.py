@@ -93,3 +93,12 @@ class RoundIndex:
     def before(self, tick: int, **kwargs) -> SampleLookup:
         """Strictly before an event; use latest() for inclusive selection."""
         return self.latest(tick - 1, **kwargs)
+
+
+def round_state_index(round_tactics, evidence) -> RoundIndex:
+    """Build one index of canonical state evidence for round detectors."""
+    rows = [
+        {**evidence[eid].data, "event_id": eid, "tick": evidence[eid].tick}
+        for eid in round_tactics.event_ids if evidence[eid].source == "states"
+    ]
+    return RoundIndex(pd.DataFrame(rows), round_tactics.number)

@@ -1,6 +1,7 @@
 """Source observations with an independent, replaceable spatial interpretation."""
 
 import json
+from collections.abc import Callable
 from dataclasses import dataclass, field
 
 import pandas as pd
@@ -17,6 +18,7 @@ class SpatialContext:
     states: pd.DataFrame
     profile: MapProfile | None = None
     entries: list[dict] = field(default_factory=list)
+    load_projectiles: Callable | None = field(default=None, repr=False, compare=False)
 
     def __getattr__(self, name):
         return getattr(object.__getattribute__(self, "observations"), name)

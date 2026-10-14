@@ -1,0 +1,85 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:peekperformance:match-report:1.0",
+  "title": "PeekPerformance — raport meczu do ręcznej analizy",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["header", "reading_guide", "teams", "players", "map_analysis", "rounds", "source_events", "limitations"],
+  "properties": {
+    "header": {
+      "type": "object", "additionalProperties": false,
+      "required": ["format", "schema_version", "language", "generated_at", "demo_file", "map", "round_count", "player_count", "scope", "score", "unknown_result_rounds", "versions", "map_profile"],
+      "properties": {
+        "format": {"const": "peekperformance_match_report"},
+        "schema_version": {"const": "1.0"},
+        "language": {"const": "pl"},
+        "generated_at": {"type": "string"},
+        "demo_file": {"type": "string"}, "map": {"type": "string"},
+        "round_count": {"type": "integer", "minimum": 0},
+        "player_count": {"type": "integer", "minimum": 0},
+        "scope": {"const": "entire_match_all_players"},
+        "score": {"type": "object", "additionalProperties": {"type": "integer", "minimum": 0}},
+        "unknown_result_rounds": {"type": "array", "items": {"type": "integer"}},
+        "versions": {"type": "object"}, "map_profile": {"type": "object"}
+      }
+    },
+    "reading_guide": {"type": "object", "required": ["purpose", "sections", "units", "statuses", "metrics", "table_keys", "interpretation_rules", "references"]},
+    "teams": {"type": "array", "items": {"type": "object", "required": ["team_id", "player_ids", "rounds_won", "known_result_rounds", "by_side"]}},
+    "players": {"type": "array", "items": {
+      "type": "object", "additionalProperties": false,
+      "required": ["player_id", "nickname", "team_ids", "match_statistics", "side_statistics", "unknown_side_statistics"],
+      "properties": {
+        "player_id": {"type": "string", "pattern": "^p[0-9]{2,}$"},
+        "nickname": {"type": "string"},
+        "team_ids": {"type": "array", "items": {"type": "string"}},
+        "match_statistics": {"$ref": "#/$defs/statistics"},
+        "unknown_side_statistics": {"$ref": "#/$defs/statistics"},
+        "side_statistics": {"type": "object", "additionalProperties": false, "required": ["T", "CT"], "properties": {"T": {"$ref": "#/$defs/statistics"}, "CT": {"$ref": "#/$defs/statistics"}}}
+      }
+    }},
+    "map_analysis": {"type": "object", "additionalProperties": false, "required": ["snapshot_seconds", "early_seconds", "team_sides", "player_sides"], "properties": {
+      "snapshot_seconds": {"const": 10}, "early_seconds": {"type": "number"},
+      "team_sides": {"type": "array", "items": {"type": "object", "required": ["team_id", "side", "rounds", "coverage", "tables", "actions", "sequence"]}},
+      "player_sides": {"type": "array", "items": {"type": "object", "required": ["team_id", "side", "player_id", "rounds", "coverage", "tables", "participation"]}}
+    }},
+    "rounds": {"type": "array", "items": {
+      "type": "object", "additionalProperties": false,
+      "required": ["number", "clock", "teams_by_side", "result", "resources", "preparation", "combat", "attacks", "defense", "utility", "players", "summary", "coverage"],
+      "properties": {
+        "number": {"type": "integer"}, "clock": {"type": "object"}, "teams_by_side": {"type": "object"},
+        "result": {"type": "object", "required": ["winner_side", "winner_team_id", "end_reason", "plants", "retake", "end_alive"]},
+        "resources": {"type": "object", "required": ["by_side", "equipment_records", "equipment_start", "equipment_changes"]},
+        "preparation": {"type": "object", "required": ["T", "CT", "ct_sectors_before_contact"]},
+        "combat": {"type": "object", "required": ["contacts", "contacts_status", "opening_status", "opening_kill_ids", "refrags", "refrags_status", "fights", "fights_status", "alive_states", "moments"]},
+        "attacks": {"type": "object", "required": ["status", "complete", "attempts", "pressure"]},
+        "defense": {"type": "object", "required": ["movement_status", "activity", "rotation_status", "rotations", "rotation_eligibility"]},
+        "utility": {"type": "object", "required": ["status", "contexts"]},
+        "players": {"$ref": "#/$defs/collection"}, "summary": {"type": "object"}, "coverage": {"type": "object"}
+      }
+    }},
+    "source_events": {"$ref": "#/$defs/collection"},
+    "limitations": {"type": "object", "required": ["profile", "omitted", "interpretation", "coverage_status_counts"]}
+  },
+  "$defs": {
+    "collection": {"oneOf": [{"type": "array", "maxItems": 0}, {"$ref": "#/$defs/table"}]},
+    "table": {"type": "object", "additionalProperties": false, "required": ["columns", "rows"], "properties": {
+      "columns": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+      "rows": {"type": "array", "items": {"type": "array"}}
+    }},
+    "ratio": {"type": "object", "additionalProperties": false, "required": ["count", "denominator", "unit", "percentage"], "properties": {
+      "count": {"type": "integer", "minimum": 0}, "denominator": {"type": "integer", "minimum": 0},
+      "unit": {"type": "string"}, "percentage": {"type": ["number", "null"], "minimum": 0, "maximum": 100}
+    }},
+    "statistics": {"oneOf": [{"type": "null"}, {
+      "type": "object", "additionalProperties": false,
+      "required": ["rounds_played", "kills", "deaths", "assists", "damage", "adr", "headshots", "kast", "survival", "utility_damage", "peek_performance_rating"],
+      "properties": {
+        "rounds_played": {"type": "integer", "minimum": 1}, "kills": {"type": "integer", "minimum": 0},
+        "deaths": {"type": "integer", "minimum": 0}, "assists": {"type": "integer", "minimum": 0},
+        "damage": {"type": "number", "minimum": 0}, "adr": {"type": "number", "minimum": 0},
+        "headshots": {"$ref": "#/$defs/ratio"}, "kast": {"$ref": "#/$defs/ratio"}, "survival": {"$ref": "#/$defs/ratio"},
+        "utility_damage": {"type": "number", "minimum": 0}, "peek_performance_rating": {"type": ["number", "null"]}
+      }
+    }]}
+  }
+}

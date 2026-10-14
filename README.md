@@ -2,7 +2,7 @@
 
 Analyze Counter-Strike 2 demo files locally and explore player and match statistics.
 
-Upload a `.dem`, `.dem.gz`, or `.dem.zst` file to inspect player performance, rounds, damage, grenades, economy, and events. Export the analysis to Excel or a ZIP archive of CSV files. Demo analysis uses `demoparser2` and runs locally.
+Upload a `.dem`, `.dem.gz`, or `.dem.zst` file to inspect player performance, rounds, damage, grenades, economy, and events. Export a versioned JSON match report for manual analysis or an LLM. Demo analysis uses `demoparser2` and runs locally.
 
 ## Requirements
 
@@ -22,7 +22,9 @@ Open `http://localhost:8501`, then upload your file. You can also select a previ
 
 ## Demo Analysis
 
-The single-match screen starts with a selected player, four key metrics and a compact five-column player table. **Rundy** shows the winning side, the selected player's round stats and a short kill feed. **Walka** charts enemy damage by round. **Utility i ekonomia** shows HE/fire damage and flash events; economy is parsed only when requested. Full parser tables, optional player-state samples, raw events and Excel/CSV export are under **Dane i eksport**.
+The single-match screen starts with a selected player, four key metrics and a compact five-column player table. **Rundy** shows the winning side, the selected player's round stats and a short kill feed. **Walka** charts enemy damage by round. **Utility i ekonomia** shows HE/fire damage and flash events. Full parser tables, optional samples, raw events and JSON export are under **Dane i eksport**.
+
+Choose **Dane i eksport → Przygotuj raport JSON → Pobierz raport JSON**. The report includes all rounds and players, match/side statistics, M3/M4 tactical data, M5 tendencies, a reading guide, coverage and evidence references. It ignores current view filters. Repeated records use self-describing `columns`/`rows` tables; raw trajectories and individual shots are omitted. Player identifiers are local to the report. See [the export contract](docs/match_report_export.md) and [JSON Schema 1.0](docs/schemas/match_report_v1.schema.json). Excel and CSV exports have been removed.
 
 Match tables, charts, player choices, and exports show nicknames instead of SteamIDs. Identical nicknames receive stable numbered labels within a match; SteamIDs remain internal keys for correctly linking events and matches.
 
@@ -45,7 +47,7 @@ invalidates derived results, while schema migration preserves saved matches and 
 | Web interface | `Streamlit` |
 | Tables and charts | `pandas`, `Plotly` |
 | Local cache | SQLite |
-| Excel export | `openpyxl` |
+| Match report export | Versioned UTF-8 JSON with a reading guide and JSON Schema |
 
 ## Development
 

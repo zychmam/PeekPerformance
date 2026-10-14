@@ -1,6 +1,7 @@
 """Persist independent source and spatial stages, shared by all match players."""
 
-from functools import lru_cache
+from dataclasses import replace
+from functools import lru_cache, partial
 from threading import RLock
 
 import pandas as pd
@@ -48,11 +49,14 @@ def spatial_key(analysis, profile=None):
 def context_key(analysis, profile=None, config=None):
     from src.demos.site_entries import ENTRY_VERSION
 
+    # Refrag is computed from kills after the spatial stage. Keep the pre-M3.3b
+    # value in this key so changing its window reuses saved map observations.
+    spatial_config = replace(config or DetectorConfig(), refrag_seconds=10.0)
     return canonical_fingerprint(
         {
             "spatial": spatial_key(analysis, profile),
             "entries_version": ENTRY_VERSION,
-            "detectors": (config or DetectorConfig()).fingerprint,
+            "detectors": spatial_config.fingerprint,
         }
     )
 
@@ -180,6 +184,11 @@ def read_context(db, analysis, round_number=None, profile=None, config=None):
     if sorted(saved_foundations) != sorted(expected):
         return None
     context.foundations = {n: decode_foundation(value)[0] for n, value in saved_foundations.items()}
+    from functools import partial
+    from src.demos.tactical_actions import actions_key, save_action_rounds
+    action_key = actions_key(analysis, profile, config)
+    context.tactical_actions = db.get_stage_rounds(analysis.content_hash, "tactical_actions", action_key, round_number)
+    context.persist_tactical_actions = partial(save_action_rounds, db, analysis.content_hash, action_key)
     return context
 
 
@@ -188,6 +197,7 @@ def get_spatial_context(db, manager, analysis, round_number=None, profile=None, 
     with _context_lock(db._db_path, analysis.content_hash):
         cached = read_context(db, analysis, round_number, profile, config)
         if cached is not None:
+            _bind_viewer(cached, db, manager, analysis)
             return cached
         profile = selected_profile(analysis, profile)
         observations = _read_sources(db, analysis)
@@ -281,7 +291,18 @@ def get_spatial_context(db, manager, analysis, round_number=None, profile=None, 
                 foundation_rounds,
             )
         db.save_stages(analysis.content_hash, stages)
-        return read_context(db, analysis, round_number, profile, config)
+        context = read_context(db, analysis, round_number, profile, config)
+        if context is not None:
+            _bind_viewer(context, db, manager, analysis)
+        return context
+
+
+def _bind_viewer(context, db, manager, analysis):
+    from src.demos.viewer_projectiles import get_round_projectiles
+
+    context.load_projectiles = partial(
+        get_round_projectiles, db, manager, analysis, context.observations.cache_key,
+    )
 
 
 def round_analysis(analysis, round_number):

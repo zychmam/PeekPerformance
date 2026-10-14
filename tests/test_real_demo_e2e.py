@@ -2,20 +2,19 @@
 
 from __future__ import annotations
 
-import io
+import json
 import os
 import time
-import zipfile
 from pathlib import Path
 from unittest.mock import patch
 
 import pandas as pd
 import pytest
-from openpyxl import load_workbook
 
 from src.demos.coach_data import build_coach_inputs, load_coach_inputs
 from src.demos.demo_analyzer import DemoAnalyzer
 from src.demos.demo_manager import DemoManager
+from src.demos.match_report import encode_match_report, prepare_match_report
 from src.demos.match_view import player_rounds_table, player_summary_table
 from src.demos.presentation import is_steam_id_column, presentation_frame
 from src.demos.rating_calculator import RATING_VERSION
@@ -70,8 +69,12 @@ def test_real_demo_pipeline(tmp_path: Path) -> None:
     assert analysis.damage_df["enemy_damage"].ge(0).all()
     assert analysis.damage_df["enemy_damage"].le(analysis.damage_df["actual_damage"]).all()
     for frame in [
-        analysis.player_info, analysis.scoreboard, analysis.kills_df,
-        analysis.damage_df, analysis.round_stats_df, analysis.grenades_df.head(100),
+        analysis.player_info,
+        analysis.scoreboard,
+        analysis.kills_df,
+        analysis.damage_df,
+        analysis.round_stats_df,
+        analysis.grenades_df.head(100),
     ]:
         visible = presentation_frame(frame, analysis.player_info)
         assert not any(is_steam_id_column(column) for column in visible.columns)
@@ -102,14 +105,15 @@ def test_real_demo_pipeline(tmp_path: Path) -> None:
         )
 
     rating, per_round = calculate_and_store_rating(
-        database, manager, analysis.content_hash, saved.name,
+        database,
+        manager,
+        analysis.content_hash,
+        saved.name,
     )
     assert not rating.empty, "Rating could not be calculated"
     assert not per_round.empty
     assert rating["ADR"].ge(0).all()
-    assert set(rating["steamid"].astype("string")) >= _ids(
-        analysis.round_stats_df, "steamid"
-    )
+    assert set(rating["steamid"].astype("string")) >= _ids(analysis.round_stats_df, "steamid")
     player_rating = rating.set_index("steamid").loc[roster[0]["steamid"], "Rating"]
     matches = database.list_player_matches(roster[0]["steamid"], RATING_VERSION)
     assert len(matches) == 1
@@ -121,7 +125,10 @@ def test_real_demo_pipeline(tmp_path: Path) -> None:
         patch.object(reopened, "get_demo_analysis", side_effect=AssertionError("events reloaded")),
     ):
         stored_rating, stored_rounds = calculate_and_store_rating(
-            reopened, manager, analysis.content_hash, saved.name,
+            reopened,
+            manager,
+            analysis.content_hash,
+            saved.name,
         )
     pd.testing.assert_frame_equal(rating, stored_rating, check_dtype=False)
     pd.testing.assert_frame_equal(per_round, stored_rounds, check_dtype=False)
@@ -139,17 +146,12 @@ def test_real_demo_pipeline(tmp_path: Path) -> None:
     assert len(round_view) == len(cached.rounds_df)
     assert set(round_view["Strona gracza"].dropna()).issubset({"T", "CT", "—"})
 
-    xlsx = cached.to_excel()
-    assert xlsx[:2] == b"PK"
-    workbook = load_workbook(filename=io.BytesIO(xlsx), read_only=True)
-    assert "Rounds" in workbook.sheetnames
-    workbook.close()
-    archive = io.BytesIO(cached.to_csv_zip())
-    with zipfile.ZipFile(archive) as package:
-        assert {"Rounds.csv", "Kills.csv", "Damage.csv"}.issubset(package.namelist())
-        for name in ["Kills.csv", "Damage.csv", "PlayerInfo.csv", "RoundStats.csv"]:
-            header = package.read(name).splitlines()[0].decode("utf-8")
-            assert "steamid" not in header.lower().replace("_", "")
+    report = prepare_match_report(database, manager, cached)
+    payload = encode_match_report(report)
+    assert json.loads(payload)["header"]["round_count"] == len(cached.rounds_df)
+    assert len(report["rounds"]) == len(cached.rounds_df)
+    assert report["source_events"]
+    assert all(sid.encode() not in payload for sid in _ids(cached.player_info, "steamid"))
     print(
         f"E2E: map={analysis.map_name}, players={len(analysis.player_info)}, "
         f"rounds={len(analysis.rounds_df)}, kills={len(analysis.kills_df)}, "

@@ -1,0 +1,75 @@
+{
+  "checks": "passed; cached sources, no parser, no browser",
+  "results": [
+    {
+      "map": "de_mirage",
+      "demo_file": "1-30e46731-2fd6-44c6-80eb-fd3223ed6527-1-1.dem",
+      "round": 2,
+      "throws": 14,
+      "projectiles": 14,
+      "flash_events": 4,
+      "flashed_players": 3,
+      "flash_intervals": 4,
+      "flight_samples": 285,
+      "payload_bytes": 1123299,
+      "prepare_seconds": 0.097,
+      "warm_seconds": 0.082
+    },
+    {
+      "map": "de_dust2",
+      "demo_file": "1-610da466-b271-4c18-90d4-c2da4b0d75d4-1-1.dem",
+      "round": 2,
+      "throws": 9,
+      "projectiles": 9,
+      "flash_events": 7,
+      "flashed_players": 6,
+      "flash_intervals": 6,
+      "flight_samples": 193,
+      "payload_bytes": 679089,
+      "prepare_seconds": 0.053,
+      "warm_seconds": 0.053
+    },
+    {
+      "map": "de_inferno",
+      "demo_file": "1-57640da7-9cd0-4aca-890f-4c82c1344eee-1-1.dem",
+      "round": 2,
+      "throws": 13,
+      "projectiles": 13,
+      "flash_events": 4,
+      "flashed_players": 3,
+      "flash_intervals": 4,
+      "flight_samples": 433,
+      "payload_bytes": 774153,
+      "prepare_seconds": 0.077,
+      "warm_seconds": 0.062
+    },
+    {
+      "map": "de_anubis",
+      "demo_file": "1-1ccc85d8-33b4-4de8-a6fd-ed34154629d0-1-1.dem",
+      "round": 2,
+      "throws": 10,
+      "projectiles": 10,
+      "flash_events": 14,
+      "flashed_players": 6,
+      "flash_intervals": 10,
+      "flight_samples": 221,
+      "payload_bytes": 472079,
+      "prepare_seconds": 0.042,
+      "warm_seconds": 0.042
+    },
+    {
+      "map": "de_mirage",
+      "demo_file": "1-2826a5a8-a40f-4b7f-8654-daf5abb2289b-1-1.dem",
+      "round": 2,
+      "throws": 11,
+      "projectiles": 11,
+      "flash_events": 8,
+      "flashed_players": 5,
+      "flash_intervals": 6,
+      "flight_samples": 314,
+      "payload_bytes": 1073783,
+      "prepare_seconds": 0.084,
+      "warm_seconds": 0.087
+    }
+  ]
+}

@@ -1,0 +1,2517 @@
+{
+  "audit_version": 1,
+  "parser_version": "0.42.0",
+  "pov_visual_validation": "not_performed",
+  "maps": [
+    {
+      "map": "de_mirage",
+      "demo_file": "1-30e46731-2fd6-44c6-80eb-fd3223ed6527-1-1.dem",
+      "tick_rate": 64.0,
+      "time_sources": [
+        "assumed_64"
+      ],
+      "flash": {
+        "status": "audited",
+        "all_saved_events": 173,
+        "positive_active_events": 173,
+        "live_positive_events": 168,
+        "nonlive_positive_events": 5,
+        "missing_state_events": 0,
+        "duration_event_state_max_difference": 0.0,
+        "overlap_pairs": 26,
+        "available_columns": [
+          "flash_duration",
+          "flash_max_alpha",
+          "health",
+          "is_alive",
+          "life_state",
+          "game_time"
+        ],
+        "network_flash_fields": [
+          "CCSPlayerController.CCSPlayerController_ActionTrackingServices.CSPerRoundStats_t.m_iEnemiesFlashed",
+          "CCSPlayerController.CCSPlayerController_ActionTrackingServices.m_iEnemiesFlashed",
+          "CCSPlayerPawn.m_bFlashing",
+          "CCSPlayerPawn.m_flFlashDuration",
+          "CCSPlayerPawn.m_flFlashMaxAlpha",
+          "Grenade.m_bFlashing"
+        ],
+        "unsupported_probes": {
+          "CCSPlayerPawn.m_flFlashBangTime": "column_absent",
+          "CCSPlayerPawn.m_flFlashOverlayAlpha": "column_absent"
+        },
+        "cases": [
+          {
+            "kind": "strongest_live",
+            "round": 17,
+            "player_id": "p06",
+            "tick": 103323,
+            "seconds_after_freeze": 20.40625,
+            "event_duration_seconds": 4.9497251511,
+            "event_window_end_tick": 103639.7824096704,
+            "initial_network_duration": 4.949725151062012,
+            "duration_nonzero_after_event_window": true,
+            "next_flash_ticks_in_sample": [],
+            "first_network_zero_tick": null,
+            "network_zero_elapsed_ratio": null,
+            "samples": [
+              {
+                "health": 79,
+                "life_state": 0,
+                "flash_duration": 0.0,
+                "flash_max_alpha": 255.0,
+                "is_alive": true,
+                "game_time": 1774.0625,
+                "tick": 103321
+              },
+              {
+                "health": 79,
+                "life_state": 0,
+                "flash_duration": 0.0,
+                "flash_max_alpha": 255.0,
+                "is_alive": true,
+                "game_time": 1774.078125,
+                "tick": 103322
+              },
+              {
+                "health": 79,
+                "life_state": 0,
+                "flash_duration": 4.9497251511,
+                "flash_max_alpha": 255.0,
+                "is_alive": true,
+                "game_time": 1774.09375,
+                "tick": 103323
+              },
+              {
+                "health": 79,
+                "life_state": 0,
+                "flash_duration": 4.9497251511,
+                "flash_max_alpha": 255.0,
+                "is_alive": true,
+                "game_time": 1774.109375,
+                "tick": 103324
+              },
+              {
+                "health": 79,
+                "life_state": 0,
+                "flash_duration": 4.9497251511,
+                "flash_max_alpha": 255.0,
+                "is_alive": true,
+                "game_time": 1779.03125,
+                "tick": 103639
+              },
+              {
+                "health": 79,
+                "life_state": 0,
+                "flash_duration": 4.9497251511,
+                "flash_max_alpha": 255.0,
+                "is_alive": true,
+                "game_time": 1779.046875,
+                "tick": 103640
+              },
+              {
+                "health": 79,
+                "life_state": 0,
+                "flash_duration": 4.9497251511,
+                "flash_max_alpha": 255.0,
+                "is_alive": true,
+                "game_time": 1779.8125,
+                "tick": 103689
+              }
+            ],
+            "full_blind_end_tick": null
+          },
+          {
+            "kind": "shortest_live",
+            "round": 10,
+            "player_id": "p08",
+            "tick": 61986,
+            "seconds_after_freeze": 7.265625,
+            "event_duration_seconds": 0.1079723015,
+            "event_window_end_tick": 61992.910227296,
+            "initial_network_duration": 0.10797230154275894,
+            "duration_nonzero_after_event_window": true,
+            "next_flash_ticks_in_sample": [],
+            "first_network_zero_tick": 61996,
+            "network_zero_elapsed_ratio": 1.4471304013094506,
+            "samples": [
+              {
+                "health": 100,
+                "life_state": 0,
+                "flash_duration": 0.0,
+                "flash_max_alpha": 255.0,
+                "is_alive": true,
+                "game_time": 1128.171875,
+                "tick": 61984
+              },
+              {
+                "health": 100,
+                "life_state": 0,
+                "flash_duration": 0.0,
+                "flash_max_alpha": 255.0,
+                "is_alive": true,
+                "game_time": 1128.1875,
+                "tick": 61985
+              },
+              {
+                "health": 100,
+                "life_state": 0,
+                "flash_duration": 0.1079723015,
+                "flash_max_alpha": 255.0,
+                "is_alive": true,
+                "game_time": 1128.203125,
+                "tick": 61986
+              },
+              {
+                "health": 100,
+                "life_state": 0,
+                "flash_duration": 0.1079723015,
+                "flash_max_alpha": 255.0,
+                "is_alive": true,
+                "game_time": 1128.21875,
+                "tick": 61987
+              },
+              {
+                "health": 100,
+                "life_state": 0,
+                "flash_duration": 0.1079723015,
+                "flash_max_alpha": 255.0,
+                "is_alive": true,
+                "game_time": 1128.296875,
+                "tick": 61992
+              },
+              {
+                "health": 100,
+                "life_state": 0,
+                "flash_duration": 0.1079723015,
+                "flash_max_alpha": 255.0,
+                "is_alive": true,
+                "game_time": 1128.3125,
+                "tick": 61993
+              },
+              {
+                "health": 100,
+                "life_state": 0,
+                "flash_duration": 0.0,
+                "flash_max_alpha": 255.0,
+                "is_alive": true,
+                "game_time": 1128.359375,
+                "tick": 61996
+              },
+              {
+                "health": 100,
+                "life_state": 0,
+                "flash_duration": 0.0,
+                "flash_max_alpha": 255.0,
+                "is_alive": true,
+                "game_time": 1128.875,
+                "tick": 62029
+              }
+            ],
+            "full_blind_end_tick": null
+          },
+          {
+            "kind": "self_flash",
+            "round": 4,
+            "player_id": "p01",
+            "tick": 23802,
+            "seconds_after_freeze": 13.53125,
+            "event_duration_seconds": 4.8658022881,
+            "event_window_end_tick": 24113.4113464384,
+            "initial_network_duration": 4.86580228805542,
+            "duration_nonzero_after_event_window": true,
+            "next_flash_ticks_in_sample": [],
+            "first_network_zero_tick": 24238,
+            "network_zero_elapsed_ratio": 1.4000774377251046,
+            "samples": [
+              {
+                "health": 100,
+                "life_state": 0,
+                "flash_duration": 0.0,
+                "flash_max_alpha": 255.0,
+                "is_alive": true,
+                "game_time": 531.546875,
+                "tick": 23800
+              },
+              {
+                "health": 100,
+                "life_state": 0,
+                "flash_duration": 0.0,
+                "flash_max_alpha": 255.0,
+                "is_alive": true,
+                "game_time": 531.5625,
+                "tick": 23801
+              },
+              {
+                "health": 100,
+                "life_state": 0,
+                "flash_duration": 4.8658022881,
+                "flash_max_alpha": 255.0,
+                "is_alive": true,
+                "game_time": 531.578125,
+                "tick": 23802
+              },
+              {
+                "health": 100,
+                "life_state": 0,
+                "flash_duration": 4.8658022881,
+                "flash_max_alpha": 255.0,
+                "is_alive": true,
+                "game_time": 531.59375,
+                "tick": 23803
+              },
+              {
+                "health": 100,
+                "life_state": 0,
+                "flash_duration": 4.8658022881,
+                "flash_max_alpha": 255.0,
+                "is_alive": true,
+                "game_time": 536.4375,
+                "tick": 24113
+              },
+              {
+                "health": 100,
+                "life_state": 0,
+                "flash_duration": 4.8658022881,
+                "flash_max_alpha": 255.0,
+                "is_alive": true,
+                "game_time": 536.453125,
+                "tick": 24114
+              },
+              {
+                "health": 100,
+                "life_state": 0,
+                "flash_duration": 0.0,
+                "flash_max_alpha": 255.0,
+                "is_alive": true,
+                "game_time": 538.390625,
+                "tick": 24238
+              },
+              {
+                "health": 100,
+                "life_state": 0,
+                "flash_duration": 0.0,
+                "flash_max_alpha": 255.0,
+                "is_alive": true,
+                "game_time": 539.390625,
+                "tick": 24302
+              }
+            ],
+            "full_blind_end_tick": null
+          },
+          {
+            "kind": "overlap_first",
+            "round": 3,
+            "player_id": "p09",
+            "tick": 16621,
+            "seconds_after_freeze": 6.59375,
+            "event_duration_seconds": 1.7353895903,
+            "event_window_end_tick": 16732.0649337792,
+            "initial_network_duration": 1.7353895902633667,
+            "duration_nonzero_after_event_window": true,
+            "next_flash_ticks_in_sample": [
+              16671
+            ],
+            "first_network_zero_tick": null,
+            "network_zero_elapsed_ratio": null,
+            "samples": [
+              {
+                "health": 100,
+                "life_state": 0,
+                "flash_duration": 0.0,
+                "flash_max_alpha": 255.0,
+                "is_alive": true,
+                "game_time": 419.34375,
+                "tick": 16619
+              },
+              {
+                "health": 100,
+                "life_state": 0,
+                "flash_duration": 0.0,
+                "flash_max_alpha": 255.0,
+                "is_alive": true,
+                "game_time": 419.359375,
+                "tick": 16620
+              },
+              {
+                "health": 100,
+                "life_state": 0,
+                "flash_duration": 1.7353895903,
+                "flash_max_alpha": 255.0,
+                "is_alive": true,
+                "game_time": 419.375,
+                "tick": 16621
+              },
+              {
+                "health": 100,
+                "life_state": 0,
+                "flash_duration": 1.7353895903,
+                "flash_max_alpha": 255.0,
+                "is_alive": true,
+                "game_time": 419.390625,
+                "tick": 16622
+              },
+              {
+                "health": 100,
+                "life_state": 0,
+                "flash_duration": 3.4522333145,
+                "flash_max_alpha": 255.0,
+                "is_alive": true,
+                "game_time": 420.15625,
+                "tick": 16671
+              },
+              {
+                "health": 100,
+                "life_state": 0,
+                "flash_duration": 3.4522333145,
+                "flash_max_alpha": 255.0,
+                "is_alive": true,
+                "game_time": 421.109375,
+                "tick": 16732
+              },
+              {
+                "health": 100,
+                "life_state": 0,
+                "flash_duration": 3.4522333145,
+                "flash_max_alpha": 255.0,
+                "is_alive": true,
+                "game_time": 421.125,
+                "tick": 16733
+              },
+              {
+                "health": 100,
+                "life_state": 0,
+                "flash_duration": 3.4522333145,
+                "flash_max_alpha": 255.0,
+                "is_alive": true,
+                "game_time": 422.484375,
+                "tick": 16820
+              }
+            ],
+            "full_blind_end_tick": null
+          },
+          {
+            "kind": "overlap_second",
+            "round": 3,
+            "player_id": "p09",
+            "tick": 16671,
+            "seconds_after_freeze": 7.375,
+            "event_duration_seconds": 3.4522333145,
+            "event_window_end_tick": 16891.942932128,
+            "initial_network_duration": 3.45223331451416,
+            "duration_nonzero_after_event_window": true,
+            "next_flash_ticks_in_sample": [],
+            "first_network_zero_tick": 16981,
+            "network_zero_elapsed_ratio": 1.4030772426809568,
+            "samples": [
+              {
+                "health": 100,
+                "life_state": 0,
+                "flash_duration": 1.7353895903,
+                "flash_max_alpha": 255.0,
+                "is_alive": true,
+                "game_time": 420.125,
+                "tick": 16669
+              },
+              {
+                "health": 100,
+                "life_state": 0,
+                "flash_duration": 1.7353895903,
+                "flash_max_alpha": 255.0,
+                "is_alive": true,
+                "game_time": 420.140625,
+                "tick": 16670
+              },
+              {
+                "health": 100,
+                "life_state": 0,
+                "flash_duration": 3.4522333145,
+                "flash_max_alpha": 255.0,
+                "is_alive": true,
+                "game_time": 420.15625,
+                "tick": 16671
+              },
+              {
+                "health": 100,
+                "life_state": 0,
+                "flash_duration": 3.4522333145,
+                "flash_max_alpha": 255.0,
+                "is_alive": true,
+                "game_time": 420.171875,
+                "tick": 16672
+              },
+              {
+                "health": 100,
+                "life_state": 0,
+                "flash_duration": 3.4522333145,
+                "flash_max_alpha": 255.0,
+                "is_alive": true,
+                "game_time": 423.59375,
+                "tick": 16891
+              },
+              {
+                "health": 100,
+                "life_state": 0,
+                "flash_duration": 3.4522333145,
+                "flash_max_alpha": 255.0,
+                "is_alive": true,
+                "game_time": 423.609375,
+                "tick": 16892
+              },
+              {
+                "health": 100,
+                "life_state": 0,
+                "flash_duration": 0.0,
+                "flash_max_alpha": 255.0,
+                "is_alive": true,
+                "game_time": 425.0,
+                "tick": 16981
+              },
+              {
+                "health": 100,
+                "life_state": 0,
+                "flash_duration": 0.0,
+                "flash_max_alpha": 255.0,
+                "is_alive": true,
+                "game_time": 425.84375,
+                "tick": 17035
+              }
+            ],
+            "full_blind_end_tick": null
+          }
+        ]
+      },
+      "projectiles": {
+        "types": [
+          {
+            "kind": "CDecoyGrenade",
+            "rows": 1147,
+            "valid_positions": 0,
+            "entity_ids": 1
+          },
+          {
+            "kind": "CDecoyProjectile",
+            "rows": 1119,
+            "valid_positions": 1119,
+            "entity_ids": 1
+          },
+          {
+            "kind": "CFlashbang",
+            "rows": 364177,
+            "valid_positions": 0,
+            "entity_ids": 111
+          },
+          {
+            "kind": "CFlashbangProjectile",
+            "rows": 9152,
+            "valid_positions": 9152,
+            "entity_ids": 84
+          },
+          {
+            "kind": "CHEGrenade",
+            "rows": 257499,
+            "valid_positions": 0,
+            "entity_ids": 81
+          },
+          {
+            "kind": "CHEGrenadeProjectile",
+            "rows": 26288,
+            "valid_positions": 26288,
+            "entity_ids": 60
+          },
+          {
+            "kind": "CIncendiaryGrenade",
+            "rows": 132425,
+            "valid_positions": 0,
+            "entity_ids": 47
+          },
+          {
+            "kind": "CMolotovGrenade",
+            "rows": 98399,
+            "valid_positions": 0,
+            "entity_ids": 33
+          },
+          {
+            "kind": "CMolotovProjectile",
+            "rows": 6684,
+            "valid_positions": 6684,
+            "entity_ids": 68
+          },
+          {
+            "kind": "CSmokeGrenade",
+            "rows": 311627,
+            "valid_positions": 0,
+            "entity_ids": 104
+          },
+          {
+            "kind": "CSmokeGrenadeProjectile",
+            "rows": 137707,
+            "valid_positions": 137707,
+            "entity_ids": 80
+          }
+        ],
+        "rows": 1346224,
+        "projectiles_only_parser_rows": 180950,
+        "projectiles_only_valid_positions": 180950,
+        "projectiles_only_types": [
+          "CDecoyProjectile",
+          "CFlashbangProjectile",
+          "CHEGrenadeProjectile",
+          "CMolotovProjectile",
+          "CSmokeGrenadeProjectile"
+        ],
+        "projectiles_only_parse_seconds": 0.5,
+        "flash_link_examples": [
+          {
+            "round": 2,
+            "blind_tick": 11721,
+            "projectile_entity": 922,
+            "same_owner_and_entity": true,
+            "rows_in_previous_20s": 104,
+            "last_sample_tick": 11720,
+            "ticks_to_blind": 1,
+            "endpoints": [
+              {
+                "tick": 11617,
+                "x": -1045.90625,
+                "y": -1342.5625,
+                "z": -105.34375
+              },
+              {
+                "tick": 11720,
+                "x": -208.96875,
+                "y": -1608.96875,
+                "z": 111.46875
+              }
+            ]
+          },
+          {
+            "round": 2,
+            "blind_tick": 11721,
+            "projectile_entity": 922,
+            "same_owner_and_entity": true,
+            "rows_in_previous_20s": 104,
+            "last_sample_tick": 11720,
+            "ticks_to_blind": 1,
+            "endpoints": [
+              {
+                "tick": 11617,
+                "x": -1045.90625,
+                "y": -1342.5625,
+                "z": -105.34375
+              },
+              {
+                "tick": 11720,
+                "x": -208.96875,
+                "y": -1608.96875,
+                "z": 111.46875
+              }
+            ]
+          }
+        ],
+        "warning": "Entity IDs are not unique projectile lifetimes; null positions are not flight."
+      },
+      "elapsed_seconds": 9.75
+    },
+    {
+      "map": "de_dust2",
+      "demo_file": "1-610da466-b271-4c18-90d4-c2da4b0d75d4-1-1.dem",
+      "tick_rate": 64.0,
+      "time_sources": [
+        "assumed_64"
+      ],
+      "flash": {
+        "status": "audited",
+        "all_saved_events": 316,
+        "positive_active_events": 316,
+        "live_positive_events": 305,
+        "nonlive_positive_events": 11,
+        "missing_state_events": 0,
+        "duration_event_state_max_difference": 0.0,
+        "overlap_pairs": 82,
+        "available_columns": [
+          "flash_duration",
+          "flash_max_alpha",
+          "health",
+          "is_alive",
+          "life_state",
+          "game_time"
+        ],
+        "network_flash_fields": [
+          "CCSPlayerController.CCSPlayerController_ActionTrackingServices.CSPerRoundStats_t.m_iEnemiesFlashed",
+          "CCSPlayerController.CCSPlayerController_ActionTrackingServices.m_iEnemiesFlashed",
+          "CCSPlayerPawn.m_bFlashing",
+          "CCSPlayerPawn.m_flFlashDuration",
+          "CCSPlayerPawn.m_flFlashMaxAlpha",
+          "Grenade.m_bFlashing"
+        ],
+        "unsupported_probes": {
+          "CCSPlayerPawn.m_flFlashBangTime": "column_absent",
+          "CCSPlayerPawn.m_flFlashOverlayAlpha": "column_absent"
+        },
+        "cases": [
+          {
+            "kind": "strongest_live",
+            "round": 15,
+            "player_id": "p06",
+            "tick": 88462,
+            "seconds_after_freeze": 25.171875,
+            "event_duration_seconds": 5.1060056686,
+            "event_window_end_tick": 88788.7843627904,
+            "initial_network_duration": 5.106005668640137,
+            "duration_nonzero_after_event_window": true,
+            "next_flash_ticks_in_sample": [],
+            "first_network_zero_tick": 88920,
+            "network_zero_elapsed_ratio": 1.4015358510093763,
+            "samples": [
+              {
+                "health": 100,
+                "life_state": 0,
+                "flash_duration": 0.0,
+                "flash_max_alpha": 255.0,
+                "is_alive": true,
+                "game_time": 1544.46875,
+                "tick": 88460
+              },
+              {
+                "health": 100,
+                "life_state": 0,
+                "flash_duration": 0.0,
+                "flash_max_alpha": 255.0,
+                "is_alive": true,
+                "game_time": 1544.484375,
+                "tick": 88461
+              },
+              {
+                "health": 100,
+                "life_state": 0,
+                "flash_duration": 5.1060056686,
+                "flash_max_alpha": 255.0,
+                "is_alive": true,
+                "game_time": 1544.5,
+                "tick": 88462
+              },
+              {
+                "health": 100,
+                "life_state": 0,
+                "flash_duration": 5.1060056686,
+                "flash_max_alpha": 255.0,
+                "is_alive": true,
+                "game_time": 1544.515625,
+                "tick": 88463
+              },
+              {
+                "health": 100,
+                "life_state": 0,
+                "flash_duration": 5.1060056686,
+                "flash_max_alpha": 255.0,
+                "is_alive": true,
+                "game_time": 1549.59375,
+                "tick": 88788
+              },
+              {
+                "health": 100,
+                "life_state": 0,
+                "flash_duration": 5.1060056686,
+                "flash_max_alpha": 255.0,
+                "is_alive": true,
+                "game_time": 1549.609375,
+                "tick": 88789
+              },
+              {
+                "health": 100,
+                "life_state": 0,
+                "flash_duration": 0.0,
+                "flash_max_alpha": 255.0,
+                "is_alive": true,
+                "game_time": 1551.65625,
+                "tick": 88920
+              },
+              {
+                "health": 100,
+                "life_state": 0,
+                "flash_duration": 0.0,
+                "flash_max_alpha": 255.0,
+                "is_alive": true,
+                "game_time": 1552.671875,
+                "tick": 88985
+              }
+            ],
+            "full_blind_end_tick": null
+          },
+          {
+            "kind": "shortest_live",
+            "round": 11,
+            "player_id": "p03",
+            "tick": 65219,
+            "seconds_after_freeze": 31.71875,
+            "event_duration_seconds": 0.102590993,
+            "event_window_end_tick": 65225.565823552,
+            "initial_network_duration": 0.10259099304676056,
+            "duration_nonzero_after_event_window": true,
+            "next_flash_ticks_in_sample": [],
+            "first_network_zero_tick": 65229,
+            "network_zero_elapsed_ratio": 1.5230381871827676,
+            "samples": [
+              {
+                "health": 78,
+                "life_state": 0,
+                "flash_duration": 0.0,
+                "flash_max_alpha": 255.0,
+                "is_alive": true,
+                "game_time": 1181.296875,
+                "tick": 65217
+              },
+              {
+                "health": 78,
+                "life_state": 0,
+                "flash_duration": 0.0,
+                "flash_max_alpha": 255.0,
+                "is_alive": true,
+                "game_time": 1181.3125,
+                "tick": 65218
+              },
+              {
+                "health": 78,
+                "life_state": 0,
+                "flash_duration": 0.102590993,
+                "flash_max_alpha": 255.0,
+                "is_alive": true,
+                "game_time": 1181.328125,
+                "tick": 65219
+              },
+              {
+                "health": 78,
+                "life_state": 0,
+                "flash_duration": 0.102590993,
+                "flash_max_alpha": 255.0,
+                "is_alive": true,
+                "game_time": 1181.34375,
+                "tick": 65220
+              },
+              {
+                "health": 78,
+                "life_state": 0,
+                "flash_duration": 0.102590993,
+                "flash_max_alpha": 255.0,
+                "is_alive": true,
+                "game_time": 1181.421875,
+                "tick": 65225
+              },
+              {
+                "health": 78,
+                "life_state": 0,
+                "flash_duration": 0.102590993,
+                "flash_max_alpha": 255.0,
+                "is_alive": true,
+                "game_time": 1181.4375,
+                "tick": 65226
+              },
+              {
+                "health": 78,
+                "life_state": 0,
+                "flash_duration": 0.0,
+                "flash_max_alpha": 255.0,
+                "is_alive": true,
+                "game_time": 1181.484375,
+                "tick": 65229
+              },
+              {
+                "health": 78,
+                "life_state": 0,
+                "flash_duration": 0.0,
+                "flash_max_alpha": 255.0,
+                "is_alive": true,
+                "game_time": 1181.984375,
+                "tick": 65261
+              }
+            ],
+            "full_blind_end_tick": null
+          },
+          {
+            "kind": "self_flash",
+            "round": 19,
+            "player_id": "p09",
+            "tick": 117019,
+            "seconds_after_freeze": 17.203125,
+            "event_duration_seconds": 3.9059741497,
+            "event_window_end_tick": 117268.9823455808,
+            "initial_network_duration": 3.9059741497039795,
+            "duration_nonzero_after_event_window": true,
+            "next_flash_ticks_in_sample": [],
+            "first_network_zero_tick": 117369,
+            "network_zero_elapsed_ratio": 1.400098871729612,
+            "samples": [
+              {
+                "health": 100,
+                "life_state": 0,
+                "flash_duration": 0.0,
+                "flash_max_alpha": 255.0,
+                "is_alive": true,
+                "game_time": 1990.671875,
+                "tick": 117017
+              },
+              {
+                "health": 100,
+                "life_state": 0,
+                "flash_duration": 0.0,
+                "flash_max_alpha": 255.0,
+                "is_alive": true,
+                "game_time": 1990.6875,
+                "tick": 117018
+              },
+              {
+                "health": 100,
+                "life_state": 0,
+                "flash_duration": 3.9059741497,
+                "flash_max_alpha": 255.0,
+                "is_alive": true,
+                "game_time": 1990.703125,
+                "tick": 117019
+              },
+              {
+                "health": 100,
+                "life_state": 0,
+                "flash_duration": 3.9059741497,
+                "flash_max_alpha": 255.0,
+                "is_alive": true,
+                "game_time": 1990.71875,
+                "tick": 117020
+              },
+              {
+                "health": 100,
+                "life_state": 0,
+                "flash_duration": 3.9059741497,
+                "flash_max_alpha": 255.0,
+                "is_alive": true,
+                "game_time": 1994.59375,
+                "tick": 117268
+              },
+              {
+                "health": 100,
+                "life_state": 0,
+                "flash_duration": 3.9059741497,
+                "flash_max_alpha": 255.0,
+                "is_alive": true,
+                "game_time": 1994.609375,
+                "tick": 117269
+              },
+              {
+                "health": 75,
+                "life_state": 0,
+                "flash_duration": 0.0,
+                "flash_max_alpha": 255.0,
+                "is_alive": true,
+                "game_time": 1996.171875,
+                "tick": 117369
+              },
+              {
+                "health": 75,
+                "life_state": 0,
+                "flash_duration": 0.0,
+                "flash_max_alpha": 255.0,
+                "is_alive": true,
+                "game_time": 1997.0625,
+                "tick": 117426
+              }
+            ],
+            "full_blind_end_tick": null
+          },
+          {
+            "kind": "overlap_first",
+            "round": 1,
+            "player_id": "p04",
+            "tick": 4905,
+            "seconds_after_freeze": 8.234375,
+            "event_duration_seconds": 3.7523300648,
+            "event_window_end_tick": 5145.1491241472,
+            "initial_network_duration": 3.7523300647735596,
+            "duration_nonzero_after_event_window": true,
+            "next_flash_ticks_in_sample": [
+              5037,
+              5055
+            ],
+            "first_network_zero_tick": null,
+            "network_zero_elapsed_ratio": null,
+            "samples": [
+              {
+                "health": 90,
+                "life_state": 0,
+                "flash_duration": 0.0,
+                "flash_max_alpha": 0.0,
+                "is_alive": true,
+                "game_time": 238.890625,
+                "tick": 4903
+              },
+              {
+                "health": 90,
+                "life_state": 0,
+                "flash_duration": 0.0,
+                "flash_max_alpha": 0.0,
+                "is_alive": true,
+                "game_time": 238.90625,
+                "tick": 4904
+              },
+              {
+                "health": 90,
+                "life_state": 0,
+                "flash_duration": 3.7523300648,
+                "flash_max_alpha": 255.0,
+                "is_alive": true,
+                "game_time": 238.921875,
+                "tick": 4905
+              },
+              {
+                "health": 90,
+                "life_state": 0,
+                "flash_duration": 3.7523300648,
+                "flash_max_alpha": 255.0,
+                "is_alive": true,
+                "game_time": 238.9375,
+                "tick": 4906
+              },
+              {
+                "health": 79,
+                "life_state": 0,
+                "flash_duration": 3.6553001404,
+                "flash_max_alpha": 255.0,
+                "is_alive": true,
+                "game_time": 240.984375,
+                "tick": 5037
+              },
+              {
+                "health": 79,
+                "life_state": 0,
+                "flash_duration": 3.3740539551,
+                "flash_max_alpha": 255.0,
+                "is_alive": true,
+                "game_time": 241.265625,
+                "tick": 5055
+              },
+              {
+                "health": 79,
+                "life_state": 0,
+                "flash_duration": 3.3740539551,
+                "flash_max_alpha": 255.0,
+                "is_alive": true,
+                "game_time": 242.671875,
+                "tick": 5145
+              },
+              {
+                "health": 79,
+                "life_state": 0,
+                "flash_duration": 3.3740539551,
+                "flash_max_alpha": 255.0,
+                "is_alive": true,
+                "game_time": 242.6875,
+                "tick": 5146
+              },
+              {
+                "health": 79,
+                "life_state": 0,
+                "flash_duration": 3.3740539551,
+                "flash_max_alpha": 255.0,
+                "is_alive": true,
+                "game_time": 245.0625,
+                "tick": 5298
+              }
+            ],
+            "full_blind_end_tick": null
+          },
+          {
+            "kind": "overlap_second",
+            "round": 1,
+            "player_id": "p04",
+            "tick": 5037,
+            "seconds_after_freeze": 10.296875,
+            "event_duration_seconds": 3.6553001404,
+            "event_window_end_tick": 5270.9392089856,
+            "initial_network_duration": 3.6553001403808594,
+            "duration_nonzero_after_event_window": true,
+            "next_flash_ticks_in_sample": [
+              5055
+            ],
+            "first_network_zero_tick": 5365,
+            "network_zero_elapsed_ratio": null,
+            "samples": [
+              {
+                "health": 79,
+                "life_state": 0,
+                "flash_duration": 3.7523300648,
+                "flash_max_alpha": 255.0,
+                "is_alive": true,
+                "game_time": 240.953125,
+                "tick": 5035
+              },
+              {
+                "health": 79,
+                "life_state": 0,
+                "flash_duration": 3.7523300648,
+                "flash_max_alpha": 255.0,
+                "is_alive": true,
+                "game_time": 240.96875,
+                "tick": 5036
+              },
+              {
+                "health": 79,
+                "life_state": 0,
+                "flash_duration": 3.6553001404,
+                "flash_max_alpha": 255.0,
+                "is_alive": true,
+                "game_time": 240.984375,
+                "tick": 5037
+              },
+              {
+                "health": 79,
+                "life_state": 0,
+                "flash_duration": 3.6553001404,
+                "flash_max_alpha": 255.0,
+                "is_alive": true,
+                "game_time": 241.0,
+                "tick": 5038
+              },
+              {
+                "health": 79,
+                "life_state": 0,
+                "flash_duration": 3.3740539551,
+                "flash_max_alpha": 255.0,
+                "is_alive": true,
+                "game_time": 241.265625,
+                "tick": 5055
+              },
+              {
+                "health": 79,
+                "life_state": 0,
+                "flash_duration": 3.3740539551,
+                "flash_max_alpha": 255.0,
+                "is_alive": true,
+                "game_time": 244.625,
+                "tick": 5270
+              },
+              {
+                "health": 79,
+                "life_state": 0,
+                "flash_duration": 3.3740539551,
+                "flash_max_alpha": 255.0,
+                "is_alive": true,
+                "game_time": 244.640625,
+                "tick": 5271
+              },
+              {
+                "health": 79,
+                "life_state": 0,
+                "flash_duration": 0.0,
+                "flash_max_alpha": 255.0,
+                "is_alive": true,
+                "game_time": 246.109375,
+                "tick": 5365
+              },
+              {
+                "health": 79,
+                "life_state": 0,
+                "flash_duration": 0.0,
+                "flash_max_alpha": 255.0,
+                "is_alive": true,
+                "game_time": 246.96875,
+                "tick": 5420
+              }
+            ],
+            "full_blind_end_tick": null
+          }
+        ]
+      },
+      "projectiles": {
+        "types": [
+          {
+            "kind": "CDecoyGrenade",
+            "rows": 13721,
+            "valid_positions": 0,
+            "entity_ids": 9
+          },
+          {
+            "kind": "CDecoyProjectile",
+            "rows": 8345,
+            "valid_positions": 8345,
+            "entity_ids": 6
+          },
+          {
+            "kind": "CFlashbang",
+            "rows": 554075,
+            "valid_positions": 0,
+            "entity_ids": 127
+          },
+          {
+            "kind": "CFlashbangProjectile",
+            "rows": 15288,
+            "valid_positions": 15288,
+            "entity_ids": 110
+          },
+          {
+            "kind": "CHEGrenade",
+            "rows": 466419,
+            "valid_positions": 0,
+            "entity_ids": 119
+          },
+          {
+            "kind": "CHEGrenadeProjectile",
+            "rows": 54272,
+            "valid_positions": 54272,
+            "entity_ids": 94
+          },
+          {
+            "kind": "CIncendiaryGrenade",
+            "rows": 173174,
+            "valid_positions": 0,
+            "entity_ids": 49
+          },
+          {
+            "kind": "CMolotovGrenade",
+            "rows": 248974,
+            "valid_positions": 0,
+            "entity_ids": 64
+          },
+          {
+            "kind": "CMolotovProjectile",
+            "rows": 10061,
+            "valid_positions": 10061,
+            "entity_ids": 79
+          },
+          {
+            "kind": "CSmokeGrenade",
+            "rows": 508504,
+            "valid_positions": 0,
+            "entity_ids": 119
+          },
+          {
+            "kind": "CSmokeGrenadeProjectile",
+            "rows": 190991,
+            "valid_positions": 190991,
+            "entity_ids": 83
+          }
+        ],
+        "rows": 2243824,
+        "projectiles_only_parser_rows": 278957,
+        "projectiles_only_valid_positions": 278957,
+        "projectiles_only_types": [
+          "CDecoyProjectile",
+          "CFlashbangProjectile",
+          "CHEGrenadeProjectile",
+          "CMolotovProjectile",
+          "CSmokeGrenadeProjectile"
+        ],
+        "projectiles_only_parse_seconds": 0.64,
+        "flash_link_examples": [
+          {
+            "round": 1,
+            "blind_tick": 4905,
+            "projectile_entity": 422,
+            "same_owner_and_entity": true,
+            "rows_in_previous_20s": 104,
+            "last_sample_tick": 4904,
+            "ticks_to_blind": 1,
+            "endpoints": [
+              {
+                "tick": 4801,
+                "x": 380.3125,
+                "y": -368.65625,
+                "z": 107.9375
+              },
+              {
+                "tick": 4904,
+                "x": 1049.15625,
+                "y": 431.375,
+                "z": 430.25
+              }
+            ]
+          },
+          {
+            "round": 1,
+            "blind_tick": 4905,
+            "projectile_entity": 422,
+            "same_owner_and_entity": true,
+            "rows_in_previous_20s": 104,
+            "last_sample_tick": 4904,
+            "ticks_to_blind": 1,
+            "endpoints": [
+              {
+                "tick": 4801,
+                "x": 380.3125,
+                "y": -368.65625,
+                "z": 107.9375
+              },
+              {
+                "tick": 4904,
+                "x": 1049.15625,
+                "y": 431.375,
+                "z": 430.25
+              }
+            ]
+          }
+        ],
+        "warning": "Entity IDs are not unique projectile lifetimes; null positions are not flight."
+      },
+      "elapsed_seconds": 14.55
+    },
+    {
+      "map": "de_inferno",
+      "demo_file": "1-57640da7-9cd0-4aca-890f-4c82c1344eee-1-1.dem",
+      "tick_rate": 64.0,
+      "time_sources": [
+        "assumed_64"
+      ],
+      "flash": {
+        "status": "audited",
+        "all_saved_events": 196,
+        "positive_active_events": 196,
+        "live_positive_events": 185,
+        "nonlive_positive_events": 11,
+        "missing_state_events": 0,
+        "duration_event_state_max_difference": 0.0,
+        "overlap_pairs": 24,
+        "available_columns": [
+          "flash_duration",
+          "flash_max_alpha",
+          "health",
+          "is_alive",
+          "life_state",
+          "game_time"
+        ],
+        "network_flash_fields": [
+          "CCSPlayerController.CCSPlayerController_ActionTrackingServices.CSPerRoundStats_t.m_iEnemiesFlashed",
+          "CCSPlayerController.CCSPlayerController_ActionTrackingServices.m_iEnemiesFlashed",
+          "CCSPlayerPawn.m_bFlashing",
+          "CCSPlayerPawn.m_flFlashDuration",
+          "CCSPlayerPawn.m_flFlashMaxAlpha",
+          "Grenade.m_bFlashing"
+        ],
+        "unsupported_probes": {
+          "CCSPlayerPawn.m_flFlashBangTime": "column_absent",
+          "CCSPlayerPawn.m_flFlashOverlayAlpha": "column_absent"
+        },
+        "cases": [
+          {
+            "kind": "strongest_live",
+            "round": 9,
+            "player_id": "p03",
+            "tick": 62078,
+            "seconds_after_freeze": 15.375,
+            "event_duration_seconds": 5.195912838,
+            "event_window_end_tick": 62410.538421632,
+            "initial_network_duration": 5.195912837982178,
+            "duration_nonzero_after_event_window": true,
+            "next_flash_ticks_in_sample": [],
+            "first_network_zero_tick": 62544,
+            "network_zero_elapsed_ratio": 1.4013418290524449,
+            "samples": [
+              {
+                "health": 100,
+                "life_state": 0,
+                "flash_duration": 0.0,
+                "flash_max_alpha": 255.0,
+                "is_alive": true,
+                "game_time": 1127.515625,
+                "tick": 62076
+              },
+              {
+                "health": 100,
+                "life_state": 0,
+                "flash_duration": 0.0,
+                "flash_max_alpha": 255.0,
+                "is_alive": true,
+                "game_time": 1127.53125,
+                "tick": 62077
+              },
+              {
+                "health": 100,
+                "life_state": 0,
+                "flash_duration": 5.195912838,
+                "flash_max_alpha": 255.0,
+                "is_alive": true,
+                "game_time": 1127.546875,
+                "tick": 62078
+              },
+              {
+                "health": 100,
+                "life_state": 0,
+                "flash_duration": 5.195912838,
+                "flash_max_alpha": 255.0,
+                "is_alive": true,
+                "game_time": 1127.5625,
+                "tick": 62079
+              },
+              {
+                "health": 100,
+                "life_state": 0,
+                "flash_duration": 5.195912838,
+                "flash_max_alpha": 255.0,
+                "is_alive": true,
+                "game_time": 1132.734375,
+                "tick": 62410
+              },
+              {
+                "health": 100,
+                "life_state": 0,
+                "flash_duration": 5.195912838,
+                "flash_max_alpha": 255.0,
+                "is_alive": true,
+                "game_time": 1132.75,
+                "tick": 62411
+              },
+              {
+                "health": 100,
+                "life_state": 0,
+                "flash_duration": 0.0,
+                "flash_max_alpha": 255.0,
+                "is_alive": true,
+                "game_time": 1134.828125,
+                "tick": 62544
+              },
+              {
+                "health": 100,
+                "life_state": 0,
+                "flash_duration": 0.0,
+                "flash_max_alpha": 255.0,
+                "is_alive": true,
+                "game_time": 1135.84375,
+                "tick": 62609
+              }
+            ],
+            "full_blind_end_tick": null
+          },
+          {
+            "kind": "shortest_live",
+            "round": 20,
+            "player_id": "p07",
+            "tick": 128736,
+            "seconds_after_freeze": 55.578125,
+            "event_duration_seconds": 0.09386722,
+            "event_window_end_tick": 128742.00750208,
+            "initial_network_duration": 0.0938672199845314,
+            "duration_nonzero_after_event_window": true,
+            "next_flash_ticks_in_sample": [],
+            "first_network_zero_tick": 128745,
+            "network_zero_elapsed_ratio": 1.498126822121716,
+            "samples": [
+              {
+                "health": 99,
+                "life_state": 0,
+                "flash_duration": 0.0,
+                "flash_max_alpha": 255.0,
+                "is_alive": true,
+                "game_time": 2169.046875,
+                "tick": 128734
+              },
+              {
+                "health": 99,
+                "life_state": 0,
+                "flash_duration": 0.0,
+                "flash_max_alpha": 255.0,
+                "is_alive": true,
+                "game_time": 2169.0625,
+                "tick": 128735
+              },
+              {
+                "health": 99,
+                "life_state": 0,
+                "flash_duration": 0.09386722,
+                "flash_max_alpha": 255.0,
+                "is_alive": true,
+                "game_time": 2169.078125,
+                "tick": 128736
+              },
+              {
+                "health": 99,
+                "life_state": 0,
+                "flash_duration": 0.09386722,
+                "flash_max_alpha": 255.0,
+                "is_alive": true,
+                "game_time": 2169.09375,
+                "tick": 128737
+              },
+              {
+                "health": 99,
+                "life_state": 0,
+                "flash_duration": 0.09386722,
+                "flash_max_alpha": 255.0,
+                "is_alive": true,
+                "game_time": 2169.171875,
+                "tick": 128742
+              },
+              {
+                "health": 99,
+                "life_state": 0,
+                "flash_duration": 0.09386722,
+                "flash_max_alpha": 255.0,
+                "is_alive": true,
+                "game_time": 2169.1875,
+                "tick": 128743
+              },
+              {
+                "health": 99,
+                "life_state": 0,
+                "flash_duration": 0.0,
+                "flash_max_alpha": 255.0,
+                "is_alive": true,
+                "game_time": 2169.21875,
+                "tick": 128745
+              },
+              {
+                "health": 99,
+                "life_state": 0,
+                "flash_duration": 0.0,
+                "flash_max_alpha": 255.0,
+                "is_alive": true,
+                "game_time": 2169.734375,
+                "tick": 128778
+              }
+            ],
+            "full_blind_end_tick": null
+          },
+          {
+            "kind": "self_flash",
+            "round": 19,
+            "player_id": "p02",
+            "tick": 121456,
+            "seconds_after_freeze": 83.828125,
+            "event_duration_seconds": 4.0325751305,
+            "event_window_end_tick": 121714.084808352,
+            "initial_network_duration": 4.0325751304626465,
+            "duration_nonzero_after_event_window": true,
+            "next_flash_ticks_in_sample": [],
+            "first_network_zero_tick": 121818,
+            "network_zero_elapsed_ratio": 1.4026397071239887,
+            "samples": [
+              {
+                "health": 40,
+                "life_state": 0,
+                "flash_duration": 0.0,
+                "flash_max_alpha": 255.0,
+                "is_alive": true,
+                "game_time": 2055.296875,
+                "tick": 121454
+              },
+              {
+                "health": 40,
+                "life_state": 0,
+                "flash_duration": 0.0,
+                "flash_max_alpha": 255.0,
+                "is_alive": true,
+                "game_time": 2055.3125,
+                "tick": 121455
+              },
+              {
+                "health": 40,
+                "life_state": 0,
+                "flash_duration": 4.0325751305,
+                "flash_max_alpha": 255.0,
+                "is_alive": true,
+                "game_time": 2055.328125,
+                "tick": 121456
+              },
+              {
+                "health": 40,
+                "life_state": 0,
+                "flash_duration": 4.0325751305,
+                "flash_max_alpha": 255.0,
+                "is_alive": true,
+                "game_time": 2055.34375,
+                "tick": 121457
+              },
+              {
+                "health": 40,
+                "life_state": 0,
+                "flash_duration": 4.0325751305,
+                "flash_max_alpha": 255.0,
+                "is_alive": true,
+                "game_time": 2059.359375,
+                "tick": 121714
+              },
+              {
+                "health": 40,
+                "life_state": 0,
+                "flash_duration": 4.0325751305,
+                "flash_max_alpha": 255.0,
+                "is_alive": true,
+                "game_time": 2059.375,
+                "tick": 121715
+              },
+              {
+                "health": 40,
+                "life_state": 0,
+                "flash_duration": 0.0,
+                "flash_max_alpha": 255.0,
+                "is_alive": true,
+                "game_time": 2060.984375,
+                "tick": 121818
+              },
+              {
+                "health": 40,
+                "life_state": 0,
+                "flash_duration": 0.0,
+                "flash_max_alpha": 255.0,
+                "is_alive": true,
+                "game_time": 2061.890625,
+                "tick": 121876
+              }
+            ],
+            "full_blind_end_tick": null
+          },
+          {
+            "kind": "overlap_first",
+            "round": 8,
+            "player_id": "p05",
+            "tick": 54989,
+            "seconds_after_freeze": 10.84375,
+            "event_duration_seconds": 4.5635561943,
+            "event_window_end_tick": 55281.0675964352,
+            "initial_network_duration": 4.56355619430542,
+            "duration_nonzero_after_event_window": true,
+            "next_flash_ticks_in_sample": [
+              55178
+            ],
+            "first_network_zero_tick": null,
+            "network_zero_elapsed_ratio": null,
+            "samples": [
+              {
+                "health": 100,
+                "life_state": 0,
+                "flash_duration": 0.0,
+                "flash_max_alpha": 255.0,
+                "is_alive": true,
+                "game_time": 1016.75,
+                "tick": 54987
+              },
+              {
+                "health": 100,
+                "life_state": 0,
+                "flash_duration": 0.0,
+                "flash_max_alpha": 255.0,
+                "is_alive": true,
+                "game_time": 1016.765625,
+                "tick": 54988
+              },
+              {
+                "health": 100,
+                "life_state": 0,
+                "flash_duration": 4.5635561943,
+                "flash_max_alpha": 255.0,
+                "is_alive": true,
+                "game_time": 1016.78125,
+                "tick": 54989
+              },
+              {
+                "health": 100,
+                "life_state": 0,
+                "flash_duration": 4.5635561943,
+                "flash_max_alpha": 255.0,
+                "is_alive": true,
+                "game_time": 1016.796875,
+                "tick": 54990
+              },
+              {
+                "health": 69,
+                "life_state": 0,
+                "flash_duration": 4.6069946289,
+                "flash_max_alpha": 255.0,
+                "is_alive": true,
+                "game_time": 1019.734375,
+                "tick": 55178
+              },
+              {
+                "health": 52,
+                "life_state": 0,
+                "flash_duration": 4.6069946289,
+                "flash_max_alpha": 255.0,
+                "is_alive": true,
+                "game_time": 1021.34375,
+                "tick": 55281
+              },
+              {
+                "health": 52,
+                "life_state": 0,
+                "flash_duration": 4.6069946289,
+                "flash_max_alpha": 255.0,
+                "is_alive": true,
+                "game_time": 1021.359375,
+                "tick": 55282
+              },
+              {
+                "health": 52,
+                "life_state": 0,
+                "flash_duration": 4.6069946289,
+                "flash_max_alpha": 255.0,
+                "is_alive": true,
+                "game_time": 1024.140625,
+                "tick": 55460
+              }
+            ],
+            "full_blind_end_tick": null
+          },
+          {
+            "kind": "overlap_second",
+            "round": 8,
+            "player_id": "p05",
+            "tick": 55178,
+            "seconds_after_freeze": 13.796875,
+            "event_duration_seconds": 4.6069946289,
+            "event_window_end_tick": 55472.8476562496,
+            "initial_network_duration": 4.60699462890625,
+            "duration_nonzero_after_event_window": true,
+            "next_flash_ticks_in_sample": [],
+            "first_network_zero_tick": 55591,
+            "network_zero_elapsed_ratio": 1.4007233608476761,
+            "samples": [
+              {
+                "health": 69,
+                "life_state": 0,
+                "flash_duration": 4.5635561943,
+                "flash_max_alpha": 255.0,
+                "is_alive": true,
+                "game_time": 1019.703125,
+                "tick": 55176
+              },
+              {
+                "health": 69,
+                "life_state": 0,
+                "flash_duration": 4.5635561943,
+                "flash_max_alpha": 255.0,
+                "is_alive": true,
+                "game_time": 1019.71875,
+                "tick": 55177
+              },
+              {
+                "health": 69,
+                "life_state": 0,
+                "flash_duration": 4.6069946289,
+                "flash_max_alpha": 255.0,
+                "is_alive": true,
+                "game_time": 1019.734375,
+                "tick": 55178
+              },
+              {
+                "health": 69,
+                "life_state": 0,
+                "flash_duration": 4.6069946289,
+                "flash_max_alpha": 255.0,
+                "is_alive": true,
+                "game_time": 1019.75,
+                "tick": 55179
+              },
+              {
+                "health": 52,
+                "life_state": 0,
+                "flash_duration": 4.6069946289,
+                "flash_max_alpha": 255.0,
+                "is_alive": true,
+                "game_time": 1024.328125,
+                "tick": 55472
+              },
+              {
+                "health": 52,
+                "life_state": 0,
+                "flash_duration": 4.6069946289,
+                "flash_max_alpha": 255.0,
+                "is_alive": true,
+                "game_time": 1024.34375,
+                "tick": 55473
+              },
+              {
+                "health": 52,
+                "life_state": 0,
+                "flash_duration": 0.0,
+                "flash_max_alpha": 255.0,
+                "is_alive": true,
+                "game_time": 1026.1875,
+                "tick": 55591
+              },
+              {
+                "health": 52,
+                "life_state": 0,
+                "flash_duration": 0.0,
+                "flash_max_alpha": 255.0,
+                "is_alive": true,
+                "game_time": 1027.15625,
+                "tick": 55653
+              }
+            ],
+            "full_blind_end_tick": null
+          }
+        ]
+      },
+      "projectiles": {
+        "types": [
+          {
+            "kind": "CDecoyGrenade",
+            "rows": 17986,
+            "valid_positions": 0,
+            "entity_ids": 5
+          },
+          {
+            "kind": "CDecoyProjectile",
+            "rows": 4655,
+            "valid_positions": 4655,
+            "entity_ids": 4
+          },
+          {
+            "kind": "CFlashbang",
+            "rows": 383378,
+            "valid_positions": 0,
+            "entity_ids": 103
+          },
+          {
+            "kind": "CFlashbangProjectile",
+            "rows": 8632,
+            "valid_positions": 8632,
+            "entity_ids": 81
+          },
+          {
+            "kind": "CHEGrenade",
+            "rows": 217911,
+            "valid_positions": 0,
+            "entity_ids": 104
+          },
+          {
+            "kind": "CHEGrenadeProjectile",
+            "rows": 41552,
+            "valid_positions": 41552,
+            "entity_ids": 92
+          },
+          {
+            "kind": "CIncendiaryGrenade",
+            "rows": 96433,
+            "valid_positions": 0,
+            "entity_ids": 47
+          },
+          {
+            "kind": "CMolotovGrenade",
+            "rows": 181977,
+            "valid_positions": 0,
+            "entity_ids": 58
+          },
+          {
+            "kind": "CMolotovProjectile",
+            "rows": 9445,
+            "valid_positions": 9445,
+            "entity_ids": 94
+          },
+          {
+            "kind": "CSmokeGrenade",
+            "rows": 409838,
+            "valid_positions": 0,
+            "entity_ids": 111
+          },
+          {
+            "kind": "CSmokeGrenadeProjectile",
+            "rows": 132415,
+            "valid_positions": 132415,
+            "entity_ids": 84
+          }
+        ],
+        "rows": 1504222,
+        "projectiles_only_parser_rows": 196699,
+        "projectiles_only_valid_positions": 196699,
+        "projectiles_only_types": [
+          "CDecoyProjectile",
+          "CFlashbangProjectile",
+          "CHEGrenadeProjectile",
+          "CMolotovProjectile",
+          "CSmokeGrenadeProjectile"
+        ],
+        "projectiles_only_parse_seconds": 0.53,
+        "flash_link_examples": [
+          {
+            "round": 2,
+            "blind_tick": 17666,
+            "projectile_entity": 579,
+            "same_owner_and_entity": true,
+            "rows_in_previous_20s": 104,
+            "last_sample_tick": 17665,
+            "ticks_to_blind": 1,
+            "endpoints": [
+              {
+                "tick": 17562,
+                "x": 1387.40625,
+                "y": 705.15625,
+                "z": 196.65625
+              },
+              {
+                "tick": 17665,
+                "x": 936.5625,
+                "y": 535.625,
+                "z": 109.4375
+              }
+            ]
+          },
+          {
+            "round": 2,
+            "blind_tick": 17666,
+            "projectile_entity": 579,
+            "same_owner_and_entity": true,
+            "rows_in_previous_20s": 104,
+            "last_sample_tick": 17665,
+            "ticks_to_blind": 1,
+            "endpoints": [
+              {
+                "tick": 17562,
+                "x": 1387.40625,
+                "y": 705.15625,
+                "z": 196.65625
+              },
+              {
+                "tick": 17665,
+                "x": 936.5625,
+                "y": 535.625,
+                "z": 109.4375
+              }
+            ]
+          }
+        ],
+        "warning": "Entity IDs are not unique projectile lifetimes; null positions are not flight."
+      },
+      "elapsed_seconds": 10.89
+    },
+    {
+      "map": "de_anubis",
+      "demo_file": "1-1ccc85d8-33b4-4de8-a6fd-ed34154629d0-1-1.dem",
+      "tick_rate": 64.0,
+      "time_sources": [
+        "assumed_64"
+      ],
+      "flash": {
+        "status": "audited",
+        "all_saved_events": 112,
+        "positive_active_events": 112,
+        "live_positive_events": 108,
+        "nonlive_positive_events": 4,
+        "missing_state_events": 0,
+        "duration_event_state_max_difference": 0.0,
+        "overlap_pairs": 9,
+        "available_columns": [
+          "flash_duration",
+          "flash_max_alpha",
+          "health",
+          "is_alive",
+          "life_state",
+          "game_time"
+        ],
+        "network_flash_fields": [
+          "CCSPlayerController.CCSPlayerController_ActionTrackingServices.CSPerRoundStats_t.m_iEnemiesFlashed",
+          "CCSPlayerController.CCSPlayerController_ActionTrackingServices.m_iEnemiesFlashed",
+          "CCSPlayerPawn.m_bFlashing",
+          "CCSPlayerPawn.m_flFlashDuration",
+          "CCSPlayerPawn.m_flFlashMaxAlpha",
+          "Grenade.m_bFlashing"
+        ],
+        "unsupported_probes": {
+          "CCSPlayerPawn.m_flFlashBangTime": "column_absent",
+          "CCSPlayerPawn.m_flFlashOverlayAlpha": "column_absent"
+        },
+        "cases": [
+          {
+            "kind": "strongest_live",
+            "round": 20,
+            "player_id": "p10",
+            "tick": 103220,
+            "seconds_after_freeze": 18.421875,
+            "event_duration_seconds": 5.0384235382,
+            "event_window_end_tick": 103542.4591064448,
+            "initial_network_duration": 5.038423538208008,
+            "duration_nonzero_after_event_window": false,
+            "next_flash_ticks_in_sample": [],
+            "first_network_zero_tick": 103317,
+            "network_zero_elapsed_ratio": null,
+            "samples": [
+              {
+                "health": 100,
+                "life_state": 0,
+                "flash_duration": 0.0,
+                "flash_max_alpha": 255.0,
+                "is_alive": true,
+                "game_time": 1701.515625,
+                "tick": 103218
+              },
+              {
+                "health": 100,
+                "life_state": 0,
+                "flash_duration": 0.0,
+                "flash_max_alpha": 255.0,
+                "is_alive": true,
+                "game_time": 1701.53125,
+                "tick": 103219
+              },
+              {
+                "health": 100,
+                "life_state": 0,
+                "flash_duration": 5.0384235382,
+                "flash_max_alpha": 255.0,
+                "is_alive": true,
+                "game_time": 1701.546875,
+                "tick": 103220
+              },
+              {
+                "health": 100,
+                "life_state": 0,
+                "flash_duration": 5.0384235382,
+                "flash_max_alpha": 255.0,
+                "is_alive": true,
+                "game_time": 1701.5625,
+                "tick": 103221
+              },
+              {
+                "health": 0,
+                "life_state": 1,
+                "flash_duration": 0.0,
+                "flash_max_alpha": 255.0,
+                "is_alive": false,
+                "game_time": 1703.0625,
+                "tick": 103317
+              },
+              {
+                "health": 0,
+                "life_state": 2,
+                "flash_duration": 0.0,
+                "flash_max_alpha": 255.0,
+                "is_alive": false,
+                "game_time": 1706.578125,
+                "tick": 103542
+              },
+              {
+                "health": 0,
+                "life_state": 2,
+                "flash_duration": 0.0,
+                "flash_max_alpha": 255.0,
+                "is_alive": false,
+                "game_time": 1706.59375,
+                "tick": 103543
+              },
+              {
+                "health": 0,
+                "life_state": 2,
+                "flash_duration": 0.0,
+                "flash_max_alpha": 255.0,
+                "is_alive": false,
+                "game_time": 1709.609375,
+                "tick": 103736
+              }
+            ],
+            "full_blind_end_tick": null
+          },
+          {
+            "kind": "shortest_live",
+            "round": 18,
+            "player_id": "p08",
+            "tick": 95515,
+            "seconds_after_freeze": 57.75,
+            "event_duration_seconds": 0.1224322543,
+            "event_window_end_tick": 95522.8356642752,
+            "initial_network_duration": 0.12243225425481796,
+            "duration_nonzero_after_event_window": true,
+            "next_flash_ticks_in_sample": [],
+            "first_network_zero_tick": 95526,
+            "network_zero_elapsed_ratio": 1.4038375833450614,
+            "samples": [
+              {
+                "health": 100,
+                "life_state": 0,
+                "flash_duration": 0.0,
+                "flash_max_alpha": 255.0,
+                "is_alive": true,
+                "game_time": 1581.125,
+                "tick": 95513
+              },
+              {
+                "health": 100,
+                "life_state": 0,
+                "flash_duration": 0.0,
+                "flash_max_alpha": 255.0,
+                "is_alive": true,
+                "game_time": 1581.140625,
+                "tick": 95514
+              },
+              {
+                "health": 100,
+                "life_state": 0,
+                "flash_duration": 0.1224322543,
+                "flash_max_alpha": 255.0,
+                "is_alive": true,
+                "game_time": 1581.15625,
+                "tick": 95515
+              },
+              {
+                "health": 100,
+                "life_state": 0,
+                "flash_duration": 0.1224322543,
+                "flash_max_alpha": 255.0,
+                "is_alive": true,
+                "game_time": 1581.171875,
+                "tick": 95516
+              },
+              {
+                "health": 100,
+                "life_state": 0,
+                "flash_duration": 0.1224322543,
+                "flash_max_alpha": 255.0,
+                "is_alive": true,
+                "game_time": 1581.265625,
+                "tick": 95522
+              },
+              {
+                "health": 100,
+                "life_state": 0,
+                "flash_duration": 0.1224322543,
+                "flash_max_alpha": 255.0,
+                "is_alive": true,
+                "game_time": 1581.28125,
+                "tick": 95523
+              },
+              {
+                "health": 100,
+                "life_state": 0,
+                "flash_duration": 0.0,
+                "flash_max_alpha": 255.0,
+                "is_alive": true,
+                "game_time": 1581.328125,
+                "tick": 95526
+              },
+              {
+                "health": 100,
+                "life_state": 0,
+                "flash_duration": 0.0,
+                "flash_max_alpha": 255.0,
+                "is_alive": true,
+                "game_time": 1581.84375,
+                "tick": 95559
+              }
+            ],
+            "full_blind_end_tick": null
+          },
+          {
+            "kind": "self_flash",
+            "round": 8,
+            "player_id": "p03",
+            "tick": 49383,
+            "seconds_after_freeze": 32.4375,
+            "event_duration_seconds": 4.1698098183,
+            "event_window_end_tick": 49649.8678283712,
+            "initial_network_duration": 4.169809818267822,
+            "duration_nonzero_after_event_window": false,
+            "next_flash_ticks_in_sample": [],
+            "first_network_zero_tick": 49392,
+            "network_zero_elapsed_ratio": null,
+            "samples": [
+              {
+                "health": 14,
+                "life_state": 0,
+                "flash_duration": 0.0,
+                "flash_max_alpha": 255.0,
+                "is_alive": true,
+                "game_time": 860.3125,
+                "tick": 49381
+              },
+              {
+                "health": 14,
+                "life_state": 0,
+                "flash_duration": 0.0,
+                "flash_max_alpha": 255.0,
+                "is_alive": true,
+                "game_time": 860.328125,
+                "tick": 49382
+              },
+              {
+                "health": 14,
+                "life_state": 0,
+                "flash_duration": 4.1698098183,
+                "flash_max_alpha": 255.0,
+                "is_alive": true,
+                "game_time": 860.34375,
+                "tick": 49383
+              },
+              {
+                "health": 14,
+                "life_state": 0,
+                "flash_duration": 4.1698098183,
+                "flash_max_alpha": 255.0,
+                "is_alive": true,
+                "game_time": 860.359375,
+                "tick": 49384
+              },
+              {
+                "health": 0,
+                "life_state": 1,
+                "flash_duration": 0.0,
+                "flash_max_alpha": 255.0,
+                "is_alive": false,
+                "game_time": 860.484375,
+                "tick": 49392
+              },
+              {
+                "health": 0,
+                "life_state": 2,
+                "flash_duration": 0.0,
+                "flash_max_alpha": 255.0,
+                "is_alive": false,
+                "game_time": 864.5,
+                "tick": 49649
+              },
+              {
+                "health": 0,
+                "life_state": 2,
+                "flash_duration": 0.0,
+                "flash_max_alpha": 255.0,
+                "is_alive": false,
+                "game_time": 864.515625,
+                "tick": 49650
+              },
+              {
+                "health": 0,
+                "life_state": 2,
+                "flash_duration": 0.0,
+                "flash_max_alpha": 255.0,
+                "is_alive": false,
+                "game_time": 867.109375,
+                "tick": 49816
+              }
+            ],
+            "full_blind_end_tick": null
+          },
+          {
+            "kind": "overlap_first",
+            "round": 2,
+            "player_id": "p04",
+            "tick": 10394,
+            "seconds_after_freeze": 10.078125,
+            "event_duration_seconds": 2.0474734306,
+            "event_window_end_tick": 10525.0382995584,
+            "initial_network_duration": 2.047473430633545,
+            "duration_nonzero_after_event_window": true,
+            "next_flash_ticks_in_sample": [
+              10456
+            ],
+            "first_network_zero_tick": 10590,
+            "network_zero_elapsed_ratio": null,
+            "samples": [
+              {
+                "health": 100,
+                "life_state": 0,
+                "flash_duration": 0.0,
+                "flash_max_alpha": 0.0,
+                "is_alive": true,
+                "game_time": 251.109375,
+                "tick": 10392
+              },
+              {
+                "health": 100,
+                "life_state": 0,
+                "flash_duration": 0.0,
+                "flash_max_alpha": 0.0,
+                "is_alive": true,
+                "game_time": 251.125,
+                "tick": 10393
+              },
+              {
+                "health": 100,
+                "life_state": 0,
+                "flash_duration": 2.0474734306,
+                "flash_max_alpha": 255.0,
+                "is_alive": true,
+                "game_time": 251.140625,
+                "tick": 10394
+              },
+              {
+                "health": 100,
+                "life_state": 0,
+                "flash_duration": 2.0474734306,
+                "flash_max_alpha": 255.0,
+                "is_alive": true,
+                "game_time": 251.15625,
+                "tick": 10395
+              },
+              {
+                "health": 84,
+                "life_state": 0,
+                "flash_duration": 1.4862554073,
+                "flash_max_alpha": 255.0,
+                "is_alive": true,
+                "game_time": 252.109375,
+                "tick": 10456
+              },
+              {
+                "health": 84,
+                "life_state": 0,
+                "flash_duration": 1.4862554073,
+                "flash_max_alpha": 255.0,
+                "is_alive": true,
+                "game_time": 253.1875,
+                "tick": 10525
+              },
+              {
+                "health": 84,
+                "life_state": 0,
+                "flash_duration": 1.4862554073,
+                "flash_max_alpha": 255.0,
+                "is_alive": true,
+                "game_time": 253.203125,
+                "tick": 10526
+              },
+              {
+                "health": 84,
+                "life_state": 0,
+                "flash_duration": 0.0,
+                "flash_max_alpha": 255.0,
+                "is_alive": true,
+                "game_time": 254.203125,
+                "tick": 10590
+              },
+              {
+                "health": 47,
+                "life_state": 0,
+                "flash_duration": 0.0,
+                "flash_max_alpha": 255.0,
+                "is_alive": true,
+                "game_time": 254.71875,
+                "tick": 10623
+              }
+            ],
+            "full_blind_end_tick": null
+          },
+          {
+            "kind": "overlap_second",
+            "round": 2,
+            "player_id": "p04",
+            "tick": 10456,
+            "seconds_after_freeze": 11.046875,
+            "event_duration_seconds": 1.4862554073,
+            "event_window_end_tick": 10551.1203460672,
+            "initial_network_duration": 1.486255407333374,
+            "duration_nonzero_after_event_window": true,
+            "next_flash_ticks_in_sample": [],
+            "first_network_zero_tick": 10590,
+            "network_zero_elapsed_ratio": 1.4087417207810888,
+            "samples": [
+              {
+                "health": 84,
+                "life_state": 0,
+                "flash_duration": 2.0474734306,
+                "flash_max_alpha": 255.0,
+                "is_alive": true,
+                "game_time": 252.078125,
+                "tick": 10454
+              },
+              {
+                "health": 84,
+                "life_state": 0,
+                "flash_duration": 2.0474734306,
+                "flash_max_alpha": 255.0,
+                "is_alive": true,
+                "game_time": 252.09375,
+                "tick": 10455
+              },
+              {
+                "health": 84,
+                "life_state": 0,
+                "flash_duration": 1.4862554073,
+                "flash_max_alpha": 255.0,
+                "is_alive": true,
+                "game_time": 252.109375,
+                "tick": 10456
+              },
+              {
+                "health": 84,
+                "life_state": 0,
+                "flash_duration": 1.4862554073,
+                "flash_max_alpha": 255.0,
+                "is_alive": true,
+                "game_time": 252.125,
+                "tick": 10457
+              },
+              {
+                "health": 84,
+                "life_state": 0,
+                "flash_duration": 1.4862554073,
+                "flash_max_alpha": 255.0,
+                "is_alive": true,
+                "game_time": 253.59375,
+                "tick": 10551
+              },
+              {
+                "health": 84,
+                "life_state": 0,
+                "flash_duration": 1.4862554073,
+                "flash_max_alpha": 255.0,
+                "is_alive": true,
+                "game_time": 253.609375,
+                "tick": 10552
+              },
+              {
+                "health": 84,
+                "life_state": 0,
+                "flash_duration": 0.0,
+                "flash_max_alpha": 255.0,
+                "is_alive": true,
+                "game_time": 254.203125,
+                "tick": 10590
+              },
+              {
+                "health": 0,
+                "life_state": 1,
+                "flash_duration": 0.0,
+                "flash_max_alpha": 255.0,
+                "is_alive": false,
+                "game_time": 254.84375,
+                "tick": 10631
+              }
+            ],
+            "full_blind_end_tick": null
+          }
+        ]
+      },
+      "projectiles": {
+        "types": [
+          {
+            "kind": "CC4",
+            "rows": 1030,
+            "valid_positions": 0,
+            "entity_ids": 1
+          },
+          {
+            "kind": "CDecoyGrenade",
+            "rows": 10302,
+            "valid_positions": 0,
+            "entity_ids": 8
+          },
+          {
+            "kind": "CDecoyProjectile",
+            "rows": 9766,
+            "valid_positions": 9766,
+            "entity_ids": 8
+          },
+          {
+            "kind": "CFlashbang",
+            "rows": 489204,
+            "valid_positions": 0,
+            "entity_ids": 111
+          },
+          {
+            "kind": "CFlashbangProjectile",
+            "rows": 6656,
+            "valid_positions": 6656,
+            "entity_ids": 57
+          },
+          {
+            "kind": "CHEGrenade",
+            "rows": 404329,
+            "valid_positions": 0,
+            "entity_ids": 91
+          },
+          {
+            "kind": "CHEGrenadeProjectile",
+            "rows": 24169,
+            "valid_positions": 24169,
+            "entity_ids": 52
+          },
+          {
+            "kind": "CIncendiaryGrenade",
+            "rows": 261983,
+            "valid_positions": 0,
+            "entity_ids": 49
+          },
+          {
+            "kind": "CMolotovGrenade",
+            "rows": 106913,
+            "valid_positions": 0,
+            "entity_ids": 31
+          },
+          {
+            "kind": "CMolotovProjectile",
+            "rows": 3835,
+            "valid_positions": 3835,
+            "entity_ids": 39
+          },
+          {
+            "kind": "CSmokeGrenade",
+            "rows": 462925,
+            "valid_positions": 0,
+            "entity_ids": 109
+          },
+          {
+            "kind": "CSmokeGrenadeProjectile",
+            "rows": 127595,
+            "valid_positions": 127595,
+            "entity_ids": 72
+          },
+          {
+            "kind": "CWeaponGlock",
+            "rows": 1030,
+            "valid_positions": 0,
+            "entity_ids": 1
+          }
+        ],
+        "rows": 1909737,
+        "projectiles_only_parser_rows": 172021,
+        "projectiles_only_valid_positions": 172021,
+        "projectiles_only_types": [
+          "CDecoyProjectile",
+          "CFlashbangProjectile",
+          "CHEGrenadeProjectile",
+          "CMolotovProjectile",
+          "CSmokeGrenadeProjectile"
+        ],
+        "projectiles_only_parse_seconds": 0.4,
+        "flash_link_examples": [
+          {
+            "round": 2,
+            "blind_tick": 10394,
+            "projectile_entity": 434,
+            "same_owner_and_entity": true,
+            "rows_in_previous_20s": 104,
+            "last_sample_tick": 10393,
+            "ticks_to_blind": 1,
+            "endpoints": [
+              {
+                "tick": 10290,
+                "x": 216.59375,
+                "y": 1225.3125,
+                "z": 22.9687480927
+              },
+              {
+                "tick": 10393,
+                "x": -167.46875,
+                "y": 254.3125,
+                "z": 3.0
+              }
+            ]
+          },
+          {
+            "round": 2,
+            "blind_tick": 10394,
+            "projectile_entity": 434,
+            "same_owner_and_entity": true,
+            "rows_in_previous_20s": 104,
+            "last_sample_tick": 10393,
+            "ticks_to_blind": 1,
+            "endpoints": [
+              {
+                "tick": 10290,
+                "x": 216.59375,
+                "y": 1225.3125,
+                "z": 22.9687480927
+              },
+              {
+                "tick": 10393,
+                "x": -167.46875,
+                "y": 254.3125,
+                "z": 3.0
+              }
+            ]
+          }
+        ],
+        "warning": "Entity IDs are not unique projectile lifetimes; null positions are not flight."
+      },
+      "elapsed_seconds": 11.49
+    }
+  ],
+  "source_reference_for_installed_0_42_0": {
+    "tag": "v0.42.0",
+    "commit": "d3767705dc5846d73ed29db50eaeda58778dc934",
+    "repository": "https://github.com/LaihoE/demoparser"
+  }
+}

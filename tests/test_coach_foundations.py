@@ -201,7 +201,9 @@ def test_precontact_uses_strictly_earlier_state_and_keeps_contact_types(match_in
     assert rnd.ct_setup.setup_before_contact.counts == {"site_a": 2, "site_b": 2, "mid": 1}
     assert all(p["sample_tick"] == 199 for p in foundation.setup_before_contact["CT"].players)
     assert rnd.ct_setup.setup_before_contact.tick == 199
-    assert rnd.fights_status == rnd.retake.status == Status.NOT_EVALUATED
+    assert rnd.fights_status == Status.OBSERVED
+    assert {ref for fight in rnd.fights for ref in fight.contact_ids} == {c.id for c in rnd.contacts}
+    assert rnd.retake.status == Status.UNKNOWN  # No reliable planted site in this fixture.
     assert (
         TacticalMatch.from_dict(json.loads(json.dumps(match.to_dict()))).to_dict()
         == match.to_dict()

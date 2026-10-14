@@ -1,8 +1,8 @@
-# Model rundy taktycznej — R1/E1/M3.1, schemat 4
+# Model rundy taktycznej — R1/E1/M3.3a, schemat 8
 
 M3.1 dodał wąskie rekordy `Contact`, `RefragLink`, `AliveState`, `RoundMoment`
-oraz `PositionReference`. Na razie listy wyników pozostają puste; detektory
-powstają w M3.2–3. `PlayerRound.first_contact_id` odnosi się do wyliczonego
+oraz `PositionReference`. M3.2 wypełnia kontakty i referencje pierwszych zdarzeń;
+M3.3a wskazuje opening i liczy globalny stan żywych. Refragi powstają w M3.3b. `PlayerRound.first_contact_id` odnosi się do wyliczonego
 `Contact`, a nie bezpośrednio do zdarzenia źródłowego. Każdy taki kontakt
 wskazuje surowe `Evidence`. `derived_id` buduje stabilne ID z numeru rundy,
 rodzaju i kanonicznych ID źródeł. Odczyt starszego schematu taktycznego nie
@@ -73,7 +73,7 @@ IDs zdarzeń coacha są zachowane. Dodatkowe źródła otrzymują deterministycz
 z hasha dema, źródła, kanonicznej zawartości i kolejności rekordów.
 SteamID to tekst; null pozostaje null. JSON nie zawiera NaN.
 
-Parametry: early 15 s (także granica 10 s), odpowiedź na starcie 10 s,
+Parametry: early 15 s (także granica 10 s), odpowiedź na starcie 5 s,
 fala wejścia 8 s, założenie 64 ticków/s. Granice early są obcięte końcem rundy.
 To definicje analizy, nie zmiana dotychczasowej pięciosekundowej metryki trade.
 Adapter przypisuje wczesne próbki i utility do T/CT, ale nie nazywa strategii.

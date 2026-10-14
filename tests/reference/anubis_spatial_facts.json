@@ -1,0 +1,201 @@
+{
+  "demo": "1-1ccc85d8-33b4-4de8-a6fd-ed34154629d0-1-1.dem",
+  "patch": "14189",
+  "source": "demoparser2 direct parse_ticks at 128-tick interval; direct bomb_planted positions, independent of spatial resolver",
+  "places": [
+    {
+      "last_place_name": "Alley",
+      "X": -1209.591,
+      "Y": 1214.698,
+      "Z": 7.984
+    },
+    {
+      "last_place_name": "BackofB",
+      "X": -651.826,
+      "Y": 575.826,
+      "Z": 38.031
+    },
+    {
+      "last_place_name": "BombsiteA",
+      "X": 1285.778,
+      "Y": 1686.892,
+      "Z": -149.969
+    },
+    {
+      "last_place_name": "BombsiteB",
+      "X": -1129.528,
+      "Y": 510.588,
+      "Z": 0.031
+    },
+    {
+      "last_place_name": "Bricks",
+      "X": -917.345,
+      "Y": 1070.586,
+      "Z": 35.031
+    },
+    {
+      "last_place_name": "Bridge",
+      "X": -89.319,
+      "Y": 80.708,
+      "Z": 0.198
+    },
+    {
+      "last_place_name": "CTSideUpper",
+      "X": -476.027,
+      "Y": 2203.766,
+      "Z": 25.031
+    },
+    {
+      "last_place_name": "CTSpawn",
+      "X": 22.275,
+      "Y": 2555.085,
+      "Z": -105.126
+    },
+    {
+      "last_place_name": "Canal",
+      "X": 806.405,
+      "Y": 253.462,
+      "Z": -145.969
+    },
+    {
+      "last_place_name": "Connector",
+      "X": -753.593,
+      "Y": 195.571,
+      "Z": -90.915
+    },
+    {
+      "last_place_name": "Fountain",
+      "X": 1619.057,
+      "Y": 1930.845,
+      "Z": -70.469
+    },
+    {
+      "last_place_name": "Heaven",
+      "X": 892.314,
+      "Y": 2166.136,
+      "Z": -39.969
+    },
+    {
+      "last_place_name": "LowerTunnel",
+      "X": -889.944,
+      "Y": 1577.04,
+      "Z": -30.969
+    },
+    {
+      "last_place_name": "Main",
+      "X": 1638.39,
+      "Y": 1128.843,
+      "Z": -151.969
+    },
+    {
+      "last_place_name": "MidDoors",
+      "X": 174.555,
+      "Y": 462.509,
+      "Z": -28.969
+    },
+    {
+      "last_place_name": "Middle",
+      "X": 149.895,
+      "Y": 1082.91,
+      "Z": -29.915
+    },
+    {
+      "last_place_name": "OutsideLong",
+      "X": -1635.475,
+      "Y": -0.216,
+      "Z": 0.031
+    },
+    {
+      "last_place_name": "PalaceInterior",
+      "X": -224.059,
+      "Y": 1445.885,
+      "Z": 28.572
+    },
+    {
+      "last_place_name": "Ruins",
+      "X": -976.176,
+      "Y": -688.552,
+      "Z": 64.031
+    },
+    {
+      "last_place_name": "SnipersNest",
+      "X": -1150.191,
+      "Y": 1820.282,
+      "Z": 48.031
+    },
+    {
+      "last_place_name": "Street",
+      "X": 691.986,
+      "Y": -568.713,
+      "Z": -11.969
+    },
+    {
+      "last_place_name": "TSideUpper",
+      "X": 1341.99,
+      "Y": 416.161,
+      "Z": 0.031
+    },
+    {
+      "last_place_name": "TSpawn",
+      "X": -317.19,
+      "Y": -1548.137,
+      "Z": -11.969
+    },
+    {
+      "last_place_name": "TStairs",
+      "X": 801.65,
+      "Y": -87.409,
+      "Z": -95.969
+    },
+    {
+      "last_place_name": "Tunnel",
+      "X": 301.487,
+      "Y": 2315.915,
+      "Z": -149.969
+    },
+    {
+      "last_place_name": "TunnelStairs",
+      "X": 620.666,
+      "Y": 1947.816,
+      "Z": -38.969
+    },
+    {
+      "last_place_name": "Walkway",
+      "X": 790.803,
+      "Y": 1358.915,
+      "Z": -87.969
+    },
+    {
+      "last_place_name": "Water",
+      "X": 48.902,
+      "Y": 2907.721,
+      "Z": -157.51
+    }
+  ],
+  "plants": [
+    {
+      "tick": 24968,
+      "engine_site": 444,
+      "X": 1276.0712890625,
+      "Y": 1938.0682373047,
+      "Z": -191.96875,
+      "last_place_name": "BombsiteA"
+    },
+    {
+      "tick": 42955,
+      "engine_site": 239,
+      "X": -1136.4544677734,
+      "Y": 686.6987915039,
+      "Z": -1.96875,
+      "last_place_name": "BombsiteB"
+    },
+    {
+      "tick": 110132,
+      "engine_site": 444,
+      "X": 967.3289794922,
+      "Y": 1752.1756591797,
+      "Z": -191.96875,
+      "last_place_name": "BombsiteA"
+    }
+  ]
+}

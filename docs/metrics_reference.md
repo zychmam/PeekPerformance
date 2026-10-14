@@ -2,6 +2,23 @@
 
 ## Definicje używane przez aplikację
 
+Od **metryk v4** liczniki K/D/A, obrażenia, KAST, przeżycie i Swing korzystają
+z aktywnego okna od `round_freeze_end` do `round_end` włącznie. Zdarzenia
+sprzed freeze pozostają w źródłach, ale nie zużywają życia ani HP po starcie.
+Nadal dopuszczamy jeden aktywny zgon gracza na rundę; rzeczywiste zgony od
+świata i sojuszników w aktywnym oknie pozostają liczone. Lista żywych na początku
+okna pochodzi z rosteru stron; nie modelujemy dodatkowych respawnów w aktywnej rundzie.
+
+Jeżeli freeze jest nieznany albo poza granicami rundy, zachowujemy całe okno
+ukończonej rundy. `metrics_clock_status=unknown` w metrykach rund oraz
+`limitations.statistics_reconciliation.unknown_clock_rounds` w JSON ujawniają
+to ograniczenie. Nie rozpoznajemy resetów po broni ani rodzaju śmierci.
+Świeżo parsowane rundy zapisują zegar. Dla wcześniejszych analiz używamy
+zapisanej projekcji zegara obserwacji, bez odczytu trajektorii i bez parsera.
+Nowy zapis obserwacji unieważnia metryki i skrót historii; cache sesji UI
+uwzględnia generację obserwacji. Starsze analizy bez żadnego zegara wymagają
+przygotowania kontekstu albo ponownego wczytania dema, żeby usunąć ograniczenie.
+
 - **Runda:** ukończona runda poza rozgrzewką, zidentyfikowana przedziałem ticków od `round_start` do `round_end` włącznie. Numeracja w aplikacji zaczyna się od 1. Nieukończone rundy nie wchodzą do statystyk. Powrót pierwotnego licznika do 1 po wartości >= 1 rozpoczyna nowy segment meczu; zachowujemy ostatni segment, wykluczając m.in. nożówkę przed resetem na dostarczonym demie. Sama broń nie służy do rozpoznawania nożówki.
 - **Zabójstwo:** `player_death` przeciwnika z rozpoznanymi stronami T/CT. Zabójstwo sojusznika, samobójstwo i śmierć od świata zwiększają licznik śmierci ofiary, ale nie zwiększają licznika zabójstw atakującego.
 - **Obrażenia:** `dmg_health` pozostaje surową wartością zdarzenia. `actual_damage` oznacza rzeczywistą utratę HP, ograniczoną dostępnym HP ofiary. `enemy_damage` obejmuje tylko tę utratę HP u przeciwnika; pomija friendly fire, samouszkodzenie i świat. `utility_damage` jest częścią `enemy_damage` z HE lub ognia.

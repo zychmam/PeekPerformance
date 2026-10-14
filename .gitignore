@@ -16,3 +16,4 @@ build/
 *.dem.gz
 tests/resources/
 streamlit-*.log
+/exports/

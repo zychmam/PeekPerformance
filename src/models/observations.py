@@ -97,7 +97,7 @@ class DetectorConfig:
     version: int = 1
     early_seconds: float = 15.0
     snapshot_seconds: tuple[float, ...] = (0, 5, 10, 15)
-    refrag_seconds: float = 10.0
+    refrag_seconds: float = 5.0
     fight_idle_seconds: float = 5.0
     entry_group_seconds: float = 8.0
     entry_confirmation_seconds: float = 0.5

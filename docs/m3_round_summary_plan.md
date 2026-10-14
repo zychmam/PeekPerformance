@@ -1,13 +1,21 @@
 # M3 — czytelne podsumowanie przebiegu rundy
 
-Status: M3.1a–c wykonane; detektory M3.2+ pozostają do implementacji. Dawne R3;
-aktualna numeracja i zakres: [roadmapa](../ROADMAP.md).
+Aktualizacja: **2026-10-14**. M3.1a–c, M3.2a–b, M3.3a–b, M3.4a–d oraz
+M3.5a wykonane technicznie. **Użytkownik zaakceptował odbiór M3.5b i zamknięcie
+M3 2026-10-14.** M3.6a–c wykonane
+technicznie: początek sprzed kontaktu, późniejsza liczebność, wyposażenie,
+pozycje przy zdarzeniach i cztery bloki skrótu. Dawne R3; aktualny zakres: [roadmapa](../ROADMAP.md).
 Audyt źródeł, osiem rund referencyjnych i szkic wynikowego widoku:
 [referencje M3.1](m3_reference_rounds.md). Kontrakt i testy: `src/models/tactical.py`,
 `tests/test_m3_contract.py`.
+[Reguły i weryfikacja kontaktów M3.2](m3_contacts.md).
+[Globalna liczebność M3.3a](m3_alive.md).
+[Refragi M3.3b](m3_refrags.md) i [chronologia M3.4a](m3_moments.md).
 Plan oparty na obecnych kontraktach i widokach aplikacji. M2 ma profil Inferno
 i testy techniczne; przed odbiorem M3 trzeba również sprawdzić radar i pozycje
 na rzeczywistych rundach Mirage oraz Inferno w uruchomionej aplikacji.
+Test wizualny wykonuje użytkownik. Poniższy układ opisuje docelowe zachowanie;
+otwarte różnice względem implementacji wyszczególniono w M3.6.
 
 ## Efekt dla użytkownika
 
@@ -27,7 +35,7 @@ Opisy powstają lokalnie z reguł i szablonów, bez wywołania LLM.
 | Warunki rundy | Zegar, strony, roster, wynik, wyposażenie, zaobserwowana ekonomia i jakość źródeł | Zwięzły opis startu; niepełne wyposażenie nie daje pewnej etykiety zakupu |
 | Przygotowanie T/CT | Snapshoty 0/5/10/15 s i przed kontaktem, orientacja T, wczesne przejścia/aktywność CT, early utility | Selekcja najważniejszych faktów, jawny czas pomiaru, brak podwójnego liczenia obrońców |
 | Kontakty | Obrażenia, fragi, referencje pierwszych zdarzeń, próbki pozycji | Wspólny rekord z obiema pozycjami; osobno obrażenia utility i ogniowe; pierwszy własny kontakt gracza |
-| Zmiany sytuacji | Surowe zgony, obrażenia, roster i stan życia | Opening, odpowiedzi/refragi 10 s, przebieg liczebności z kontrolą kompletności |
+| Zmiany sytuacji | Surowe zgony, obrażenia, roster i stan życia | Opening, odpowiedzi/refragi 5 s, przebieg liczebności z kontrolą kompletności |
 | Wejście i bomba | Potwierdzone wejścia z uczestnikami/kierunkami, stan CT przy wejściu, plant/defuse/wybuch i zdarzenia nosiciela | Połączenie na jednej osi; wejście nie jest automatycznie rozpoznaną próbą ataku |
 | Gracz | Pozycje, wyposażenie, rzuty, obrażenia, fragi, śmierć i aktywność przy bombie | Podsumowanie pojedynczej rundy zamiast tabeli pozycji z całej mapy |
 | Prezentacja | Radar z odtwarzaniem, smoki/strzały, panele early i wejść, tabele dowodów | Jeden widok z krótkim opisem, wyborem momentu i szczegółami na żądanie |
@@ -132,7 +140,7 @@ i world damage nie stają się kontaktami przeciwników, ale śmierci z tych
 przyczyn aktualizują liczebność. Pozycja nie może pochodzić z przyszłości;
 limit wieku próbki jest jawny i wykorzystuje istniejący indeks.
 
-Refrag: ściśle późniejsze zabicie dokładnego zabójcy kolegi, do 10 s włącznie,
+Refrag: ściśle późniejsze zabicie dokładnego zabójcy kolegi, do 5 s włącznie,
 w tej samej rundzie. Okno kończy się z rundą. Równe ticki bez wiarygodnej
 kolejności nie dowodzą odpowiedzi. Brak fragów przy brakującym źródle pozostaje
 nieznany. Dotychczasowe ratingowe okno 5 s ma odrębną semantykę i wersję.
@@ -151,7 +159,7 @@ decydujący” wymaga więcej dowodów. Pełna oś zachowuje pozostałe zdarzeni
 ## Dekompozycja implementacji
 
 Złożoność 1–5. Każde podzadanie ma określony rezultat i warunek odbioru.
-Numeracja rozwija zadania M3.1–M3.5 z roadmapy.
+Numeracja rozwija zadania M3.1–M3.6 z roadmapy.
 
 | ID | Zakres i rezultat | Odbiór | Złożoność / zależność |
 | --- | --- | --- | --- |
@@ -161,17 +169,44 @@ Numeracja rozwija zadania M3.1–M3.5 z roadmapy.
 | M3.2a | Normalizacja obrażeń/fragów i powiązanie pozycji obu uczestników | Brak przyszłych próbek, jawne unknown, brak dubli HP; działanie bez profilu | 3 / 1c |
 | M3.2b | Pierwszy kontakt utility/ogniowy rundy i każdego gracza; reuse referencji E1 | Zgodność czasów z E1; kontakt przyjmowany i zadawany; frag bez damage; brak dowodu widoczności | 3 / 2a |
 | M3.3a | Opening przeciwników i stan żywych w przebiegu całej rundy | Teamkill/suicide zmieniają liczbę, duplikaty nie; wspólny stan po równych tickach | 4 / 2a |
-| M3.3b | Refragi 10 s i kolejne zabójstwa stron; widok stanu po oknie openingu | Granice 0/10/>10 s, koniec rundy, kilka ofiar jednego zabójcy, brak kolejności; rating bez zmian | 4 / 3a |
+| M3.3b | Refragi 5 s i kolejne zabójstwa stron; widok stanu po oknie openingu | Granice 0/5/>5 s, koniec rundy, kilka ofiar jednego zabójcy, brak kolejności; rating bez zmian | 4 / 3a |
 | M3.4a | Wspólna chronologia z early, kontaktów, liczebności, wejść, bomby i końca | Spójne ID/czasy/statusy, selekcja krótkiej osi, pełne źródła dostępne | 3 / 2b, 3a–b |
 | M3.4b | Reguły zdań drużynowych i projekcja udziału gracza | Opis zgodny z 1b, każdy fakt ma dowód; brak wymuszonego duelu/strategii/retake | 4 / 4a |
 | M3.4c | Przebudowa widoku: radar na górze, dwa zakresy, skrót, rozwinięcia i tabela momentów | Nicki, wybór zdarzenia ustawia radar, zmiana gracza zachowuje czas; bez powielanych tabel i profilu całej mapy w rundzie | 4 / szkielet po 1c, finalizacja po 4b |
 | M3.4d | Wspólny serwis/składanie i cache wyniku rundy, wersje oraz unieważnianie | Zmiana gracza bez parsera i ponownej detekcji; odczyt jednej rundy; brak duplikacji pozycji w cache | 3 / projekt po 1c, integracja z 4a–c |
 | M3.5a | Testy detektorów i kompletnego opisu wobec referencji na obu mapach | Żadne zdanie nie ma brakujących dowodów; unknown nie zmienia się w zero; regresje istniejących wejść i early | 3 / stale od 1b, odbiór po 4b |
 | M3.5b | Odbiór UI/E2E i wydajności; restart działającej aplikacji po wdrożeniu | Obie mapy, zmiana rundy/gracza, skok na radar, brak profilu/braki danych, ponowne otwarcie bez parsera; sprawdzona uruchomiona instancja | 3 / 4c–d, 5a |
+| M3.6a | Poprawić wybór ustawienia w opisie początku: przed nazwanym kontaktem, z czasem i jakością próbki; bez kontaktu jawny moment wczesny | Mirage R1 i Inferno R1: stan po 15 s nie zastępuje ustawienia sprzed wcześniejszej walki. Brak świeżej próbki przed kontaktem daje brak danych, a nie stan z przyszłości | 2 / 4b, E1 |
+| M3.6b | Dodać kontekst wyposażenia, ważne późniejsze zmiany liczebności oraz pozycje gracza przy istotnych zdarzeniach; skrócić powtórzenia | Referencja z odwróceniem przewagi po openingu jest zrozumiała ze skrótu. Pozycje mają czasy i źródła; dane częściowe nie dają pewnej oceny zakupu/przeżycia. Docelowo 3–4 zdania, szczegóły po rozwinięciu | 3 / 4a–b, E1 |
+| M3.6c | Ujednolicić nazwy i sprawdzić treść obu perspektyw; ponowić odbiór poprawionego przepływu M3.5b | Kontakt z obrażeniami/frag nie oznacza dostrzeżenia; obecność na site nie oznacza pełnej obrony; wejście nie oznacza wszystkich prób. Zdania pokrywają źródła, a test czytelności wykonuje użytkownik | 2 / 6a–b |
 
-Praktyczne porcje pracy: **1a–c → 2a–b + 3a → 3b + 4a → 4b–d → 5a–b**.
+Pierwotne porcje pracy: **1a–c → 2a–b + 3a → 3b + 4a → 4b–d → 5a–b**.
+Po korektach M3.6a–c **użytkownik zaakceptował M3.5b; M3 zamknięte**.
+Weryfikacja 2026-10-14: pełny zestaw **200 passed, 2 skipped**, test Streamlit
+przełączania rundy/gracza/perspektywy i skoków; osiem zapisanych rund Mirage/Inferno
+z poprawnymi referencjami i czasem początku przed kontaktem. Skrypt odczytu
+i obu perspektyw wszystkich graczy: 0,77–1,19 s/rundę przy współdzielonym indeksie.
+Aplikacja działa na porcie 8501; health `ok`. Wizualnej czytelności i pełnego
+czasu interakcji UI ten pomiar nie potwierdza.
 Szkic UI i przykłady odbiorowe powstają od początku. Podzadania 4c/4d należy
 koordynować wokół jednego serwisu, żeby UI nie utrwalił osobnej ścieżki liczenia.
+
+## Wnioski z review do uwzględnienia przy odbiorze
+
+- Zdarzenia i pozycje są bogatsze niż obecny tekst: poprawki M3.6 wykorzystują
+  istniejące dane, bez oczekiwania na detektory M4 i dodatkową ekstrakcję.
+- Przed korektą opis początku wybierał obserwację po 15 s. Pierwszy kontakt
+  Mirage R1 to 11,4 s, a Inferno R1 to 9,7 s. M3.6a usunęło tę rozbieżność.
+- Tekst drużynowy obejmuje też późniejsze zmiany przewagi i przejście do 1vN;
+  gracz ma obserwowane pozycje przy wejściach/plancie/końcu. M3.6b korzysta
+  z istniejącej chronologii i indeksu pozycji. Pełna segmentacja ruchu
+  oraz powiązanie z intencją/reakcją pozostają zakresem M4.
+- Obecne wejścia wymagają około 0,5 s potwierdzenia, zachowują pierwsze wejście
+  gracza na site i grupują uczestników w 8 s. Podsumowanie M3 ujawnia ograniczenie;
+  pełne próby, w tym krótkie/nieudane/ponowne, rozpoznaje dopiero M4.4.
+- Przegląd techniczny 2026-10-13: 32 testy M3 oraz odczyt ośmiu rund obu map
+  zakończone poprawnie. Istnienie wszystkich referencji nie dowodzi poprawności
+  taktycznej każdego zdania; odbiór porównuje treść ze zdarzeniami i replayem.
 
 ## Technika i wydajność
 
@@ -202,10 +237,13 @@ Zmiana kontraktu unieważnia wynik pochodny; nie planujemy migracji historycznyc
 
 | Następny etap | Rozszerzenie tego samego podsumowania |
 | --- | --- |
-| M4.1–2 | Kontakty grupowane w lokalne walki; rozwinięcie momentu o uczestników, efekt HP i udowodnione wsparcie utility |
-| M4.3 | Wejścia powiązane z próbami ataku, również zatrzymanymi przed site'em; zmiana kierunku z dowodami |
-| M4.4 | W istniejącej części końcowej pojawiają się rotacje i próby retake; brak nowej równoległej osi |
-| M5 | Agregacja tych samych faktów według stron, warunków i sytuacji; od wzorca meczowego przejście do konkretnej rundy |
+| M4.1–2 | Pobyty/przejścia całej rundy, sektory obrony oraz powiązania miejsca rzutu, działania utility i stanu zasobów |
+| M4.3 | Kontakty grupowane w lokalne walki; uczestnicy, efekt HP, straty i potwierdzone efekty utility |
+| M4.4–5 | Kolejne próby ataku, również krótkie i zatrzymane; tempo, zmiany kierunku i działania graczy poza grupą |
+| M4.6 | Aktywność CT, utrzymanie/wycofanie, rotacje i próby retake w tej samej chronologii |
+| M4.7 | Integracja rozszerzeń, kompaktowy wynik dla M5 i odbiór na obu mapach |
+| M5.1–6 | Tendencje T/CT i zmiany po wyniku poprzedniej rundy; udział zawodnika oraz przejście do rund i dowodów |
+| M5.7 | Próbny feedback LLM oparty na odebranych wnioskach, z jawnym zakresem danych |
 | M6 | Grounded feedback i priorytety rozwoju gracza z referencjami do momentów; deterministyczny opis faktów pozostaje audytowalną podstawą |
 
 Odbiór M3 wymaga pełnego przebiegu dla obu perspektyw i obu map. Nie wystarczy
