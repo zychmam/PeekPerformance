@@ -5,7 +5,7 @@ from collections import Counter
 from src.demos.map_action_facts import action_facts
 from src.models.tactical import Status
 
-ROUND_FACTS_VERSION = 6
+ROUND_FACTS_VERSION = 7
 KNOWN = {Status.OBSERVED, Status.ABSENT}
 
 

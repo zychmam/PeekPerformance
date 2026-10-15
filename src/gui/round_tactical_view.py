@@ -192,7 +192,8 @@ def render_tactical_actions(
                     "Zgony T:CT": str(f.after["deaths_by_side"]["T"])
                     + ":"
                     + str(f.after["deaths_by_side"]["CT"]),
-                    "Refragi": len(f.refrags),
+                    "Fragi wymieniające": len({r["response_kill_id"] for r in f.refrags}),
+                    "Wymienione zgony": len({r["death_id"] for r in f.refrags}),
                 }
                 for f in record.fights
             ]
@@ -201,6 +202,7 @@ def render_tactical_actions(
             proof.append(
                 (f"Lokalna walka {i}", fight.episode.start_tick, fight.episode.evidence_ids)
             )
+        st.caption("Refrag: odpowiedź do 5 s. Jeden frag może wymienić kilka zgonów kolegów.")
         with st.expander("Rzuty i efekty granatów"):
             table(
                 [

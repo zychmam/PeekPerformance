@@ -1,10 +1,11 @@
 """CT presence and movement relative to recorded information, not inferred sight."""
 
+from src.demos.bomb_coverage import event_known
 from src.demos.round_attacks import bomb_site, target_sites
 from src.demos.tactical_ids import action_id
 from src.models.tactical import Episode, Retake, Rotation, Status
 
-DEFENSE_VERSION = 2
+DEFENSE_VERSION = 3
 
 
 def _coverage(record, pid, left, right):
@@ -288,10 +289,9 @@ def enrich_defense(record, evidence, profile, *, tick_rate, movements, state_ind
 
 def _retake(record, evidence, profile, plants, *, tick_rate, state_index):
     if not plants:
-        source = record.availability.get("bombs")
         record.retake = Retake(
             Status.NOT_APPLICABLE
-            if source and source.status in {Status.OBSERVED, Status.ABSENT}
+            if event_known(record, "bomb_planted")
             else Status.UNKNOWN
         )
         return
@@ -345,10 +345,11 @@ def _retake(record, evidence, profile, plants, *, tick_rate, state_index):
         }
     )
     confirmed = bool(crossings or contacts or defuses)
-    complete = record.movement_status == Status.OBSERVED and record.contacts_status in {
+    complete = (event_known(record, "bomb_begindefuse") and event_known(record, "bomb_defused")
+                and record.movement_status == Status.OBSERVED and record.contacts_status in {
         Status.OBSERVED,
         Status.ABSENT,
-    }
+    })
     outcome = (
         (
             "won"

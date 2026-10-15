@@ -2,6 +2,7 @@
 
 from dataclasses import asdict
 
+from src.demos.bomb_coverage import event_known
 
 def action_facts(record, evidence, profile, seconds):
     regions = profile.regions_by_id if profile else {}
@@ -104,8 +105,7 @@ def action_facts(record, evidence, profile, seconds):
             and record.movement_status == "observed"
             and record.contacts_status in {"observed", "verified_absent"}
             and record.utility_context_status in {"observed", "verified_absent"}
-            and record.availability.get("bombs")
-            and record.availability["bombs"].status in {"observed", "verified_absent"}
+            and event_known(record, "bomb_planted")
         ),
         "utility_context_status": str(record.utility_context_status),
         "attacks": attacks,
@@ -116,8 +116,5 @@ def action_facts(record, evidence, profile, seconds):
         "rotations": rotations,
         "retake": retake,
         "plants": plants,
-        "bombs_known": bool(
-            record.availability.get("bombs")
-            and record.availability["bombs"].status in {"observed", "verified_absent"}
-        ),
+        "bombs_known": event_known(record, "bomb_planted"),
     }

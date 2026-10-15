@@ -9,15 +9,17 @@ import pandas as pd
 import plotly.express as px
 import streamlit as st
 
-from src.demos.demo_analyzer import DemoAnalyzer
+from src.demos.demo_analyzer import DemoAnalyzer, normalize_damage
 from src.demos.match_view import (
+    display_metric_clock,
     kill_events_table,
     player_rounds_table,
     player_summary_table,
 )
-from src.maps.context import SpatialContext
 from src.demos.presentation import player_labels, presentation_frame
+from src.demos.rating_window import active_round_events
 from src.gui.round_context_view import render_round_context
+from src.maps.context import SpatialContext
 from src.models.models import DemoAnalysis
 
 
@@ -115,7 +117,9 @@ def _overview(
 
 
 def _round_damage_events(analysis: DemoAnalysis, round_number: int) -> pd.DataFrame:
-    source = analysis.damage_df
+    source = normalize_damage(active_round_events(
+        analysis.damage_df, display_metric_clock(analysis),
+    ))
     needed = {"total_rounds_played", "enemy_damage"}
     if source.empty or not needed.issubset(source):
         return pd.DataFrame()
@@ -146,6 +150,12 @@ def _rounds(analysis: DemoAnalysis, player_id: str) -> None:
     if not numbers:
         return
     selected = st.selectbox("Szczegóły rundy", numbers, key=f"round_{analysis.content_hash}")
+    clock = display_metric_clock(analysis)
+    selected_clock = clock[clock.total_rounds_played.eq(selected)]
+    if selected_clock.empty or selected_clock.iloc[0].metrics_clock_status != "known":
+        st.caption("Koniec freeze nieustalony — zdarzenia obejmują całe okno rundy.")
+    else:
+        st.caption("Zdarzenia obejmują grę od końca freeze do końca rundy.")
     row = table.loc[table["Runda"].eq(selected)].iloc[0]
     cols = st.columns(4)
     for col, label, value in zip(

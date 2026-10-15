@@ -19,6 +19,20 @@ Nowy zapis obserwacji unieważnia metryki i skrót historii; cache sesji UI
 uwzględnia generację obserwacji. Starsze analizy bez żadnego zegara wymagają
 przygotowania kontekstu albo ponownego wczytania dema, żeby usunąć ograniczenie.
 
+Od **metryk v5 (M5.REV2)** jeden frag wymieniający kilka zgonów zalicza KAST
+każdemu wymienionemu koledze. Odpowiedź musi zabić dokładnego zabójcę,
+nastąpić w późniejszym ticku i nie później niż po 5 s; granica 5 s jest wliczana.
+Zdarzenia w tym samym ticku nie ustalają kolejności odpowiedzi. Powtórny zgon
+nie tworzy dodatkowego życia ani kredytu. Okno używa parametru `tick_rate`
+kalkulatora (domyślnie 64); sprawdzono granice dla 64 i 128 Hz.
+
+Zaliczenie KAST jest niezależne od podziału punktów Swing. Dotychczasowa
+heurystyka przyznaje jedną pulę za wymianę ostatniemu zabitemu koledze;
+większa liczba wymienionych zgonów nie mnoży tej puli. Rating może wzrosnąć
+wskutek poprawnego zaliczenia KAST. Metryki, historia gracza i cache eksportu
+korzystają z wersji 5, więc stare wyniki są przeliczane z zapisanych zdarzeń.
+Tabele rozróżniają **unikalne fragi wymieniające** i **wymienione zgony**.
+
 - **Runda:** ukończona runda poza rozgrzewką, zidentyfikowana przedziałem ticków od `round_start` do `round_end` włącznie. Numeracja w aplikacji zaczyna się od 1. Nieukończone rundy nie wchodzą do statystyk. Powrót pierwotnego licznika do 1 po wartości >= 1 rozpoczyna nowy segment meczu; zachowujemy ostatni segment, wykluczając m.in. nożówkę przed resetem na dostarczonym demie. Sama broń nie służy do rozpoznawania nożówki.
 - **Zabójstwo:** `player_death` przeciwnika z rozpoznanymi stronami T/CT. Zabójstwo sojusznika, samobójstwo i śmierć od świata zwiększają licznik śmierci ofiary, ale nie zwiększają licznika zabójstw atakującego.
 - **Obrażenia:** `dmg_health` pozostaje surową wartością zdarzenia. `actual_damage` oznacza rzeczywistą utratę HP, ograniczoną dostępnym HP ofiary. `enemy_damage` obejmuje tylko tę utratę HP u przeciwnika; pomija friendly fire, samouszkodzenie i świat. `utility_damage` jest częścią `enemy_damage` z HE lub ognia.

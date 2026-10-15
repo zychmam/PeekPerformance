@@ -1,6 +1,6 @@
 # PeekPerformance — roadmap
 
-Aktualizacja: **2026-10-14, M5.1–6 i rozszerzenia M5.D2 (Dust2) / M5.AN (Anubis) zaimplementowane; odbiór taktyczny/prezentacji otwarty. LLM wyłącznie w M6**.
+Aktualizacja: **2026-10-16, M5.REV1–3 wdrożone po review danych, prezentacji i eksportu przed M6. M5.1–6 oraz Dust2/Anubis są zaimplementowane; M5.REV4–7 pozostają do wykonania. LLM wyłącznie w M6**.
 Etapy mają jedną numerację **M2 → M3 → M4 → M5 → V2D (epik poboczny) → M6**.
 Ukończone R1/R2, E1 i M1 zachowują historyczne identyfikatory.
 Mapowanie poprzednich zadań znajduje się na końcu; [archiwum](docs/roadmap_history.md)
@@ -42,7 +42,7 @@ poprawność danych; osobny przegląd wyjaśnień sprawdza użyteczność dla gr
 | Gracze i ekran meczu | Śledzenie uczestników dema, historia i przybliżony rating, nicki, kompaktowy przegląd, rundy/walka/utility/ekonomia. Stary eksport Excel/CSV zastąpiony raportem JSON. |
 | R1 — model taktyczny | Wspólne dowody, ID, zegar, drużyny/strony, statusy kompletności i modele przyszłych epizodów. Referencje bazowe gotowe, pokrycie taktyczne częściowe. |
 | R2 — przygotowanie | Snapshoty 0/5/10/15 s i przed kontaktem, early utility, przejścia, kierunki T, ustawienia 5/4+1, kierunek bomby i wysunięte CT. |
-| Wejścia na site | Potwierdzone przejścia T, kierunki, uczestnicy w oknie 8 s, CT przed/podczas, nosiciel i wcześniejsze utility. Pełna próba ataku pozostaje do rozpoznania. |
+| Wejścia na site | Potwierdzone przejścia T, kierunki, uczestnicy w oknie 8 s, CT przed/podczas, nosiciel i wcześniejsze utility. M4/M5 dodają osobne heurystyczne próby ataku, również bez wejścia. |
 | E1 — fundamenty coacha | Wyposażenie, ekonomia, chronologia bomby, strzały, rzuty/cykl utility i ustawienie przed kontaktem, wraz z dowodami i brakami. |
 | Radar | Animacja około 0,1 s (6 ticków przy 64 Hz), sterowanie odtwarzaniem, wygładzenie, aktywne smoke'y i błyski strzałów. Mapa na górze analizy. |
 | M1 / A1–A8 | Wdrożone obserwacje niezależne od mapy, profile, resolver, indeksy, podłączenie obecnych detektorów, cache etapami/per runda i UI sterowane profilem. |
@@ -91,7 +91,7 @@ Weryfikacja rusza od początku każdego etapu, mimo że odbiór jest jego ostatn
 | **M4 — działania taktyczne w rundzie** | Ruch, utility i starcia połączone w próby ataku T, udział graczy poza grupą oraz aktywność i reakcje CT. | Zweryfikowane obserwacje M3; korekty opisu przed odbiorem. |
 | **M5 — tendencje T/CT w jednym meczu** | Kierunki, tempo, utility, ustawienia, reakcje i zmiany po wyniku poprzedniej rundy, z licznikami i dowodami. | M5.1–2 na poprawionym M3; dalsze miary po odbiorze właściwych detektorów M4. |
 | **V2D — granaty i flash w viewerze 2D** | Rzut, obserwowany lot granatu oraz obwódka oślepienia z jawnym rozróżnieniem pełnej fazy i samego czasu efektu. Poboczny epik bez nowych ocen taktycznych. | Akceptacja [projektu V2D](docs/viewer_2d_utility_plan.md); realizacja przed M6. |
-| **M6 — pełny raport coacha** | Zweryfikowany raport przez API, zapis, ponowne otwarcie i nawigacja do dowodów. | Sprawdzone dane oraz użyteczny próbny feedback z M5. |
+| **M6 — pełny raport coacha** | Zweryfikowany raport przez API, zapis, ponowne otwarcie i nawigacja do dowodów. | Korekty danych i eksportu z review M5, odbiór M5.6; próbny feedback należy do M6. |
 
 Podstawowe obserwacje M5.1–2 są wdrożone; przed tendencjami T domykamy review.
 Pierwszy raport nie czeka na pełny słownik strategii ani ocenę wszystkich decyzji.
@@ -395,6 +395,190 @@ M5 udostępnia obliczone przez kod obserwacje; generowanie feedbacku przez LLM
 zaczyna się w M6 po odbiorze tej prezentacji. Wykryte luki kierujemy do konkretnej
 obserwacji lub reguły; nie rozbudowujemy parsera bez uzasadnionej potrzeby.
 
+## Review danych, prezentacji i eksportu przed M6 — 2026-10-15
+
+**Status: analiza zakończona; pierwotne review zmieniało wyłącznie roadmapę.
+Następnie na polecenie użytkownika wdrożono M5.REV1–3; M5.REV4–7 czekają na realizację.** Odtwarzacz dema
+jest poza zakresem zgodnie z poleceniem użytkownika i nie wymaga prac w tym review.
+
+### Ocena osiągniętych etapów
+
+- **M1/M2 i dodatkowe mapy:** istnieje wspólny model obserwacji, profile czterech
+  map, indeksy i cache. To odpowiednia podstawa dalszej pracy; nie ma potrzeby
+  ponownej przebudowy architektury ani nowego epiku parsera.
+- **M3:** chronologia, opening, refragi, liczebność i oba podsumowania działają.
+  Dotychczasowy odbiór użytkownika pozostaje ważny. Review wykryło jednak
+  niespójność podsumowania gracza z poprawionymi statystykami aktywnej rundy.
+- **M4:** wykrywane są lokalne walki, powiązania utility, próby T, działania poza
+  grupą, obecność CT, rotacje i retake. To użyteczne obserwacje i heurystyki;
+  ich istnienie w raporcie nie potwierdza jeszcze trafności każdej interpretacji.
+- **M5:** agregacje obu stron, następstwo rund i eksport są zaimplementowane.
+  Nie zamykamy odbioru jakości danych przed korektami opisanymi niżej.
+  Testy przechodzą, lecz nie obejmowały wszystkich relacji pomiędzy warstwami.
+
+### Potwierdzone problemy i zadania
+
+| ID | Priorytet / złożoność | Problem i zakres korekty | Kryterium odbioru |
+| --- | --- | --- | --- |
+| **M5.REV1 (wykonane)** | **P1 / 2 z 5** | **Podsumowanie gracza liczy zdarzenia sprzed freeze.** `round_summary.py:403` pobiera wszystkie zgony z okna rundy; opis czasu sprowadza ujemny czas do 0. W Inferno R12 reset tick 78883 przed freeze 80472, a w Anubis R3 reset 12899 przed freeze 16592 pojawia się jako „0.0 s · zginął…”. Ujednolicić okno aktywnej rundy i reguły zliczania z kalkulatorem, zachowując surowe zdarzenia jako osobne źródła. | Na obu rzeczywistych przypadkach opis zgonu i K/D/A zgadzają się ze statystykami aktywnej rundy. Brak zegara pozostaje jawną niepewnością. Sprawdzić także tabele szczegółowych zdarzeń, aby nie mieszały resetów ze statystykami gry. |
+| **M5.REV2 (wykonane)** | **P1 / 3 z 5** | **KAST i liczba refragów mają różną semantykę.** `rating_calculator.py:244–277` wybiera tylko ostatnią wymienioną ofiarę; detektor M3 poprawnie dopuszcza jeden frag wymieniający kilka zgonów. KAST może więc nie uwzględnić wymienionego gracza. Dodatkowo `round_tactical_view.py:195` nazywa liczbę relacji „Refragi”, choć nie jest to liczba unikalnych fragów. Ujednolicić wspólne zasady 5 s; rozdzielić zaliczenie KAST od podziału heurystycznego swing/ratingu. | Jeden frag za dwóch kolegów daje 1 frag wymieniający, 2 wymienione zgony, KAST obu ofiar. Pokryć też równoczesne ticki i granicę 5 s. Wersjonować metryki/cache i odświeżyć raporty. |
+| **M5.REV3 (wykonane)** | **P1 / 3 z 5** | **Znany brak planta bywa nieznanym źródłem bomby.** `tactical_rounds.py:186–194` diagnozuje zbiorcze `bombs` inaczej niż późniejsze źródła poszczególnych zdarzeń. `foundation.source_quality` potwierdza odczyt `bomb_planted`, lecz nie rozstrzyga zbiorczego statusu używanego przez próby ataku i retake. Skutkiem są niepotrzebne `plant_outcome=unknown`, brak pełnego pokrycia prób oraz nieustalony retake zamiast „nie dotyczy”. Złożyć status z wymaganych, faktycznie odczytanych źródeł. | Poprawnie odczytana runda bez planta ma potwierdzony brak; błąd lub brak odczytu nadal daje niepewność. Zweryfikować mianowniki prób/planta/retake i następstwa rund. Nie zastępować wszystkich pustych tabel zerami. |
+| **M5.REV4** | **P1 / 3 z 5** | **Eksport zawiera odwołania bez definicji.** `round_attacks.py:265` zapisuje `entry_ids` jako ID pobytów w regionach. Eksport nie zawiera katalogu tych pobytów; pozostają odwołania `r1:stay:…`. Walidator `match_report.py:818–885` akceptuje je, sprawdzając tylko wybrane referencje i prefiksy. Dodać kompaktowe rekordy wejść z obszarem, graczem, czasem i pochodzeniem lub jawnie usunąć referencje zastąpione równoważnymi danymi. | Każda publiczna referencja ma istniejący cel właściwego typu i zakresu rundy. Sprawdzać również pojedyncze `_id`, tożsamość gracza/drużyny i referencje w agregatach. Walidator odrzuca celowo nieistniejący cel niezależnie od prefiksu. |
+| **M5.REV5** | **P2 / 2 z 5** | **Dostępne dane flasha giną poza odtwarzaczem.** `_source_event()` w `match_report.py:300` zachowuje `duration` i `flash_duration`, ale pomija rzeczywiste `blind_duration`. Zakładka Utility (`match_dashboard.py:230`) wymaga `thrower_steamid`, podczas gdy zapisane dane mają `attacker_steamid`; blok statystyk jest pomijany. Poprawić projekcję i podpisy w danych/UI. | Raport zawiera autora, ofiarę, czas i deklarowany czas efektu oraz rozróżnia przeciwnika/kolegę/siebie. Zakładka Utility pokazuje te dane z właściwą jednostką i zakresem rund. Czas efektu nie jest przedstawiany jako potwierdzony czas całkowicie białego ekranu. Bez zmian w odtwarzaczu. |
+| **M5.REV6** | **P2 / 3 z 5** | **Skrót rundy pomija część najważniejszych zdarzeń, szczegóły dominują nad wnioskiem.** `summary_preview()` w `round_summary.py:202–221` wybiera reakcje CT zamiast informacji o bombie, jeśli występują oba; nie wybiera osobnego retake. W perspektywie gracza skrót pomija jego późniejsze rotacje/działania taktyczne. Uporządkować istniejące dane i etykiety, bez nowych detektorów. | Krótki opis obejmuje przygotowanie, inicjację/efekt walki, cel i rezultat wejścia, plant/retake/zakończenie, kiedy wystąpiły. W widoku gracza uwzględnić jego istotny udział. Wynik i jakość danych mają pierwszeństwo przed rozbudowanymi tabelami. Szczegóły oraz dowody pozostają dostępne na żądanie. |
+| **M5.REV7** | **P2 / 3 z 5** | **Odbiór treści i przygotowanie zakresu wejścia LLM.** Pełny JSON jest użytecznym eksportem audytowym, lecz ma 2,7–4,0 MB, tysiące zdarzeń źródłowych i rozbudowane rekordy rund. Ustalić mały zestaw ręcznie ocenionych przykładów i specyfikację kompaktowego pakietu M6.1, korzystającego z tego samego modelu danych. | Około 12–20 celowo dobranych rund z czterech map: szybkie/wolne wejście, zmiana celu, brak planta, retake, obecność poza grupą, różna ekonomia i luki danych. Dla każdego przypadku wskazać poprawne fakty, interpretacje dopuszczalne i nieuprawnione. Docelowy pakiet ma zakres, licznik/mianownik, pokrycie i odwołania; limity rozmiaru mierzyć po wyborze modelu. Adapter/API i generowanie raportów pozostają w M6. |
+
+**M5.REV1 — wykonane:** podsumowanie gracza korzysta ze wspólnego okna metryk
+od końca freeze do końca rundy włącznie. Liczy pierwszy aktywny zgon każdego
+uczestnika; zgony od świata/teamkill nie dają fraga przeciwnikowi. Rzuty i akcje
+bomby w podsumowaniu są ograniczone tym samym oknem. Nieznany koniec freeze
+zachowuje całe okno i jest opisany jawnie. Tabele zabójstw/trafień w widoku Rundy
+korzystają z zapisanego zegara obserwacji; obrażenia są normalizowane po
+odfiltrowaniu resetów. Zegar prezentacji nie zmienia zapisanych źródeł ani kluczy
+cache. Nie wymaga to ponownego parsowania, migracji ani przeliczania ratingu.
+Potwierdzono zgodność K/D podsumowania z kalkulatorem dla wszystkich 20 graczy
+w Inferno R12 i Anubis R3. Dodano regresje resetu, powtórnego zgonu, nieznanego
+zegara, granic freeze/end oraz nienaruszania źródeł i klucza obserwacji.
+Odbiór techniczny REV1: **310 testów zaliczonych, 2 opcjonalne pominięte**.
+Kontrola Ruff dla błędów kategorii F i `git diff --check` przechodzą.
+
+**Reprodukcje M5.REV2 przed poprawką:** w zapisanych raportach KAST=0 mimo relacji wymienionej
+śmierci: Dust2 R8/p05 i R27/p09, Inferno R17/p06, Mirage R7/p07 i R12/p10.
+ID `p…` są lokalne dla danego raportu. Niezależny minimalny przykład w obecnym
+kalkulatorze: CT zabija T1 i T2, T3 zabija CT w ciągu 5 s od obu zgonów;
+KAST T1=0, T2=1. Problem wpływa także na rating oparty na KAST.
+
+**M5.REV2 — wykonane:** metryki v5 zaliczają KAST każdej ofierze, której
+dokładnego zabójcę wyeliminował kolega w późniejszym ticku, do 5 s włącznie.
+Jeden frag nadal jest jednym fragiem wymieniającym. Dotychczasowa pula Swing
+za wymianę jest przyznawana raz ostatniemu zabitemu koledze; nie mnożymy jej
+przez liczbę ofiar. Szczegóły lokalnej walki pokazują oddzielne kolumny fragów
+wymieniających i wymienionych zgonów. Guide eksportu opisuje lokalną definicję
+KAST, łącznie z istniejącym kryterium wkładu 40 HP.
+
+Wersja metryk unieważnia wcześniejsze wyniki ratingu, historię oraz klucz
+raportu JSON. Ponowne przygotowanie korzysta z zapisanych źródeł.
+Regresje obejmują dwie ofiary/jedną odpowiedź, zachowanie puli Swing, duplikat
+zgonu, odpowiedź na niewłaściwego przeciwnika, równoczesne ticki w obu
+kolejnościach oraz dokładną granicę 5 s dla 64/128 Hz. Test rzeczywistego kodu
+UI potwierdza prezentację 1 fraga i 2 wymienionych zgonów.
+Pełna regresja po REV2: **320 testów zaliczonych, 2 opcjonalne pominięte**.
+Zweryfikowano i odświeżono metryki pięciu zapisanych dem na czterech mapach
+(113 rund) oraz cztery lokalne eksporty JSON, bez parsera. Każda relacja
+wymienionego zgonu ma teraz KAST=1 w statystykach rundy. Wszystkie pięć
+wcześniej wskazanych przypadków Dust2/Inferno/Mirage jest poprawionych.
+Kontrola schematu, sum statystyk oraz zgodności ze źródłowymi fragami przechodzi;
+osobne problemy referencji eksportu z REV4 pozostają do wykonania.
+
+**Reprodukcje M5.REV3 przed poprawką:** w 50/93 rund zbiorcze źródło bomby jest `unknown`,
+mimo `read_status=ok` dla `bomb_planted`. W aktualnych raportach pełne
+rozstrzygnięcie prób wynosi: Anubis 7/24, Dust2 16/28, Inferno 8/20,
+Mirage 5/21. To status kompletności wejść detektora, nie pomiar trafności
+taktycznej. Na Mirage występują dodatkowo rzeczywiste luki pokrycia ruchu;
+ich nie należy usuwać samą zmianą etykiety.
+
+**M5.REV3 — wykonane 2026-10-16:** pokrycie jest określane osobno dla rodzaju zdarzenia
+bomby. Znany odczyt `bomb_planted` wystarcza do oceny planta/prób ataku
+i wykluczenia retake w rundzie bez planta. Nie zależy od tego, czy dostępny jest
+strumień defuse/eksplozji. Potwierdzenie braku próby retake po plancie wymaga
+także znanych źródeł `bomb_begindefuse` i `bomb_defused`, poza ruchem/kontaktami.
+Zarejestrowane akcje nadal potwierdzają próbę mimo niepełnego pokrycia.
+
+Zbiorcze `bombs` opisuje łącznie plant/defuse/eksplozję; częściowy status tego
+zbioru nie unieważnia znanego odczytu pojedynczego zdarzenia. Jawny nieznany
+status zdarzenia nie dziedziczy znanego statusu zbiorczego. Pusty strumień przy
+`not_listed`, `unsupported`, błędzie odczytu lub `not_loaded` pozostaje nieznany.
+Starsze kontrakty syntetyczne bez poszczególnych statusów zachowują możliwość
+podania jawnie zdiagnozowanego strumienia zbiorczego.
+
+Widok mapy podpisuje mianownik jako **pełny odczyt plantów**. Zachowane pole
+`bombs_known_rounds` ma to samo, opisane w guide znaczenie. Cache M4 ma actions v4
+(ataki v4, obrona v3), fakty mapy v7; wcześniejsze wyniki odbudowujemy z zapisanych
+obserwacji bez migracji i ponownego parsowania. Wersja metryk ratingu pozostaje 5.
+Regresje obejmują poprawnie pusty strumień, brak odczytu, nieznane zdarzenie
+mimo innych obserwacji bomby, mianowniki planta oraz brak źródła defuse.
+Pełna regresja: **328 testów zaliczonych, 2 opcjonalne pominięte**.
+Odświeżono cache taktyczny/fakty i eksporty dla 5 dem / 113 rund bez parsera.
+W czterech końcowych raportach (93 rundy) odczyt plantów jest znany w 93/93;
+wszystkie 50 rund bez planta ma retake `not_applicable`. Mianowniki agregatów
+odpowiadają pokryciu poszczególnych rund. Pełne pokrycie prób: Anubis 23/24,
+Dust2 26/28, Inferno 19/20, Mirage 10/21 — łącznie 78/93 zamiast 36/93 przed
+korektą. Pozostałe luki ruchu/kontaktów/utility nadal są jawne; poprawa statusu
+planta nie jest deklaracją trafności wszystkich heurystyk taktycznych.
+
+**Reprodukcje M5.REV4:** nierozwiązane referencje `entry_ids`: Anubis 39,
+Dust2 52, Inferno 37, Mirage 64 — łącznie 192 wystąpienia. Obecny walidator
+przyjmuje także próbnie podstawione `fight_ids=["r999:missing:example"]`.
+Próbę wykonano tylko na kopii raportu w pamięci.
+
+### Zalecany układ prezentacji istniejących danych
+
+Runda: **wynik i kontekst zasobów → T/CT na początku → pierwsza walka i zmiana
+liczebności → atak/plant/retake → udział wybranego gracza → szczegóły/dowody**.
+Odtwarzacz zachowuje obecny układ i zachowanie. Skrót nie musi opisywać każdego
+kontaktu, ale nie powinien gubić planta ani zakończenia retake.
+
+Mapa: na wejściu pokazać kilka obserwacji dla wybranej drużyny i strony,
+potem zestawienia **cele/tempo/utility T** lub **ustawienia/aktywność/rotacje CT**,
+dalej porównania kolejnych rund i szczegóły. Obecne „Wnioski z danych” są ostatnią
+z sześciu zakładek; użytkownik musi sam składać znaczenie wielu wcześniejszych
+tabel. Zachować dostęp do pełnych danych, ale ograniczyć tabele domyślne do
+kolumn potrzebnych do konkretnego pytania.
+
+Przy każdym zestawieniu pokazać lokalnie jednostkę, znaną próbkę i braki.
+Globalny zwijany panel pokrycia jest przydatny diagnostycznie, ale nie zastępuje
+informacji obok wyniku. Rozdzielać „liczba rzutów”, „powiązania z próbami”,
+„wymienione zgony” i „unikalne fragi wymieniające”. Surowe kody i `None s`
+zastąpić opisem „nieustalone” w prezentacji użytkowej.
+
+### Ocena eksportu i gotowości LLM
+
+**Zachować:** wersjonowany JSON, guide, krótkie ID, stałe drużyny przy zmianie
+stron, osobne dane rund/mapy/graczy, jednostki, mianowniki, stany niepewności,
+źródła i katalog sprzętu. `columns/rows` ogranicza powtarzanie nazw pól;
+nie trzeba wymieniać całego formatu po raz kolejny.
+
+**Dopracować:** kompletność znaczących pól i referencji (REV4–5), definicje
+ważnych enumów/miar, spójność liczników w walidacji wykonawczej i zakres
+schematu. Obecny JSON Schema dobrze kontroluje zewnętrzną strukturę i statystyki
+graczy, ale wiele wewnętrznych obiektów ma jedynie wymagane nazwy pól.
+Przejście tego schematu nie potwierdza poprawności wszystkich faktów i relacji.
+
+W M6.1 wyprowadzić z istniejącego modelu **kompaktowy pakiet coacha**: drużyna/
+gracz/strona, wynik i warunki, kilka agregatów oraz krótkie rekordy rund
+z liczebnością przed/po, atakiem, utility, bombą i jakością danych. Do pogłębienia
+udostępniać konkretne dowody/rundy według ID. Pełny eksport pozostaje dostępny;
+kompaktowy pakiet ma jawny zakres i nie udaje kompletnego eksportu.
+
+**Gotowość:** architektura i rodzaje pozyskiwanych danych wystarczają do
+rozpoczęcia projektowania M6. Nie uznajemy jeszcze danych za odebrane do
+wiarygodnego automatycznego coachingu. REV1–3 wykonano; dalej REV4–5 i odbiór wybranych
+przypadków. REV6 poprawia odbiór danych przez użytkownika; REV7 określa wejście
+oraz kryteria jakości próbnego raportu M6.1.
+
+LLM może porównywać kierunki, okna startu, utility, kontakty, liczebność,
+próby wejścia, wynik i zachowania kolejnych rund. Oceny „zły lurk”, „powinien
+zobaczyć”, „spóźniona komunikacja”, „smoke odciął widoczność” czy „ten granat
+spowodował wygraną” wymagają dodatkowych dowodów i nie wynikają z samej
+obecności/czasu. Kod liczy liczby; LLM interpretuje zweryfikowany zakres
+i wskazuje hipotezy. Przybliżony rating nie jest niezależnym dowodem wpływu
+zawodnika ani skalibrowanym prawdopodobieństwem zwycięstwa.
+
+### Zakres weryfikacji review
+
+- Przejrzano kod M3–M5, kalkulator, widoki danych, budowę i walidację eksportu.
+- **77 testów zaliczonych**: match_report, map_actions, map_tendencies,
+  round_summary, tactical_actions, rating_window i presentation.
+- Sprawdzono cztery istniejące lokalne eksporty, **93 rundy**: JSON Schema,
+  obecny walidator, sumy K/D/A/damage, zgodność ADR z rundami i sumy wyniku meczu
+  przechodzą. Sumy obrażeń w kontaktach zgadzają się ze statystykami rund.
+  Nie dowodzi to poprawności KAST ani interpretacji taktycznych opisanych wyżej.
+- Wykonano odczyt dwóch rzeczywistych rund z bazy tylko do odczytu oraz
+  dodatkowe reprodukcje spójności między warstwami. Nie parsowano ponownie dem.
+- Ocena czytelności dotyczy treści, etykiet i hierarchii zapisanej w kodzie UI;
+  nie wykonano oceny wyglądu w przeglądarce ani niezależnego porównania z POV gry.
+- Nie zmieniono implementacji, odtwarzacza, danych bazy ani plików eksportu.
+
 ## V2D — ulepszenie viewera 2D przed M6
 
 **Status: V2D.1–5 wdrożone w zakresie audytu: granaty i deklarowane okna
@@ -504,18 +688,15 @@ obowiązuje numeracja w aktualnych tabelach.
 
 ## Najbliższa kolejność wykonania
 
-1. **Odbiór prezentacji M5.6:** przejrzeć nowe widoki T/CT, porównania rund,
-   pokrycie i przejścia do radaru, także na Dust2 z M5.D2 i Anubis z M5.AN.
-   M5.R1–R3, M5.3–6 oraz integracje obu dodatkowych map są zaimplementowane.
-2. **Poprawki wynikające z odbioru M5:** konkretne przykłady błędów danych lub
-   nieczytelnego przedstawienia, bez dokładania nowych kategorii detektorów.
-   **M5.EX.R1 wykonane:** zgony/reset przed freeze nie zaburzają już aktywnych
-   statystyk na Inferno i Anubis. Pozostaje ręczna ocena sensu interpretacji taktycznych.
-3. **V2D przed M6:** granaty i oznaczenie deklarowanego efektu flasha wdrożone.
-   Dalej ręczny odbiór na czterech mapach. Pełna faza flasha wymaga dodatkowego potwierdzenia.
-4. **M6.1–2:** pakiet danych i próbny feedback LLM po odbiorze M5 i epiku V2D.
+1. **M5.REV4–5:** kompletne referencje eksportu i dostępne dane flasha w JSON
+   oraz zakładce Utility. Odtwarzacz pozostaje poza zakresem tych zadań.
+2. **M5.REV6:** uporządkować skróty rund i hierarchię istniejących zestawień mapy.
+3. **M5.REV7 / odbiór M5.6:** ocenić wybrane przypadki i ustalić kompaktowy
+   zakres danych dla M6.1. Zachować pełny eksport do audytu i ręcznej analizy.
+4. **M6.1–2:** kontrakt pakietu/odpowiedzi, adapter API i próbny feedback
+   na odebranych danych; bez rozszerzania wniosków ponad pokrycie źródeł.
 5. **M6.3–5:** walidacja raportu, zapis/cache i pełna integracja usługi.
 
-**Następny krok: ręczny odbiór granatów i oznaczenia flasha w viewerze (V2D.6).
-Odbiór M5.6 pozostaje otwarty.**
-M3 i obecna wersja M4 zostały odebrane. LLM nie jest częścią zakończenia M5.
+**Następne planowane zadanie: M5.REV4. M5.REV1–3 wdrożono na polecenie użytkownika.**
+M3 i obecna wersja M4 zostały wcześniej odebrane. Nowe ustalenia są korektami
+do istniejącej implementacji. LLM nadal należy wyłącznie do M6.

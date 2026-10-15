@@ -2,8 +2,12 @@
 
 from dataclasses import dataclass
 
-from src.maps.resolver import region_label, resolve_region
+import pandas as pd
+
+from src.demos.demo_analyzer import enemy_mask
+from src.demos.rating_window import active_round_events, metric_clock
 from src.demos.round_index import round_state_index
+from src.maps.resolver import region_label, resolve_region
 from src.models.tactical import Status
 
 
@@ -22,6 +26,34 @@ def _time(tick, record, tick_rate):
 
 def _name(player_id, labels):
     return labels.get(str(player_id), "Nieustalony gracz")
+
+
+def _active_events(record, evidence, ids):
+    """Apply the metrics window while preserving immutable source evidence."""
+    clock = metric_clock(pd.DataFrame([{
+        "total_rounds_played": record.number, "start_tick": record.start_tick,
+        "freeze_tick": record.freeze_end_tick, "tick": record.end_tick,
+    }]))
+    rows = [{**evidence[eid].data, "tick": evidence[eid].tick, "evidence_id": eid}
+            for eid in ids if eid in evidence]
+    frame = active_round_events(pd.DataFrame(rows), clock)
+    return [evidence[eid] for eid in frame.get("evidence_id", [])]
+
+
+def _active_deaths(record, evidence):
+    events = _active_events(record, evidence, [
+        eid for eid in record.event_ids
+        if eid in evidence and evidence[eid].source == "kills"
+    ])
+    # Like the calculator: only a known participant's first active death consumes a life.
+    alive = {p.player_id for p in record.players if p.side in {"T", "CT"}}
+    result = []
+    for event in sorted(events, key=lambda e: e.tick):
+        victim = str(event.data.get("user_steamid"))
+        if victim in alive:
+            result.append(event)
+            alive.remove(victim)
+    return result
 
 
 def _area(region_id, profile):
@@ -400,9 +432,10 @@ def player_summary(record, evidence, player_id, labels, profile, tick_rate, *, s
         first_reply = min((evidence[link.response_kill_id].tick for link in own_trades + death_trades))
         refs = tuple(dict.fromkeys(eid for link in own_trades + death_trades for eid in link.evidence_ids))
         items.append(SummaryItem("Wymiany", " ".join(parts), first_reply, refs))
-    kills = [evidence[eid] for eid in record.event_ids if eid in evidence and evidence[eid].source == "kills"]
-    own_kills = [e for e in kills if str(e.data.get("attacker_steamid")) == str(player_id)
-                 and e.data.get("attacker_team_num") != e.data.get("user_team_num")]
+    kills = _active_deaths(record, evidence)
+    offensive = enemy_mask(pd.DataFrame([e.data for e in kills])).tolist()
+    own_kills = [e for e, enemy in zip(kills, offensive, strict=True)
+                 if enemy and str(e.data.get("attacker_steamid")) == str(player_id)]
     deaths = [e for e in kills if str(e.data.get("user_steamid")) == str(player_id)]
     kills_available = _source_status(record, "kills") in {Status.OBSERVED, Status.ABSENT}
     events = ([_count(len(own_kills), "frag", "fragi", "fragów"),
@@ -413,8 +446,8 @@ def player_summary(record, evidence, player_id, labels, profile, tick_rate, *, s
         damage = sum(contact.actual_damage or 0 for contact in own_contacts)
         events.append(f"{damage:g} zaobserwowanych obrażeń HP")
     all_throw_ids = record.foundation.thrown_utility_ids if record.foundation else []
-    throws = [evidence[eid] for eid in all_throw_ids if eid in evidence
-              and str(evidence[eid].data.get("user_steamid")) == str(player_id)]
+    throws = [e for e in _active_events(record, evidence, all_throw_ids)
+              if str(e.data.get("user_steamid")) == str(player_id)]
     early_throw_ids = set(prep.thrown_utility_ids)
     early_throws = sum(event.id in early_throw_ids for event in throws)
     throws_available = _source_status(record, "throws") in {Status.OBSERVED, Status.ABSENT}
@@ -425,9 +458,9 @@ def player_summary(record, evidence, player_id, labels, profile, tick_rate, *, s
     own_entries = [e for e in record.observed_entries if str(player_id) in e.participants]
     if own_entries:
         events.append(f"wejście na site {own_entries[0].area or '?'}")
-    bomb_actions = [evidence[eid] for eid in record.bomb_event_ids if eid in evidence
-                    and str(evidence[eid].data.get("user_steamid")) == str(player_id)
-                    and evidence[eid].data.get("event") in {"bomb_planted", "bomb_defused"}]
+    bomb_actions = [e for e in _active_events(record, evidence, record.bomb_event_ids)
+                    if str(e.data.get("user_steamid")) == str(player_id)
+                    and e.data.get("event") in {"bomb_planted", "bomb_defused"}]
     for event in bomb_actions:
         events.append("podłożył bombę" if event.data["event"] == "bomb_planted"
                       else "rozbroił bombę")
@@ -438,6 +471,8 @@ def player_summary(record, evidence, player_id, labels, profile, tick_rate, *, s
     ))
     event_ticks = [e.tick for e in own_kills + deaths + throws + bomb_actions]
     event_ticks += [entry.start_tick for entry in own_entries]
+    if record.freeze_end_tick is None:
+        events.append("koniec freeze nieustalony — uwzględniono całe okno rundy")
     items.append(SummaryItem("Udział w rundzie", " · ".join(events) + ".",
                              min(event_ticks, default=None), evidence_ids))
     movement = next((move for move in prep.movements if move.player_id == str(player_id)), None)

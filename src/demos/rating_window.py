@@ -18,6 +18,10 @@ def metric_clock(rounds: pd.DataFrame, clock: pd.DataFrame | None = None) -> pd.
         result["freeze_tick"] = pd.Series(dtype=float)
         result["metrics_clock_status"] = pd.Series(dtype=str)
         return result
+    if not {"start_tick", "tick"}.issubset(result):
+        result["freeze_tick"] = float("nan")
+        result["metrics_clock_status"] = "unknown"
+        return result
     source = clock if clock is not None else rounds
     freezes = (
         source.drop_duplicates("tick").set_index("tick")["freeze_tick"]
@@ -32,6 +36,10 @@ def metric_clock(rounds: pd.DataFrame, clock: pd.DataFrame | None = None) -> pd.
 
 def active_round_events(events: pd.DataFrame, clock: pd.DataFrame) -> pd.DataFrame:
     """Include freeze and round-end ticks; preserve unknown-clock events."""
+    if not {"start_tick", "tick", "total_rounds_played"}.issubset(clock) or "tick" not in events:
+        # Reduced inputs can still carry an explicit round number. Keep that
+        # assignment; missing timestamps must not become invented boundaries.
+        return events.copy() if "total_rounds_played" in events else events.iloc[:0].copy()
     result = normalize_round_events(events, clock)
     if result.empty:
         return result

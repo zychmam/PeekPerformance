@@ -31,6 +31,17 @@ Statystyki gracza: fragi, zgony, asysty, damage, ADR, HS, KAST, przeżycia,
 utility damage i przybliżony Peek Performance Rating. Odsetki mają
 count/denominator/unit/percentage. Rating jest liczony dla całego meczu;
 rating T/CT pozostaje null. Definicja KAST i ratingu jest lokalna dla projektu.
+Od metryk v5 KAST obejmuje wszystkich kolegów wymienionych jednym fragiem,
+z odpowiedzią w późniejszym ticku i w czasie do 5 s włącznie. Lokalna definicja
+obejmuje też wkład co najmniej 40 HP w ofiarę zabitą przez kolegę; opis znajduje
+się w `reading_guide.metrics.kast`. Schemat eksportu pozostaje 1.0, wersja
+ratingu w nagłówku i kluczu cache zmienia się na 5.
+
+Po M5.REV3 `coverage.sources` opisuje osobno odczyt każdego zdarzenia bomby.
+Znany brak `bomb_planted` daje plant `not_observed` i retake `not_applicable`;
+błąd lub nieodczytany strumień pozostaje nieznany. Zbiorcze `bombs` nie zastępuje
+statusów zdarzeń. W agregatach `bombs_known_rounds` oznacza pokrycie plantów,
+zgodnie z guide. Brak próby retake po plancie wymaga też znanych źródeł defuse.
 
 ## Tabele z nagłówkami
 

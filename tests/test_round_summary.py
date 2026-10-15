@@ -155,3 +155,66 @@ def test_equipment_reports_known_subset_without_inventing_buy_type():
     assert "Kity:" not in item.text
     assert "full buy" not in item.text
     assert item.evidence_ids == (record.event_ids[0],)
+
+
+def test_player_summary_excludes_reset_and_duplicate_death_without_changing_sources():
+    analysis, context = reference()
+    match = build_tactical_match(analysis, context)
+    record = deepcopy(match.rounds[0])
+    victim = next(p.player_id for p in record.players if p.side == "T")
+    attacker = next(p.player_id for p in record.players if p.side == "CT")
+    freeze = record.freeze_end_tick
+    evidence = dict(match.evidence)
+    record.contacts = []
+    record.refrag_links = []
+    record.event_ids = []
+    for eid, tick, killer, killer_team, weapon in (
+        ("reset", freeze - 1, victim, 2, "world"),
+        ("active", freeze + 64, attacker, 3, "ak47"),
+        ("duplicate", freeze + 65, attacker, 3, "ak47"),
+    ):
+        evidence[eid] = Evidence(eid, "kills", record.number, tick, None, {
+            "attacker_steamid": killer, "attacker_team_num": killer_team,
+            "user_steamid": victim, "user_team_num": 2, "weapon": weapon,
+        })
+        record.event_ids.append(eid)
+    record.availability["kills"] = Availability(Status.OBSERVED)
+    original = deepcopy(evidence)
+    for pid in (victim, attacker):
+        items = player_summary(record, evidence, pid, {}, context.profile, 64)
+        activity = next(i for i in items if i.title == "Udział w rundzie")
+        assert "reset" not in activity.evidence_ids
+        assert "duplicate" not in activity.evidence_ids
+        assert "active" in activity.evidence_ids
+        if pid == victim:
+            assert "1 zgon" in activity.text
+            death = next(i for i in items if i.title == "Zgon")
+            assert death.tick == freeze + 64
+            assert "1.0 s" in death.text
+        else:
+            assert "1 frag" in activity.text
+    assert evidence == original
+
+
+def test_unknown_clock_summary_preserves_world_death_and_discloses_window():
+    analysis, context = reference()
+    match = build_tactical_match(analysis, context)
+    record = deepcopy(match.rounds[0])
+    victim = record.players[0]
+    team = 2 if victim.side == "T" else 3
+    record.freeze_end_tick = None
+    record.contacts = []
+    record.refrag_links = []
+    record.event_ids = ["world"]
+    record.availability["kills"] = Availability(Status.OBSERVED)
+    evidence = dict(match.evidence)
+    evidence["world"] = Evidence("world", "kills", record.number, record.start_tick, None, {
+        "attacker_steamid": "0", "attacker_team_num": 0,
+        "user_steamid": victim.player_id, "user_team_num": team, "weapon": "world",
+    })
+    items = player_summary(record, evidence, victim.player_id, {}, context.profile, 64)
+    activity = next(i for i in items if i.title == "Udział w rundzie")
+    assert "0 fragów" in activity.text
+    assert "1 zgon" in activity.text
+    assert "koniec freeze nieustalony" in activity.text
+    assert next(i for i in items if i.title == "Zgon").tick == record.start_tick

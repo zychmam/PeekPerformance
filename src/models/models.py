@@ -32,6 +32,8 @@ class DemoAnalysis:
     stored_file_name: str = ""
     round_roster_df: pd.DataFrame = field(default_factory=pd.DataFrame)
     analysis_version: int = 0
+    # Runtime projection of the saved observation clock; excluded from persisted inputs.
+    metrics_clock_df: pd.DataFrame = field(default_factory=pd.DataFrame, repr=False)
 
     def __post_init__(self) -> None:
         if not self.analyzed_at:

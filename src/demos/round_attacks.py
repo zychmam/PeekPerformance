@@ -2,11 +2,12 @@
 
 from math import dist
 
+from src.demos.bomb_coverage import event_known
 from src.demos.round_fights import LOCAL_RADIUS, point
 from src.demos.tactical_ids import action_id
 from src.models.tactical import Attack, Episode, Status
 
-ATTACKS_VERSION = 3
+ATTACKS_VERSION = 4
 WITHDRAWAL_SECONDS = 3.0
 
 
@@ -305,13 +306,12 @@ def enrich_attacks(record, evidence, profile, *, tick_rate, movements, state_ind
             if start <= p.tick <= end and bomb_site(p, profile, state_index, tick_rate) == site
         ]
         attack.plant_id = planted[0].id if planted else None
-        complete_bomb = record.availability.get("bombs")
         attack.plant_outcome = (
             "planted"
             if planted
             else (
                 "not_observed"
-                if complete_bomb and complete_bomb.status in {Status.OBSERVED, Status.ABSENT}
+                if event_known(record, "bomb_planted")
                 else "unknown"
             )
         )

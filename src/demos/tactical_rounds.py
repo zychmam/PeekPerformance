@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import pandas as pd
 
+from src.demos.bomb_coverage import combined_coverage
 from src.demos.early_interpretation import INTERPRETATION_VERSION
 from src.demos.early_round import (
     CONFIRM_TICKS,
@@ -412,6 +413,7 @@ def build_tactical_match(
                 )
             for source, quality in rr.foundation.source_quality.items():
                 rr.availability[source] = quality.availability
+            rr.availability["bombs"] = combined_coverage(rr)
             if rr.foundation.source_quality["bomb_pickup"].read_status == "ok":
                 rr.availability["bomb_movement"] = Availability(
                     Status.PARTIAL,

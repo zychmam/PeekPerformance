@@ -10,6 +10,7 @@ from __future__ import annotations
 import pandas as pd
 
 from src.demos.presentation import presentation_frame
+from src.demos.rating_window import active_round_events, metric_clock
 from src.models.models import DemoAnalysis
 
 
@@ -24,6 +25,11 @@ def _side(value: object) -> str:
         return "—"
     return {2: "T", 3: "CT", "2": "T", "3": "CT", "T": "T",
             "CT": "CT", "TERRORIST": "T"}.get(value, "—")
+
+
+def display_metric_clock(analysis: DemoAnalysis) -> pd.DataFrame:
+    clock = analysis.metrics_clock_df
+    return metric_clock(analysis.rounds_df, clock if not clock.empty else None)
 
 
 def player_summary_table(
@@ -176,7 +182,7 @@ def player_rounds_table(analysis: DemoAnalysis, player_id: str) -> pd.DataFrame:
 def kill_events_table(analysis: DemoAnalysis, round_number: int) -> pd.DataFrame:
     """Short kill feed for a selected round; parser IDs and coordinates stay hidden."""
     columns = ["Atakujący", "Ofiara", "Broń", "HS"]
-    events = analysis.kills_df
+    events = active_round_events(analysis.kills_df, display_metric_clock(analysis))
     if events.empty or "total_rounds_played" not in events:
         return pd.DataFrame(columns=columns)
     selected = events[

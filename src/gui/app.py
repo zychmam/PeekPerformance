@@ -216,6 +216,14 @@ def _cached_demo_rating(
                 return None
 
     result = st.session_state[cache_key]
+    from src.demos.observations import observations_key
+
+    display_clock_key = "display_clock_" + cache_key
+    if display_clock_key not in st.session_state:
+        st.session_state[display_clock_key] = _get_db().get_observation_clock(
+            analysis.content_hash, observations_key(analysis),
+        )
+    analysis.metrics_clock_df = st.session_state[display_clock_key]
     analysis.round_stats_df = round_stats_from_rating(result[1])
     return result
 

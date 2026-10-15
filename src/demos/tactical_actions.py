@@ -12,7 +12,7 @@ from src.demos.round_utility import UTILITY_CONTEXT_VERSION, enrich_utility
 from src.models.observations import DetectorConfig, canonical_fingerprint
 from src.models.tactical import TACTICAL_SCHEMA_VERSION, RoundTactics, _decode
 
-TACTICAL_ACTIONS_VERSION = 3
+TACTICAL_ACTIONS_VERSION = 4
 ACTION_FIELDS = (
     "movement_status",
     "region_stays",

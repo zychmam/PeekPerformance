@@ -54,6 +54,19 @@ def main():
             )
             assert reconciliation["difference"] == 0
             assert reconciliation["unknown_clock_rounds"] == []
+            events = {e["id"]: e for e in table_records(report["source_events"])}
+            for rnd in report["rounds"]:
+                plant_source = rnd["coverage"]["sources"].get("bomb_planted", {})
+                if plant_source.get("status") == "absent":
+                    assert not rnd["result"]["plants"]
+                    assert rnd["result"]["retake"]["status"] == "not_applicable"
+                    assert all(a["plant_outcome"] == "not_observed"
+                               for a in table_records(rnd["attacks"]["attempts"]))
+                round_stats = {p["player_id"]: p["round_statistics"]
+                               for p in table_records(rnd["players"])}
+                for link in rnd["combat"]["refrags"]:
+                    victim = events[link["death_id"]]["details"]["user_player_id"]
+                    assert round_stats[victim]["kast"] == 1, (analysis.map_name, rnd["number"])
             summary, _ = calculate_and_store_rating(
                 db, manager, item["demo_id"], item["stored_file_name"], analysis=analysis,
             )

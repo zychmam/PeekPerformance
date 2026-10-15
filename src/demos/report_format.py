@@ -33,7 +33,9 @@ READING_GUIDE = {
         "kills": "Zabójstwa przeciwników; deaths obejmuje także zgony od świata/teamkill.",
         "adr": "Obrażenia przeciwnikom / rundy zawodnika; friendly fire i overkill wykluczone.",
         "headshots": "Zabójstwa headshotem / zabójstwa przeciwników, nie odsetek trafień.",
-        "kast": "Rundy z killem, asystą, przeżyciem lub wymienionym zgonem / rundy gracza.",
+        "kast": "Rundy z killem, asystą, przeżyciem lub wymienionym zgonem / rundy gracza. "
+        "Lokalna heurystyka obejmuje też co najmniej 40 HP wkładu w ofiarę zabitą przez kolegę. "
+        "Wymiana do 5 s zalicza każdą wymienioną ofiarę; równoczesny tick nie ustala odpowiedzi.",
         "peek_performance_rating": (
             "Przybliżony rating projektu, nie oficjalny rating HLTV/Leetify."
         ),
@@ -84,6 +86,10 @@ READING_GUIDE = {
         "resource_states": "before/after.players: lokalni uczestnicy; global_alive: obie strony.",
         "position_provenance": "Pozycje mają sample_tick/status; pełnych trajektorii nie ma.",
         "map_coverage": "Cały mecz i wszyscy gracze, bez filtrów UI; snapshot 10 s.",
+        "bomb_coverage": "Pokrycie jest osobne dla każdego rodzaju zdarzenia bomby. "
+        "bombs_known_rounds oznacza rundy ze znanym odczytem bomb_planted, "
+        "nie wszystkich źródeł bomby. Brak planta daje retake not_applicable; "
+        "brak odczytu planta pozostaje unknown. Pusty nieodczytany strumień nie jest zerem.",
         "statistics_reconciliation": "Porównanie fragów kalkulatora ze źródłami; "
         "różnice są jawne w limitations.",
         "unknown_side_statistics": "Rundy bez znanej strony; nie doliczamy ich do T lub CT.",

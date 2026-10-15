@@ -242,13 +242,17 @@ def compute_rating_from_events(
             delta = (after - before) * 100 if attacker_is_ct else (before - after) * 100
             delta = max(0.0, delta)
             trade_sid = ""
+            traded_sids = set()
             for previous_tick, previous_victim, previous_killer in reversed(recent):
                 if tick - previous_tick > trade_window:
                     break
                 same_team = teams.get((previous_victim, rnd)) == teams.get((attacker, rnd))
-                if previous_killer == victim and same_team:
-                    trade_sid = previous_victim
-                    break
+                if (0 < tick - previous_tick <= trade_window and previous_killer == victim
+                        and same_team and previous_victim != attacker):
+                    traded_sids.add(previous_victim)
+                    # Keep the existing swing allocation to the most recent death.
+                    if not trade_sid:
+                        trade_sid = previous_victim
             assister = _steamid(event.get("assister_steamid"))
             if assister not in counters or teams.get((assister, rnd)) != teams.get((attacker, rnd)):
                 assister = ""
@@ -274,7 +278,7 @@ def compute_rating_from_events(
                 _add_swing(swing, flash_sid, rnd, delta * weights["flash"])
             if trade_sid:
                 _add_swing(swing, trade_sid, rnd, delta * weights["trade"])
-                kast.add(trade_sid)
+            kast.update(traded_sids)
             if assister:
                 counters[assister]["assists"] += 1
                 kast.add(assister)

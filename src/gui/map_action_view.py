@@ -113,7 +113,7 @@ def render_actions(report, area, labels, proof):
         if actions["plants"]:
             proof.append(("Końcowe planty T", actions["plants"]))
         st.caption(
-            f"Pełne źródła bomby: {len(actions['bombs_known_rounds'])}"
+            f"Pełny odczyt plantów: {len(actions['bombs_known_rounds'])}"
             f"/{len(report['rounds'])} rund. "
             "Plant pozostaje kontekstem drużyny także przy filtrze gracza."
         )
